@@ -2,6 +2,11 @@
 
 This is demo application for [SleepingOwl Admin](https://github.com/LaravelRUS/SleepingOwlAdmin).
 
+You can watch live [Demo site](http://sleepingowl.kodicms.ru/admin).
+
+**Login**: admin@site.com
+**Password**: password
+
 After clone run `composer install`
 Create `.env` file
 Run `php artisan key:generate`
