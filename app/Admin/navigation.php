@@ -9,6 +9,10 @@ return [
         'priority' => 0
     ],
     [
+        'name'     => 'Content',
+        'icon'     => 'cubes',
+    ],
+    [
         'name'     => 'Settings',
         'icon'     => 'cog',
         'children' => [

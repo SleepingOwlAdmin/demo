@@ -30,5 +30,5 @@ AdminSection::registerModel(Company::class, function (ModelConfiguration $model)
         ]);
     });
 })
-    ->addMenuLink(Company::class)
+    ->addMenuLink(Company::class, 'Content')
     ->setIcon('bank');
