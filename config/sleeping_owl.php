@@ -15,7 +15,7 @@ return [
      * Middleware to use in admin routes
      */
     //'middleware'            => ['admin.auth'],
-    'middleware'            => ['web'],
+    'middleware'            => ['web', 'auth'],
 
     /*
      * Path to admin bootstrap files directory

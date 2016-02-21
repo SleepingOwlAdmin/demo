@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use SleepingOwl\Admin\Facades\AdminTemplate;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -26,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        //
+        view()->composer(AdminTemplate::getTemplateViewPath('_partials.header'), function($view) {
+            $view->getFactory()->inject(
+                'navbar.right', view('auth.partials.navbar')
+            );
+        });
     }
 }
