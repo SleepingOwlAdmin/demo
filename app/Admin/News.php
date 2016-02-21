@@ -18,7 +18,7 @@ AdminSection::registerModel(News::class, function (ModelConfiguration $model) {
             Column::custom()->setLabel('Published')->setCallback(function ($instance) {
                 return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('50px')->setAttribute('class', 'text-center'),
-        ]);
+        ])->paginate(5);
     });
 
     // Create And Edit
