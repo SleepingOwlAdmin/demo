@@ -2,8 +2,6 @@
 
 use App\Model\Contact;
 use App\Model\Country;
-use SleepingOwl\Admin\Column;
-use SleepingOwl\Admin\FormItems\FormItem;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Country::class, function (ModelConfiguration $model) {
@@ -19,18 +17,18 @@ AdminSection::registerModel(Country::class, function (ModelConfiguration $model)
         });
 
         $display->setColumns([
-            Column::string('id')
+            AdminColumn::text('id')
                 ->setLabel('#')
                 ->setWidth('30px'),
-            Column::link('title')->setLabel('Title'),
-            Column::count('contacts')
+            AdminColumn::link('title')->setLabel('Title'),
+            AdminColumn::count('contacts')
                 ->setLabel('Contacts')
                 ->setWidth('100px')
                 ->setAttribute('class', 'text-center')
                 ->append(
-                    Column::filter('country_id')->setModel(new Contact)
+                    AdminColumn::filter('country_id')->setModel(new Contact)
                 ),
-            Column::order()
+            AdminColumn::order()
                 ->setLabel('Order')
                 ->setAttribute('class', 'text-center')
                 ->setWidth('100px'),
@@ -42,7 +40,7 @@ AdminSection::registerModel(Country::class, function (ModelConfiguration $model)
     $model->onCreateAndEdit(function($id = null) {
         $form = AdminForm::form();
         $form->setItems([
-            FormItem::text('title', 'Title')->required()->unique(),
+            AdminFormElement::text('title', 'Title')->required()->unique(),
         ]);
         return $form;
     });

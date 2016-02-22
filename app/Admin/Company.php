@@ -1,8 +1,6 @@
 <?php
 
 use App\Model\Company;
-use SleepingOwl\Admin\Column;
-use SleepingOwl\Admin\FormItems\FormItem;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Company::class, function (ModelConfiguration $model) {
@@ -11,8 +9,8 @@ AdminSection::registerModel(Company::class, function (ModelConfiguration $model)
     // Display
     $model->onDisplay(function () {
         $display = AdminDisplay::table()->setColumns([
-            Column::link('title')->setLabel('Title')->setWidth('400px'),
-            Column::string('address')->setLabel('Address')->setAttribute('class', 'text-muted'),
+            AdminColumn::link('title')->setLabel('Title')->setWidth('400px'),
+            AdminColumn::text('address')->setLabel('Address')->setAttribute('class', 'text-muted'),
         ]);
 
         $display->paginate(15);
@@ -22,11 +20,13 @@ AdminSection::registerModel(Company::class, function (ModelConfiguration $model)
 
     // Create And Edit
     $model->onCreateAndEdit(function() {
-        return AdminForm::form()->setItems([
-            FormItem::hidden('contact_id'),
-            FormItem::text('title', 'Title')->required()->unique(),
-            FormItem::text('address', 'Address'),
-            FormItem::text('phone', 'Phone'),
+        return AdminForm::panel()->setItems([
+            [
+                AdminFormElement::hidden('contact_id'),
+                AdminFormElement::text('title', 'Title')->required()->unique(),
+                AdminFormElement::text('address', 'Address'),
+                AdminFormElement::text('phone', 'Phone')
+            ]
         ]);
     });
 })

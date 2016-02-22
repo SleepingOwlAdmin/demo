@@ -7,6 +7,6 @@
  *
  *		Column::register('customColumn', '\Foo\Bar\MyCustomColumn');
  *
- * 		FormItem::register('customElement', \Foo\Bar\MyCustomElement::class);
+ * 		FormElement::register('customElement', \Foo\Bar\MyCustomElement::class);
  *
  */

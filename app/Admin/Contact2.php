@@ -3,9 +3,6 @@
 use App\Model\Company;
 use App\Model\Country;
 use App\Model\Contact2;
-use SleepingOwl\Admin\Filter\Filter;
-use SleepingOwl\Admin\Column;
-use SleepingOwl\Admin\FormItems\FormItem;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model) {
@@ -16,19 +13,19 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
         $display = AdminDisplay::table();
         $display->setWith('country', 'companies');
         $display->setFilters([
-            Filter::related('country_id')->setModel(Country::class)
+            AdminFilter::related('country_id')->setModel(Country::class)
         ]);
 
         $display->setColumns([
-            Column::image('photo')->setLabel('Photo')
+            AdminColumn::image('photo')->setLabel('Photo')
                 ->setWidth('100px'),
-            Column::link('fullName')->setLabel('Name')
+            AdminColumn::link('fullName')->setLabel('Name')
                 ->setWidth('200px'),
-            Column::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y')
+            AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y')
                 ->setWidth('150px')
                 ->setAttribute('class', 'text-center'),
-            Column::string('country.title')->setLabel('Country')->append(Column::filter('country_id')),
-            Column::lists('companies.title')->setLabel('Companies'),
+            AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
+            AdminColumn::lists('companies.title')->setLabel('Companies'),
         ]);
 
         return $display;
@@ -36,27 +33,27 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
 
     // Create And Edit
     $model->onCreateAndEdit(function($id = null) {
-        $form = AdminForm::form();
+        $form = AdminForm::panel();
 
         $form->setItems(
-            FormItem::columns()
+            AdminFormElement::columns()
                 ->addColumn(function() {
                     return [
-                        FormItem::text('firstName', 'First Name')->required(),
-                        FormItem::text('lastName', 'Last Name')->required(),
-                        FormItem::text('phone', 'Phone'),
-                        FormItem::text('address', 'Address'),
+                        AdminFormElement::text('firstName', 'First Name')->required(),
+                        AdminFormElement::text('lastName', 'Last Name')->required(),
+                        AdminFormElement::text('phone', 'Phone'),
+                        AdminFormElement::text('address', 'Address'),
                     ];
                 })->addColumn(function() {
                     return [
-                        FormItem::image('photo', 'Photo'),
-                        FormItem::date('birthday', 'Birthday')->setFormat('d.m.Y'),
+                        AdminFormElement::image('photo', 'Photo'),
+                        AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y'),
                     ];
                 })->addColumn(function() {
                     return [
-                        FormItem::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
-                        FormItem::multiselect('companies', 'Companies')->setModelForOptions(new Company)->setDisplay('title'),
-                        FormItem::textarea('comment', 'Comment'),
+                        AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
+                        AdminFormElement::multiselect('companies', 'Companies')->setModelForOptions(new Company)->setDisplay('title'),
+                        AdminFormElement::textarea('comment', 'Comment'),
                     ];
                 })
         );

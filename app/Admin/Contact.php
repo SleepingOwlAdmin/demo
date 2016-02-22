@@ -2,8 +2,6 @@
 
 use App\Model\Contact;
 use App\Model\Country;
-use SleepingOwl\Admin\Column;
-use SleepingOwl\Admin\Filter\Filter;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Contact::class, function (ModelConfiguration $model) {
@@ -17,32 +15,32 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
 
         $display->setWith('country', 'companies');
         $display->setFilters([
-            Filter::related('country_id')->setModel(Country::class)
+            AdminFilter::related('country_id')->setModel(Country::class)
         ]);
 
         $display->setColumns([
-            Column::image('photo')
+            AdminColumn::image('photo')
                 ->setLabel('Photo<br/><small>(image)</small>')
                 ->setWidth('100px'),
-            Column::string('fullName')
+            AdminColumn::text('fullName')
                 ->setLabel('Name<br/><small>(string with accessor)</small>')
                 ->setWidth('200px'),
-            Column::datetime('birthday')
+            AdminColumn::datetime('birthday')
                 ->setLabel('Birthday<br/><small>(datetime)</small>')
                 ->setWidth('150px')
                 ->setAttribute('class', 'text-center')
                 ->setFormat('d.m.Y'),
-            Column::string('country.title')
+            AdminColumn::text('country.title')
                 ->setLabel('Country<br/><small>(string from related model)</small>')
                  ->append(
-                    Column::filter('country_id')
+                     AdminColumn::filter('country_id')
                 ),
-            Column::count('companies')
+            AdminColumn::count('companies')
                 ->setLabel('Companies<br/><small>(count)</small>')
                 ->setAttribute('class', 'text-center')
                 ->setWidth('50px'),
-            Column::lists('companies.title')->setLabel('Companies<br/><small>(lists)</small>'),
-            Column::custom()->setLabel('Has Photo?<br/><small>(custom)</small>')->setCallback(function ($instance) {
+            AdminColumn::lists('companies.title')->setLabel('Companies<br/><small>(lists)</small>'),
+            AdminColumn::custom()->setLabel('Has Photo?<br/><small>(custom)</small>')->setCallback(function ($instance) {
                 return $instance->photo ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })
                 ->setAttribute('class', 'text-center')
