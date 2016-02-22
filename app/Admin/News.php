@@ -21,12 +21,17 @@ AdminSection::registerModel(News::class, function (ModelConfiguration $model) {
 
     // Create And Edit
     $model->onCreateAndEdit(function() {
-        return AdminForm::form()->setItems([
+        $form = AdminForm::form()->setItems([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
             AdminFormElement::checkbox('published', 'Published'),
             AdminFormElement::ckeditor('text', 'Text'),
         ]);
+
+        $form->setSaveButtonText('Save news');
+        $form->hideSaveAndCloseButton();
+
+        return $form;
     });
 })
     ->addMenuLink(News::class, 'Content')
