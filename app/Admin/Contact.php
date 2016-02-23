@@ -5,11 +5,10 @@ use App\Model\Country;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Contact::class, function (ModelConfiguration $model) {
-    $model->setTitle('Contacts');
+    $model->setTitle('Contacts')->enableAccessCheck();
 
     $model->onDisplay(function () {
         $display = AdminDisplay::table();
-
 
         $display->setAttribute('class', 'table-info table-hover');
 
