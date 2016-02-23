@@ -39,8 +39,13 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
             AdminFormElement::columns()
                 ->addColumn(function() {
                     return [
-                        AdminFormElement::text('firstName', 'First Name')->required(),
-                        AdminFormElement::text('lastName', 'Last Name')->required(),
+                        AdminFormElement::text('firstName', 'First Name')
+                            ->required('Please, type first name'),
+
+                        AdminFormElement::text('lastName', 'Last Name')
+                            ->required()
+                            ->addValidationMessage('required', 'You need to set last name'),
+
                         AdminFormElement::text('phone', 'Phone'),
                         AdminFormElement::text('address', 'Address'),
                     ];
