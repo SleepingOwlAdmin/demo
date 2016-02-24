@@ -7,7 +7,7 @@ use App\Model\Contact3;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model) {
-    $model->setTitle('Contacts v.3')->setAlias('contacts3');
+    $model->setTitle('Contacts v.3')->setAlias('contacts/v3');
 
     // Display
     $model->onDisplay(function () {
@@ -18,12 +18,21 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         ]);
 
         $display->setColumns([
-            AdminColumn::image('photo')->setLabel('Photo'),
-            AdminColumn::link('fullName')->setLabel('Name'),
-            AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y'),
-            AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
-            AdminColumn::lists('companies.title')->setLabel('Companies'),
+            $photoColumn = AdminColumn::image('photo')->setLabel('Photo'),
+            $fullNameColumn = AdminColumn::link('fullName')->setLabel('Name'),
+            $birthdayColumn = AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y'),
+            $countyTitleColumn = AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
+            $companyTitleColumn = AdminColumn::lists('companies.title')->setLabel('Companies'),
         ]);
+
+        $photoColumn->getHeader()->setAttribute('class', 'bg-success');
+        $fullNameColumn->getHeader()->setAttribute('class', 'bg-primary');
+        $birthdayColumn->getHeader()->setAttribute('class', 'bg-orange');
+        $countyTitleColumn->getHeader()->setAttribute('class', 'bg-maroon');
+        $companyTitleColumn->getHeader()->setAttribute('class', 'bg-purple');
+
+        // Change Control Column
+        $display->getControlColumn()->getHeader()->setTitle('Control')->setAttribute('class', 'bg-black');
 
         return $display;
     });
