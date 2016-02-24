@@ -20,14 +20,13 @@ AdminSection::registerModel(Company::class, function (ModelConfiguration $model)
 
     // Create And Edit
     $model->onCreateAndEdit(function() {
-        return AdminForm::panel()->setItems([
-            [
-                AdminFormElement::hidden('contact_id'),
-                AdminFormElement::text('title', 'Title')->required()->unique(),
-                AdminFormElement::text('address', 'Address'),
-                AdminFormElement::text('phone', 'Phone')
-            ]
-        ]);
+        return $form = AdminForm::panel()->addBody(
+            AdminFormElement::text('title', 'Title')->required()->unique(),
+            AdminFormElement::textarea('address', 'Address')->setRows(2),
+            AdminFormElement::text('phone', 'Phone')
+        );
+
+        return $form;
     });
 })
     ->addMenuLink(Company::class, 'Content')
