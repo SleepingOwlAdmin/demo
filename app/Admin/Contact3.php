@@ -53,12 +53,12 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
                     })->addColumn(function() {
                         return [
                             AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
-                            AdminFormElement::wysiwyg('comment', 'Comment')->setEditor('ckeditor'),
+                            AdminFormElement::textarea('comment', 'Comment'),
                         ];
                     })
             );
 
-            $tabs[] = AdminDisplay::tab($form)->setLabel('Main Form')->setActive(true);
+            $tabs[] = AdminDisplay::tab($form)->setLabel('Main Form')->setActive(true)->setIcon('<i class="fa fa-credit-card"></i>');
 
             if (! is_null($id)) {
                 $instance = Contact::find($id);
@@ -74,8 +74,9 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
                 $companies->appendScope(['withContact', $id]);
                 $companies->setParameter('contact_id', $id);
 
-                $tabs[] = AdminDisplay::tab($companies)->setLabel('Display from Related Model (Companies)');
+                $tabs[] = AdminDisplay::tab($companies)->setLabel('Display from Related Model (Companies)')->setIcon('<i class="fa fa-university"></i>');
             }
+
             return $tabs;
         });
 
