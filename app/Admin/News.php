@@ -28,8 +28,9 @@ AdminSection::registerModel(News::class, function (ModelConfiguration $model) {
             AdminFormElement::ckeditor('text', 'Text'),
         ]);
 
-        $form->setSaveButtonText('Save news');
-        $form->hideSaveAndCloseButton();
+        $form->getButtons()
+            ->setSaveButtonText('Save news')
+            ->hideSaveAndCloseButton();
 
         return $form;
     });

@@ -63,8 +63,9 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
                 })
         );
 
-        $form->setSaveButtonText('Save contact');
-        $form->hideCancelButton();
+        $form->getButtons()
+            ->setSaveButtonText('Save contact')
+            ->hideCancelButton();
 
         return $form;
     });
