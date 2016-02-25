@@ -14,7 +14,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         $display = AdminDisplay::table();
         $display->setWith('country', 'companies');
         $display->setFilters([
-            AdminFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);
 
         $display->setColumns([
@@ -25,7 +25,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
             $companyTitleColumn = AdminColumn::lists('companies.title')->setLabel('Companies'),
         ]);
 
-        $photoColumn->getHeader()->setAttribute('class', 'bg-success');
+        $photoColumn->getHeader()->setAttribute('class', 'bg-success text-center');
         $fullNameColumn->getHeader()->setAttribute('class', 'bg-primary');
         $birthdayColumn->getHeader()->setAttribute('class', 'bg-orange');
         $countyTitleColumn->getHeader()->setAttribute('class', 'bg-maroon');
@@ -33,6 +33,8 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
 
         // Change Control Column
         $display->getControlColumn()->getHeader()->setTitle('Control')->setAttribute('class', 'bg-black');
+
+        $display->paginate(10);
 
         return $display;
     });
@@ -61,6 +63,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
                         ];
                     })->addColumn(function() {
                         return [
+                            AdminFormElement::text('country.title', 'Country title')->required(),
                             AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
                             AdminFormElement::textarea('comment', 'Comment'),
                         ];

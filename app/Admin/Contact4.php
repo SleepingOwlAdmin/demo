@@ -12,7 +12,7 @@ AdminSection::registerModel(Contact4::class, function (ModelConfiguration $model
         $display = AdminDisplay::datatables()->setAttribute('class', 'table-primary');
         $display->setWith('country', 'companies');
         $display->setFilters([
-            AdminFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);
         $display->setOrder([[1, 'asc']]);
 

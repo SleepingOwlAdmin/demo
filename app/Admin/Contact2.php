@@ -8,12 +8,14 @@ use SleepingOwl\Admin\Model\ModelConfiguration;
 AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model) {
     $model->setTitle('Contacts v.2')->setAlias('contacts2');
 
+    $model->setMessageOndelete('<i class="fa fa-comment-o fa-lg"></i> Контакт успешно удален');
+
     // Display
     $model->onDisplay(function () {
         $display = AdminDisplay::table();
         $display->setWith('country', 'companies');
         $display->setFilters([
-            AdminFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);
 
         $display->setColumns([

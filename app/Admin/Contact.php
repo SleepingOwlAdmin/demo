@@ -14,7 +14,7 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
 
         $display->setWith('country', 'companies');
         $display->setFilters([
-            AdminFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);
 
         $display->setColumns([

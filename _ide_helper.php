@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.20 on 2016-02-22.
+ * Generated for Laravel 5.2.20 on 2016-02-25.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -10630,12 +10630,12 @@ namespace {
     }
 
 
-    class AdminFilter extends \SleepingOwl\Admin\DisplayFilter{
+    class AdminDisplayFilter extends \SleepingOwl\Admin\DisplayFilter{
         
     }
 
 
-    class AdminForm extends \SleepingOwl\Admin\Form\AdminForm{
+    class AdminForm extends \SleepingOwl\Admin\Form{
         
     }
 
@@ -10645,7 +10645,7 @@ namespace {
     }
 
 
-    class AdminDisplay extends \SleepingOwl\Admin\Display\AdminDisplay{
+    class AdminDisplay extends \SleepingOwl\Admin\Display{
         
     }
 
