@@ -96,5 +96,5 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         return $display;
     });
 })
-    ->addMenuLink(Contact3::class)
+    ->addMenuLink(Contact3::class, 'Contacts', 300)
     ->setIcon('credit-card');

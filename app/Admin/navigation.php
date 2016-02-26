@@ -9,12 +9,25 @@ return [
         'priority' => 0
     ],
     [
-        'name'     => 'Content',
+        'name'     => 'Companies',
         'icon'     => 'cubes',
+    ],
+    [
+        'name'     => 'Contacts',
+        'icon'     => 'credit-card',
+    ],
+    [
+        'name'     => 'Content',
+        'icon'     => 'newspaper-o',
+    ],
+    [
+        'name'     => 'Permissions',
+        'icon'     => 'group',
     ],
     [
         'name'     => 'Settings',
         'icon'     => 'cog',
+        'priority' => 400,
         'children' => [
             [
                 'name' => 'Information',
@@ -26,6 +39,7 @@ return [
     [
         'name'     => 'Multi-Level Dropdown',
         'icon'     => 'sitemap',
+        'priority' => 500,
         'children' => [
             [
                 'name' => 'Second Level Item',

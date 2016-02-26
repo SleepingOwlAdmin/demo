@@ -81,4 +81,4 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
         return $form;
     });
 
-})->addMenuLink(Contact::class)->setIcon('user');
+})->addMenuLink(Contact::class, 'Contacts', 100)->setIcon('user');

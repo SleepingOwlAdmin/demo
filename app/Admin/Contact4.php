@@ -50,5 +50,5 @@ AdminSection::registerModel(Contact4::class, function (ModelConfiguration $model
     });
 
 })
-    ->addMenuLink(Contact4::class)
+    ->addMenuLink(Contact4::class, 'Contacts', 400)
     ->setIcon('credit-card');
