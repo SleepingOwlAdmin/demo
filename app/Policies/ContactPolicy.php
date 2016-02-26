@@ -29,17 +29,6 @@ class ContactPolicy
      *
      * @return bool
      */
-    public function viewItem(User $user, Contact $contact)
-    {
-        return $user->isManager() && $contact->isAuthor($user);
-    }
-
-    /**
-     * @param User    $user
-     * @param Contact $contact
-     *
-     * @return bool
-     */
     public function display(User $user, Contact $contact)
     {
         return $user->isManager();
