@@ -81,4 +81,4 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
         return $form;
     });
 
-})->addMenuPage(Contact::class, 100)->setIcon('fa fa-user');
+});

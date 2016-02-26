@@ -24,6 +24,4 @@ AdminSection::registerModel(Role::class, function (ModelConfiguration $model) {
             AdminFormElement::text('label', 'Label')->required()
         ]);
     });
-})
-    ->addMenuPage(Role::class, 1100)
-    ->setIcon('fa fa-group');
+});

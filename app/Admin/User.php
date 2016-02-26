@@ -27,6 +27,4 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
             AdminFormElement::multiselect('roles', 'Roles')->setModelForOptions(new Role())->setDisplay('name'),
         ]);
     });
-})
-    ->addMenuPage(User::class, 1000)
-    ->setIcon('fa fa-group');
+});

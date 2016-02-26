@@ -38,7 +38,7 @@ class RolePolicy
      */
     public function display(User $user, Role $item)
     {
-        return true;
+        return $user->isSuperAdmin();
     }
 
     /**
