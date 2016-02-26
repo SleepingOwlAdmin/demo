@@ -40,5 +40,5 @@ AdminSection::registerModel(News2::class, function (ModelConfiguration $model) {
         return $form;
     });
 })
-    ->addMenuLink(News2::class, 'Content', 200)
-    ->setIcon('newspaper-o');
+    ->addMenuPage(News2::class, 200)
+    ->setIcon('fa fa-newspaper-o');

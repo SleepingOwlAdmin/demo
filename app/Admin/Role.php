@@ -25,5 +25,5 @@ AdminSection::registerModel(Role::class, function (ModelConfiguration $model) {
         ]);
     });
 })
-    ->addMenuLink(Role::class, 'Permissions', 1100)
-    ->setIcon('group');
+    ->addMenuPage(Role::class, 1100)
+    ->setIcon('fa fa-group');

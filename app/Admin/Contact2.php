@@ -73,5 +73,5 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
     });
 
 })
-    ->addMenuLink(Contact2::class, 'Contacts', 200)
-    ->setIcon('fax');
+    ->addMenuPage(Contact2::class, 200)
+    ->setIcon('fa fa-fax');
