@@ -26,4 +26,14 @@ class Role extends Model
     {
         return $this->permissions()->save($permission);
     }
+
+    /**
+     * A user may have multiple roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

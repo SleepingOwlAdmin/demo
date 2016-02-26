@@ -32,11 +32,13 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $adminRole = Role::create([
-            'name' => 'admin'
+            'name' => 'admin',
+            'label' => 'Administrator'
         ]);
 
         $managerRole = Role::create([
-            'name' => 'manager'
+            'name' => 'manager',
+            'label' => 'Manager'
         ]);
 
         $adminUser->roles()->attach($adminRole);
