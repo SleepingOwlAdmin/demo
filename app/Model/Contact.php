@@ -1,5 +1,6 @@
 <?php namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
@@ -39,6 +40,24 @@ class Contact extends Model
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isAuthor(User $user)
+    {
+        return ! is_null($author = $this->author) && $author->id == $user->id;
     }
 
     /**

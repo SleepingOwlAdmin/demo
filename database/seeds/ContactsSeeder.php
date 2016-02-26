@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Faker\Factory;
 use App\Model\Contact;
 use App\Model\Country;
@@ -18,7 +19,9 @@ class ContactsSeeder extends Seeder
         foreach ($filesObj as $file) {
             $files[] = $file->getFilename();
         }
+
         $countries = Country::lists('id')->all();
+        $users = User::lists('id')->all();
 
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++) {
@@ -34,6 +37,7 @@ class ContactsSeeder extends Seeder
                 'comment'    => $faker->paragraph(5),
                 'photo'      => is_null($image) ? $image : ('images/uploads/'.$image),
                 'height'     => $faker->randomNumber(2, true) + 100,
+                'user_id'    => $faker->randomElement($users)
             ]);
         }
     }
