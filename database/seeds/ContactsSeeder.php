@@ -33,7 +33,7 @@ class ContactsSeeder extends Seeder
 
             $contact->author()->associate($faker->randomElement($users));
             $contact->country()->associate($faker->randomElement($countries));
-            $contact->photo = is_null($image) ? $image : ($imagesPath.$image);
+            $contact->photo = is_null($image) ? $image : ($imagesPath.'/'.$image);
 
             $contact->save();
         });

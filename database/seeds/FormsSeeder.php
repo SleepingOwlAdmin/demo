@@ -34,7 +34,7 @@ class FormsSeeder extends Seeder
             }
 
             $form->update([
-                'image'     => is_null($image) ? $image : ($imagesPath.$image),
+                'image'     => is_null($image) ? $image : ($imagesPath.'/'.$image),
                 'images'    => $images,
             ]);
         });
