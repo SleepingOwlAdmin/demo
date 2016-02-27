@@ -11,7 +11,12 @@ class FormsSeeder extends Seeder
     public function run()
     {
         Form::truncate();
-        $uploads  = public_path('images/uploads');
+
+        $faker = Factory::create();
+
+        $imagesPath = config('sleeping_owl.imagesUploadDirectory', 'images/uploads');
+
+        $uploads = public_path($imagesPath);
 
         $filesObj = Finder::create()->files()->in($uploads);
         $files    = [];
@@ -19,30 +24,20 @@ class FormsSeeder extends Seeder
             $files[] = $file->getFilename();
         }
 
-        $faker = Factory::create();
-        for ($i = 0; $i < 5; $i++) {
+        factory(Form::class, 100)->create()->each(function(Form $form) use($faker, $files, $imagesPath) {
             $image       = $faker->optional()->randomElement($files);
             $images      = [];
             $imagesCount = mt_rand(0, 3);
             for ($j = 0; $j < $imagesCount; $j++) {
                 $img      = $faker->randomElement($files);
-                $images[] = 'images/uploads/'.$img;
+                $images[] = $imagesPath.$img;
             }
 
-            Form::create([
-                'title'     => $faker->sentence(4),
-                'textaddon' => $faker->sentence(2),
-                'checkbox'  => $faker->boolean(),
-                'date'      => $faker->date(),
-                'time'      => $faker->time(),
-                'timestamp' => $faker->dateTime,
-                'image'     => is_null($image) ? $image : ('images/uploads/'.$image),
+            $form->update([
+                'image'     => is_null($image) ? $image : ($imagesPath.$image),
                 'images'    => $images,
-                'select'    => $faker->optional()->randomElement([1, 2, 3]),
-                'textarea'  => $faker->paragraph(5),
-                'ckeditor'  => $faker->paragraph(5),
             ]);
-        }
+        });
     }
 
 }

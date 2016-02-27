@@ -9,10 +9,12 @@ class CompanyContactSeeder extends Seeder
 
     public function run()
     {
+        /** @var Contact[] $contacts */
         $contacts  = Contact::all();
+        /** @var Company[] $companies */
         $companies = Company::all();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             try {
                 $contacts->random()->companies()->attach($companies->random());
             } catch (\Exception $e) {

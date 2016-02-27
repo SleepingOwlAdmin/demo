@@ -13,7 +13,7 @@ class AddUserIdToContactsTable extends Migration
     public function up()
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
 
             //$table->foreign('user_id')
             //      ->references('id')

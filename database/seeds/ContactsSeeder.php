@@ -13,7 +13,12 @@ class ContactsSeeder extends Seeder
     public function run()
     {
         Contact::truncate();
-        $uploads  = public_path('images/uploads');
+
+        $faker = Factory::create();
+
+        $imagesPath = config('sleeping_owl.imagesUploadDirectory', 'images/uploads');
+        $uploads = public_path($imagesPath);
+
         $filesObj = Finder::create()->files()->in($uploads);
         $files    = [];
         foreach ($filesObj as $file) {
@@ -21,25 +26,17 @@ class ContactsSeeder extends Seeder
         }
 
         $countries = Country::lists('id')->all();
-        $users = User::lists('id')->all();
+        $users     = User::lists('id')->all();
 
-        $faker = Factory::create();
-        for ($i = 0; $i < 20; $i++) {
+        factory(Contact::class, 100)->create()->each(function(Contact $contact) use($faker, $files, $users, $countries, $imagesPath) {
             $image = $faker->optional()->randomElement($files);
 
-            Contact::create([
-                'firstName'  => $faker->firstName,
-                'lastName'   => $faker->lastName,
-                'birthday'   => $faker->dateTimeThisCentury,
-                'phone'      => $faker->phoneNumber,
-                'address'    => $faker->address,
-                'country_id' => $faker->optional()->randomElement($countries),
-                'comment'    => $faker->paragraph(5),
-                'photo'      => is_null($image) ? $image : ('images/uploads/'.$image),
-                'height'     => $faker->randomNumber(2, true) + 100,
-                'user_id'    => $faker->randomElement($users)
-            ]);
-        }
+            $contact->author()->associate($faker->randomElement($users));
+            $contact->country()->associate($faker->randomElement($countries));
+            $contact->photo = is_null($image) ? $image : ($imagesPath.$image);
+
+            $contact->save();
+        });
     }
 
 }

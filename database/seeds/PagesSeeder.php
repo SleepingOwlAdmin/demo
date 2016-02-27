@@ -10,27 +10,16 @@ class PagesSeeder extends Seeder
     public function run()
     {
         Page::truncate();
-        $faker = Factory::create();
-        for ($i = 0; $i < 20; $i++) {
-            Page::create([
-                'title' => $faker->sentence(5),
-                'text'  => $faker->paragraph(5),
-            ]);
-        }
 
-        $pages = Page::all();
-        for ($i = 0; $i < 5; $i++) {
-            $page1 = $pages->random();
-            $page2 = $pages->random();
-            if ($page1 == $page2) {
-                continue;
-            }
+        $pages = factory(Page::class, 100)->create();
+
+        $pages->each(function(Page $page) use($pages) {
+            $childPage = $pages->random();
 
             try {
-                $page1->makeChildOf($page2);
-            } catch (\Exception $e) {
-            }
-        }
+                $page->makeChildOf($childPage);
+            } catch (\Exception $e) {}
+        });
     }
 
 }

@@ -11,16 +11,11 @@ class PostsSeeder extends Seeder
     {
         Post::truncate();
 
-        $faker = Factory::create();
-        for ($i = 0; $i < 20; $i++) {
-            $post = Post::create([
-                'title' => $faker->sentence(5),
-                'text'  => $faker->paragraph(5),
-            ]);
+        factory(Post::class, 200)->create()->each(function(Post $post) {
             if (mt_rand(0, 10) < 3) {
                 $post->delete();
             }
-        }
+        });
     }
 
 }
