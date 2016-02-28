@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.20 on 2016-02-25.
+ * Generated for Laravel 5.2.20 on 2016-02-28.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -10356,300 +10356,6 @@ namespace {
     }
 
 
-    class AdminSection extends \SleepingOwl\Admin\Facades\AdminSection{
-        
-        /**
-         * 
-         *
-         * @return string[] 
-         * @static 
-         */
-        public static function modelAliases(){
-            return \SleepingOwl\Admin\Admin::modelAliases();
-        }
-        
-        /**
-         * 
-         *
-         * @param string $class
-         * @param \Closure|null $callback
-         * @return $this 
-         * @static 
-         */
-        public static function registerModel($class, $callback = null){
-            return \SleepingOwl\Admin\Admin::registerModel($class, $callback);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $class
-         * @return \SleepingOwl\Admin\ModelConfiguration 
-         * @static 
-         */
-        public static function getModel($class){
-            return \SleepingOwl\Admin\Admin::getModel($class);
-        }
-        
-        /**
-         * 
-         *
-         * @return \SleepingOwl\Admin\ModelConfiguration[] 
-         * @static 
-         */
-        public static function getModels(){
-            return \SleepingOwl\Admin\Admin::getModels();
-        }
-        
-        /**
-         * 
-         *
-         * @param string $class
-         * @return bool 
-         * @static 
-         */
-        public static function hasModel($class){
-            return \SleepingOwl\Admin\Admin::hasModel($class);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $class
-         * @param \SleepingOwl\Admin\ModelConfiguration $model
-         * @static 
-         */
-        public static function setModel($class, $model){
-            return \SleepingOwl\Admin\Admin::setModel($class, $model);
-        }
-        
-        /**
-         * 
-         *
-         * @return \SleepingOwl\Admin\TemplateInterface 
-         * @static 
-         */
-        public static function template(){
-            return \SleepingOwl\Admin\Admin::template();
-        }
-        
-        /**
-         * 
-         *
-         * @param string $class
-         * @param string|null $section
-         * @return \SleepingOwl\Admin\NavigationPage 
-         * @static 
-         */
-        public static function addMenuLink($class, $section = null){
-            return \SleepingOwl\Admin\Admin::addMenuLink($class, $section);
-        }
-        
-        /**
-         * 
-         *
-         * @param string|\SleepingOwl\Admin\Renderable $content
-         * @param string|null $title
-         * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory 
-         * @static 
-         */
-        public static function view($content, $title = null){
-            return \SleepingOwl\Admin\Admin::view($content, $title);
-        }
-        
-    }
-
-
-    class AdminTemplate extends \SleepingOwl\Admin\Facades\AdminTemplate{
-        
-        /**
-         * 
-         *
-         * @return string 
-         * @static 
-         */
-        public static function getViewNamespace(){
-            return \SleepingOwl\Admin\Templates\TemplateDefault::getViewNamespace();
-        }
-        
-        /**
-         * 
-         *
-         * @param string $view
-         * @return string 
-         * @static 
-         */
-        public static function getTemplateViewPath($view){
-            return \SleepingOwl\Admin\Templates\TemplateDefault::getTemplateViewPath($view);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $view
-         * @param array $data
-         * @param array $mergeData
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View 
-         * @static 
-         */
-        public static function view($view, $data = array(), $mergeData = array()){
-            return \SleepingOwl\Admin\Templates\TemplateDefault::view($view, $data, $mergeData);
-        }
-        
-    }
-
-
-    class AdminNavigation extends \SleepingOwl\Admin\Facades\AdminNavigation{
-        
-        /**
-         * 
-         *
-         * @param array $items
-         * @param string $uri
-         * @return \KodiCMS\Navigation\Navigation 
-         * @static 
-         */
-        public static function make($items, $uri = null){
-            return \KodiCMS\Navigation\Navigation::make($items, $uri);
-        }
-        
-        /**
-         * 
-         *
-         * @return \KodiCMS\Navigation\Section 
-         * @static 
-         */
-        public static function getRootSection(){
-            return \KodiCMS\Navigation\Navigation::getRootSection();
-        }
-        
-        /**
-         * 
-         *
-         * @param string $name
-         * @param \KodiCMS\Navigation\Section|null $parent
-         * @param int $priority
-         * @return \KodiCMS\Navigation\Section 
-         * @static 
-         */
-        public static function addSection($name, $parent = null, $priority = 1){
-            return \KodiCMS\Navigation\Navigation::addSection($name, $parent, $priority);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $name
-         * @param \KodiCMS\Navigation\Section $parent
-         * @return \KodiCMS\Navigation\Section 
-         * @static 
-         */
-        public static function findSection($name, $parent = null){
-            return \KodiCMS\Navigation\Navigation::findSection($name, $parent);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $name
-         * @param \KodiCMS\Navigation\Section $parent
-         * @param int $priority
-         * @return \KodiCMS\Navigation\Section 
-         * @static 
-         */
-        public static function findSectionOrCreate($name, $parent = null, $priority = 1){
-            return \KodiCMS\Navigation\Navigation::findSectionOrCreate($name, $parent, $priority);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $section
-         * @param string $name
-         * @param string $uri
-         * @param int $priority
-         * @return $this 
-         * @static 
-         */
-        public static function addPageToSection($section, $name, $uri, $priority = 0){
-            return \KodiCMS\Navigation\Navigation::addPageToSection($section, $name, $uri, $priority);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $uri
-         * @param array $data
-         * @static 
-         */
-        public static function update($uri, $data){
-            return \KodiCMS\Navigation\Navigation::update($uri, $data);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $uri
-         * @return null|\KodiCMS\Navigation\Page 
-         * @static 
-         */
-        public static function findPageByUri($uri){
-            return \KodiCMS\Navigation\Navigation::findPageByUri($uri);
-        }
-        
-        /**
-         * 
-         *
-         * @return \KodiCMS\Navigation\Page 
-         * @static 
-         */
-        public static function getCurrentPage(){
-            return \KodiCMS\Navigation\Navigation::getCurrentPage();
-        }
-        
-        /**
-         * 
-         *
-         * @param \KodiCMS\Navigation\Page $page
-         * @static 
-         */
-        public static function setCurrentPage($page){
-            return \KodiCMS\Navigation\Navigation::setCurrentPage($page);
-        }
-        
-    }
-
-
-    class AdminColumn extends \SleepingOwl\Admin\TableColumn{
-        
-    }
-
-
-    class AdminColumnFilter extends \SleepingOwl\Admin\TableColumnFilter{
-        
-    }
-
-
-    class AdminDisplayFilter extends \SleepingOwl\Admin\DisplayFilter{
-        
-    }
-
-
-    class AdminForm extends \SleepingOwl\Admin\Form{
-        
-    }
-
-
-    class AdminFormElement extends \SleepingOwl\Admin\FormElement{
-        
-    }
-
-
-    class AdminDisplay extends \SleepingOwl\Admin\Display{
-        
-    }
-
-
     class Assets extends \KodiCMS\Assets\Facades\Assets{
         
         /**
@@ -12886,6 +12592,519 @@ namespace {
          */
         public static function componentCall($method, $parameters){
             return \Collective\Html\HtmlBuilder::componentCall($method, $parameters);
+        }
+        
+    }
+
+
+    class AdminSection extends \SleepingOwl\Admin\Facades\Admin{
+        
+        /**
+         * 
+         *
+         * @return string[] 
+         * @static 
+         */
+        public static function modelAliases(){
+            return \SleepingOwl\Admin\Admin::modelAliases();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $class
+         * @param \Closure|null $callback
+         * @return $this 
+         * @static 
+         */
+        public static function registerModel($class, $callback = null){
+            return \SleepingOwl\Admin\Admin::registerModel($class, $callback);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $class
+         * @return \SleepingOwl\Admin\ModelConfiguration 
+         * @static 
+         */
+        public static function getModel($class){
+            return \SleepingOwl\Admin\Admin::getModel($class);
+        }
+        
+        /**
+         * 
+         *
+         * @return \SleepingOwl\Admin\ModelConfiguration[] 
+         * @static 
+         */
+        public static function getModels(){
+            return \SleepingOwl\Admin\Admin::getModels();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $class
+         * @return bool 
+         * @static 
+         */
+        public static function hasModel($class){
+            return \SleepingOwl\Admin\Admin::hasModel($class);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $class
+         * @param \SleepingOwl\Admin\ModelConfiguration $model
+         * @static 
+         */
+        public static function setModel($class, $model){
+            return \SleepingOwl\Admin\Admin::setModel($class, $model);
+        }
+        
+        /**
+         * 
+         *
+         * @return \SleepingOwl\Admin\TemplateInterface 
+         * @static 
+         */
+        public static function template(){
+            return \SleepingOwl\Admin\Admin::template();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $class
+         * @param int $priority
+         * @return \SleepingOwl\Admin\Page 
+         * @static 
+         */
+        public static function addMenuPage($class = null, $priority = 100){
+            return \SleepingOwl\Admin\Admin::addMenuPage($class, $priority);
+        }
+        
+        /**
+         * 
+         *
+         * @return \SleepingOwl\Admin\Navigation 
+         * @static 
+         */
+        public static function getNavigation(){
+            return \SleepingOwl\Admin\Admin::getNavigation();
+        }
+        
+        /**
+         * 
+         *
+         * @param string|\SleepingOwl\Admin\Renderable $content
+         * @param string|null $title
+         * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory 
+         * @static 
+         */
+        public static function view($content, $title = null){
+            return \SleepingOwl\Admin\Admin::view($content, $title);
+        }
+        
+    }
+
+
+    class AdminTemplate extends \SleepingOwl\Admin\Facades\Template{
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getViewNamespace(){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::getViewNamespace();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return string 
+         * @deprecated 
+         * @static 
+         */
+        public static function getTemplateViewPath($view){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::getTemplateViewPath($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return string 
+         * @static 
+         */
+        public static function getViewPath($view){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::getViewPath($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View 
+         * @static 
+         */
+        public static function view($view, $data = array(), $mergeData = array()){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::view($view, $data, $mergeData);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $title
+         * @return string 
+         * @static 
+         */
+        public static function makeTitle($title){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::makeTitle($title);
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getLogo(){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::getLogo();
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getLogoMini(){
+            return \SleepingOwl\Admin\Templates\TemplateDefault::getLogoMini();
+        }
+        
+    }
+
+
+    class AdminNavigation extends \SleepingOwl\Admin\Facades\Navigation{
+        
+        /**
+         * 
+         *
+         * @param array $navigation
+         * @static 
+         */
+        public static function setFromArray($navigation){
+            return \SleepingOwl\Admin\Navigation::setFromArray($navigation);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|array|\SleepingOwl\Admin\Page|null $page
+         * @return \SleepingOwl\Admin\Page 
+         * @static 
+         */
+        public static function addPage($page = null){
+            return \SleepingOwl\Admin\Navigation::addPage($page);
+        }
+        
+        /**
+         * 
+         *
+         * @return \SleepingOwl\Admin\Collection 
+         * @static 
+         */
+        public static function getPages(){
+            return \SleepingOwl\Admin\Navigation::getPages();
+        }
+        
+        /**
+         * 
+         *
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function setPages($callback){
+            return \SleepingOwl\Admin\Navigation::setPages($callback);
+        }
+        
+        /**
+         * 
+         *
+         * @param \Closure $accessLogic
+         * @return $this 
+         * @static 
+         */
+        public static function setAccessLogic($accessLogic){
+            return \SleepingOwl\Admin\Navigation::setAccessLogic($accessLogic);
+        }
+        
+        /**
+         * 
+         *
+         * @return \SleepingOwl\Admin\Closure 
+         * @static 
+         */
+        public static function getAccessLogic(){
+            return \SleepingOwl\Admin\Navigation::getAccessLogic();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasChild(){
+            return \SleepingOwl\Admin\Navigation::hasChild();
+        }
+        
+        /**
+         * 
+         *
+         * @return array 
+         * @static 
+         */
+        public static function toArray(){
+            return \SleepingOwl\Admin\Navigation::toArray();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory 
+         * @static 
+         */
+        public static function render(){
+            return \SleepingOwl\Admin\Navigation::render();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function filterByAccessRights(){
+            return \SleepingOwl\Admin\Navigation::filterByAccessRights();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sort(){
+            return \SleepingOwl\Admin\Navigation::sort();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $title
+         * @return \SleepingOwl\Admin\Page|false 
+         * @static 
+         */
+        public static function findPageByTitle($title){
+            return \SleepingOwl\Admin\Navigation::findPageByTitle($title);
+        }
+        
+    }
+
+
+    class AdminColumn extends \SleepingOwl\Admin\Facades\TableColumn{
+        
+        /**
+         * Register new alias.
+         *
+         * @param string $alias
+         * @param string $class
+         * @static 
+         */
+        public static function register($alias, $class){
+            return \SleepingOwl\Admin\AliasBinder::register($alias, $class);
+        }
+        
+        /**
+         * Get class by alias.
+         *
+         * @param string $alias
+         * @return string 
+         * @static 
+         */
+        public static function getAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::getAlias($alias);
+        }
+        
+        /**
+         * Check if alias is registered.
+         *
+         * @param string $alias
+         * @return bool 
+         * @static 
+         */
+        public static function hasAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::hasAlias($alias);
+        }
+        
+    }
+
+
+    class AdminColumnFilter extends \SleepingOwl\Admin\Facades\TableColumnFilter{
+        
+        /**
+         * Register new alias.
+         *
+         * @param string $alias
+         * @param string $class
+         * @static 
+         */
+        public static function register($alias, $class){
+            return \SleepingOwl\Admin\AliasBinder::register($alias, $class);
+        }
+        
+        /**
+         * Get class by alias.
+         *
+         * @param string $alias
+         * @return string 
+         * @static 
+         */
+        public static function getAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::getAlias($alias);
+        }
+        
+        /**
+         * Check if alias is registered.
+         *
+         * @param string $alias
+         * @return bool 
+         * @static 
+         */
+        public static function hasAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::hasAlias($alias);
+        }
+        
+    }
+
+
+    class AdminForm extends \SleepingOwl\Admin\Facades\Form{
+        
+        /**
+         * Register new alias.
+         *
+         * @param string $alias
+         * @param string $class
+         * @static 
+         */
+        public static function register($alias, $class){
+            return \SleepingOwl\Admin\AliasBinder::register($alias, $class);
+        }
+        
+        /**
+         * Get class by alias.
+         *
+         * @param string $alias
+         * @return string 
+         * @static 
+         */
+        public static function getAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::getAlias($alias);
+        }
+        
+        /**
+         * Check if alias is registered.
+         *
+         * @param string $alias
+         * @return bool 
+         * @static 
+         */
+        public static function hasAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::hasAlias($alias);
+        }
+        
+    }
+
+
+    class AdminFormElement extends \SleepingOwl\Admin\Facades\FormElement{
+        
+        /**
+         * Register new alias.
+         *
+         * @param string $alias
+         * @param string $class
+         * @static 
+         */
+        public static function register($alias, $class){
+            return \SleepingOwl\Admin\AliasBinder::register($alias, $class);
+        }
+        
+        /**
+         * Get class by alias.
+         *
+         * @param string $alias
+         * @return string 
+         * @static 
+         */
+        public static function getAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::getAlias($alias);
+        }
+        
+        /**
+         * Check if alias is registered.
+         *
+         * @param string $alias
+         * @return bool 
+         * @static 
+         */
+        public static function hasAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::hasAlias($alias);
+        }
+        
+    }
+
+
+    class AdminDisplay extends \SleepingOwl\Admin\Facades\Display{
+        
+        /**
+         * Register new alias.
+         *
+         * @param string $alias
+         * @param string $class
+         * @static 
+         */
+        public static function register($alias, $class){
+            return \SleepingOwl\Admin\AliasBinder::register($alias, $class);
+        }
+        
+        /**
+         * Get class by alias.
+         *
+         * @param string $alias
+         * @return string 
+         * @static 
+         */
+        public static function getAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::getAlias($alias);
+        }
+        
+        /**
+         * Check if alias is registered.
+         *
+         * @param string $alias
+         * @return bool 
+         * @static 
+         */
+        public static function hasAlias($alias){
+            return \SleepingOwl\Admin\AliasBinder::hasAlias($alias);
         }
         
     }
