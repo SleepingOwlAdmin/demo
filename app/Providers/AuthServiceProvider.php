@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use AdminTemplate;
 use App\Permission;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use SleepingOwl\Admin\Facades\AdminTemplate;
 
 class AuthServiceProvider extends ServiceProvider
 {
