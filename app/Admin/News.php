@@ -34,6 +34,4 @@ AdminSection::registerModel(News::class, function (ModelConfiguration $model) {
 
         return $form;
     });
-})
-    ->addMenuPage(News::class, 100)
-    ->setIcon('fa fa-newspaper-o');
+});

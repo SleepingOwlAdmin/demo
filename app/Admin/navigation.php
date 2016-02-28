@@ -22,6 +22,18 @@ return [
         ]
     ],
     [
+        'title' => "Content",
+        'icon' => 'fa fa-newspaper-o',
+        'pages' => [
+            (new Page(\App\Model\News::class))
+                ->setIcon('fa fa-newspaper-o')
+                ->setPriority(0),
+            (new Page(\App\Model\News2::class))
+                ->setIcon('fa fa-newspaper-o')
+                ->setPriority(10)
+        ]
+    ],
+    [
         'title' => 'Permissions',
         'icon' => 'fa fa-group',
         'pages' => [
