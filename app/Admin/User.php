@@ -23,6 +23,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
     $model->onCreateAndEdit(function() {
         return AdminForm::panel()->addBody([
             AdminFormElement::text('name', 'Username')->required(),
+            AdminFormElement::password('password', 'Password')->required()->addValidationRule('min:6'),
             AdminFormElement::text('email', 'E-mail')->required()->addValidationRule('email'),
             AdminFormElement::multiselect('roles', 'Roles')->setModelForOptions(new Role())->setDisplay('name'),
         ]);
