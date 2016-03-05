@@ -18,8 +18,9 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
         ]);
 
         $display->setColumns([
-            AdminColumn::image('photo')
+            $photo = AdminColumn::image('photo')
                 ->setLabel('Photo<br/><small>(image)</small>')
+                ->setAttribute('class', 'hidden-sm hidden-xs')
                 ->setWidth('100px'),
             AdminColumn::link('fullName')
                 ->setLabel('Name<br/><small>(string with accessor)</small>')
@@ -29,24 +30,32 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
                 ->setWidth('150px')
                 ->setAttribute('class', 'text-center')
                 ->setFormat('d.m.Y'),
-            AdminColumn::text('country.title')
+            $country = AdminColumn::text('country.title')
                 ->setLabel('Country<br/><small>(string from related model)</small>')
-                 ->append(
-                     AdminColumn::filter('country_id')
+                ->setAttribute('class', 'hidden-sm hidden-xs hidden-md')
+                ->append(
+                    AdminColumn::filter('country_id')
                 ),
              AdminColumn::relatedLink('author.name')
                 ->setLabel('Author'),
-            AdminColumn::count('companies')
+            $companiesCount = AdminColumn::count('companies')
                 ->setLabel('Companies<br/><small>(count)</small>')
-                ->setAttribute('class', 'text-center')
+                ->setAttribute('class', 'text-center hidden-sm hidden-xs')
                 ->setWidth('50px'),
-            AdminColumn::lists('companies.title')->setLabel('Companies<br/><small>(lists)</small>'),
+            $companies = AdminColumn::lists('companies.title')
+                ->setLabel('Companies<br/><small>(lists)</small>')
+                ->setAttribute('class', 'hidden-sm hidden-xs hidden-md'),
             AdminColumn::custom()->setLabel('Has Photo?<br/><small>(custom)</small>')->setCallback(function ($instance) {
                 return $instance->photo ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })
                 ->setAttribute('class', 'text-center')
                 ->setWidth('50px'),
         ]);
+
+        $photo->getHeader()->setAttribute('class', 'hidden-sm hidden-xs');
+        $country->getHeader()->setAttribute('class', 'hidden-sm hidden-xs hidden-md');
+        $companies->getHeader()->setAttribute('class', 'hidden-sm hidden-xs hidden-md');
+        $companiesCount->getHeader()->setAttribute('class', 'hidden-sm hidden-xs');
 
         return $display;
     });
