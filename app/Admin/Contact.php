@@ -12,7 +12,7 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
 
         $display->setAttribute('class', 'table-info table-hover');
 
-        $display->setWith('country', 'companies', 'author');
+        $display->with('country', 'companies', 'author');
         $display->setFilters([
             AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);

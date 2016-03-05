@@ -13,7 +13,7 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
     // Display
     $model->onDisplay(function () {
         $display = AdminDisplay::table();
-        $display->setWith('country', 'companies');
+        $display->with('country', 'companies');
         $display->setFilters([
             AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);

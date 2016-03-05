@@ -12,7 +12,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
     // Display
     $model->onDisplay(function () {
         $display = AdminDisplay::table();
-        $display->setWith('country', 'companies');
+        $display->with('country', 'companies');
         $display->setFilters([
             AdminDisplayFilter::related('country_id')->setModel(Country::class)
         ]);
@@ -32,7 +32,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         $companyTitleColumn->getHeader()->setAttribute('class', 'bg-purple');
 
         // Change Control Column
-        $display->getControlColumn()->getHeader()->setTitle('Control')->setAttribute('class', 'bg-black');
+        $display->getColumns()->getControlColumn()->getHeader()->setTitle('Control')->setAttribute('class', 'bg-black');
 
         $display->paginate(10);
 
@@ -83,7 +83,7 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
 
                 $companies = AdminSection::getModel(Company::class)->fireDisplay();
 
-                $companies->appendScope(['withContact', $id]);
+                $companies->getScopes()->push(['withContact', $id]);
                 $companies->setParameter('contact_id', $id);
 
                 $tabs[] = AdminDisplay::tab($companies)->setLabel('Display from Related Model (Companies)')->setIcon('<i class="fa fa-university"></i>');
