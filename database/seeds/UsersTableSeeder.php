@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
         Role::truncate();
+        DB::table('role_user')->truncate();
         Permission::truncate();
 
         $adminUser = User::create([
