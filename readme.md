@@ -2,7 +2,7 @@
 
 This is demo application for [SleepingOwl Admin](https://github.com/LaravelRUS/SleepingOwlAdmin).
 
-You can watch live [Demo site](http://sleepingowl.kodicms.ru/admin).
+You can watch live http://demo.sleepingowladmin.ru/admin
 
 **Login**: admin@site.com
 **Password**: password
