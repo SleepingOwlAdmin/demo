@@ -30,7 +30,16 @@ return [
                 ->setPriority(0),
             (new Page(\App\Model\News2::class))
                 ->setIcon('fa fa-newspaper-o')
-                ->setPriority(10)
+                ->setPriority(10),
+            (new Page(\App\Model\News3::class))
+                ->setIcon('fa fa-newspaper-o')
+                ->setPriority(20),
+            (new Page(\App\Model\News4::class))
+                ->setIcon('fa fa-newspaper-o')
+                ->setPriority(30),
+            (new Page(\App\Model\News5::class))
+                ->setIcon('fa fa-newspaper-o')
+                ->setPriority(40)
         ]
     ],
     [
