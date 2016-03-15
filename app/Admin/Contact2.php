@@ -15,7 +15,8 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
         $display = AdminDisplay::table();
         $display->with('country', 'companies');
         $display->setFilters([
-            AdminDisplayFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class),
+            AdminDisplayFilter::field('country.title')->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS)
         ]);
 
         $display->setColumns([
