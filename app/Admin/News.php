@@ -13,9 +13,7 @@ AdminSection::registerModel(News::class, function (ModelConfiguration $model) {
         })->setColumns([
             AdminColumn::link('title')->setLabel('Title'),
             AdminColumn::datetime('date')->setLabel('Date')->setFormat('d.m.Y')->setWidth('150px'),
-            AdminColumn::custom()->setLabel('Published')->setCallback(function ($instance) {
-                return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-            })->setWidth('50px')->setAttribute('class', 'text-center'),
+            AdminColumnEditable::checkbox('published')->setLabel('Published'),
         ])->paginate(5);
     });
 
