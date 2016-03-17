@@ -1,7 +1,6 @@
 <?php
 
 use App\Model\News5;
-use Illuminate\Support\Collection;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 
 AdminSection::registerModel(News5::class, function (ModelConfiguration $model) {
@@ -9,11 +8,9 @@ AdminSection::registerModel(News5::class, function (ModelConfiguration $model) {
 
     // Display
     $model->onDisplay(function () {
-        $display = AdminDisplay::table()
-            ->setActions([
-                AdminColumn::action('export', 'Export')->setIcon('fa fa-share')->setAction(route('admin.dashboard'))
-            ])
-            ->setColumns([
+        $display = AdminDisplay::table()->setActions([
+                AdminColumn::action('export', 'Export')->setIcon('fa fa-share')->setAction(route('admin.news.export')),
+            ])->setColumns([
                 AdminColumn::checkbox(),
                 AdminColumn::link('title')->setLabel('Title'),
                 AdminColumn::datetime('date')->setLabel('Date')->setFormat('d.m.Y')->setWidth('150px'),
@@ -22,11 +19,13 @@ AdminSection::registerModel(News5::class, function (ModelConfiguration $model) {
                 })->setWidth('50px')->setAttribute('class', 'text-center'),
             ]);
 
+        $display->getActions()->setPlacement('panel.buttons')->setAttribute('class', 'pull-right');
+
         return $display;
     });
 
     // Create And Edit
-    $model->onCreateAndEdit(function() {
+    $model->onCreateAndEdit(function () {
         return AdminForm::form()->setItems([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
