@@ -9,6 +9,10 @@
 
                 <div class="panel-body">
                     Your Application's Landing Page.
+                    <hr>
+                    Login: admin@site.com
+                    <br>
+                    Password: password
                 </div>
             </div>
         </div>
