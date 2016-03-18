@@ -17,7 +17,7 @@ Enjoy!
 
 ## Documentation
 
-Documentation can be found in the [SleepingOwl Admin documentation](http://sleeping-owl.github.io).
+Documentation can be found in the [SleepingOwl Admin documentation](http://sleepingowl.laravel.su/docs/4.0/).
 
 ### License
 
