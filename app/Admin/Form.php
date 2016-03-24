@@ -23,7 +23,7 @@ AdminSection::registerModel(Form::class, function (ModelConfiguration $model) {
 
             AdminColumn::datetime('created_at')->setLabel('Created At')->setFormat('d.m.Y H:i:s')
                 ->setWidth('150px')
-                ->setAttribute('class', 'text-center')
+                ->setHtmlAttribute('class', 'text-center')
         ]);
 
         return $display;

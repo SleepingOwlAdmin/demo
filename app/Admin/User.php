@@ -11,7 +11,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
     $model->onDisplay(function () {
         return AdminDisplay::table()
             ->with('roles')
-            ->setAttribute('class', 'table-primary')
+            ->setHtmlAttribute('class', 'table-primary')
             ->setColumns([
                 AdminColumn::link('name')->setLabel('Username'),
                 AdminColumn::email('email')->setLabel('Email')->setWidth('150px'),

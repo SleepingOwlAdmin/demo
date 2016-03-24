@@ -20,7 +20,7 @@ AdminSection::registerModel(News3::class, function (ModelConfiguration $model) {
                 AdminColumn::datetime('date')->setLabel('Date')->setFormat('d.m.Y')->setWidth('150px'),
                 AdminColumn::custom()->setLabel('Published')->setCallback(function ($instance) {
                     return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-                })->setWidth('50px')->setAttribute('class', 'text-center'),
+                })->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
             ];
 
             $main = AdminDisplay::table()->paginate(20, 'news');
@@ -45,7 +45,7 @@ AdminSection::registerModel(News3::class, function (ModelConfiguration $model) {
                 AdminColumn::link('title')->setLabel('Title'),
                 AdminColumn::custom()->setLabel('Title Length')->setCallback(function ($instance) {
                     return strlen($instance->title);
-                })->setWidth('50px')->setAttribute('class', 'text-center'),
+                })->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
             ]);
 
             $tabs[] = AdminDisplay::tab($otherColumns)->setLabel('Other Columns and Order');

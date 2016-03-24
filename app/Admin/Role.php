@@ -9,7 +9,7 @@ AdminSection::registerModel(Role::class, function (ModelConfiguration $model) {
     // Display
     $model->onDisplay(function () {
         return AdminDisplay::table()->with('users')
-            ->setAttribute('class', 'table-primary')
+            ->setHtmlAttribute('class', 'table-primary')
             ->setColumns([
                 AdminColumn::text('id')->setLabel('#')->setWidth('30px'),
                 AdminColumn::link('label')->setLabel('Label')->setWidth('100px'),

@@ -8,7 +8,7 @@ AdminSection::registerModel(News2::class, function (ModelConfiguration $model) {
 
     // Display
     $model->onDisplay(function () {
-        $display = AdminDisplay::datatables()->setAttribute('class', 'table-danger');
+        $display = AdminDisplay::datatables()->setHtmlAttribute('class', 'table-danger');
         $display->setOrder([[1, 'desc']]);
 
         $display->setColumns([
@@ -16,7 +16,7 @@ AdminSection::registerModel(News2::class, function (ModelConfiguration $model) {
             AdminColumn::datetime('date')->setLabel('Date')->setFormat('d.m.Y')->setWidth('150px'),
             AdminColumn::custom()->setLabel('Published')->setCallback(function (News2 $model) {
                 return $model->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-            })->setWidth('50px')->setAttribute('class', 'text-center')->setOrderable(false),
+            })->setWidth('50px')->setHtmlAttribute('class', 'text-center')->setOrderable(false),
         ]);
 
         return $display;

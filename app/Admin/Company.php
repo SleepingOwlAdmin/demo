@@ -10,7 +10,7 @@ AdminSection::registerModel(Company::class, function (ModelConfiguration $model)
     $model->onDisplay(function () {
         $display = AdminDisplay::table()->setColumns([
             AdminColumn::link('title')->setLabel('Title')->setWidth('400px'),
-            AdminColumn::text('address')->setLabel('Address')->setAttribute('class', 'text-muted'),
+            AdminColumn::text('address')->setLabel('Address')->setHtmlAttribute('class', 'text-muted'),
         ]);
 
         $display->paginate(15);

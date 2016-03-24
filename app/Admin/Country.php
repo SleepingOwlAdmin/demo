@@ -10,7 +10,7 @@ AdminSection::registerModel(Country::class, function (ModelConfiguration $model)
     $model->onDisplay(function() {
         $display = AdminDisplay::table();
 
-        $display->setAttribute('class', 'table-bordered table-success table-hover');
+        $display->setHtmlAttribute('class', 'table-bordered table-success table-hover');
 
         $display->setApply(function ($query) {
             $query->orderBy('order', 'asc');
@@ -24,13 +24,13 @@ AdminSection::registerModel(Country::class, function (ModelConfiguration $model)
             AdminColumn::count('contacts')
                 ->setLabel('Contacts')
                 ->setWidth('100px')
-                ->setAttribute('class', 'text-center')
+                ->setHtmlAttribute('class', 'text-center')
                 ->append(
                     AdminColumn::filter('country_id')->setModel(new Contact)
                 ),
             AdminColumn::order()
                 ->setLabel('Order')
-                ->setAttribute('class', 'text-center')
+                ->setHtmlAttribute('class', 'text-center')
                 ->setWidth('100px'),
         ]);
 

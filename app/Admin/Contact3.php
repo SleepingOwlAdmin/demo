@@ -25,14 +25,14 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
             $companyTitleColumn = AdminColumn::lists('companies.title')->setLabel('Companies'),
         ]);
 
-        $photoColumn->getHeader()->setAttribute('class', 'bg-success text-center');
-        $fullNameColumn->getHeader()->setAttribute('class', 'bg-primary');
-        $birthdayColumn->getHeader()->setAttribute('class', 'bg-orange');
-        $countyTitleColumn->getHeader()->setAttribute('class', 'bg-maroon');
-        $companyTitleColumn->getHeader()->setAttribute('class', 'bg-purple');
+        $photoColumn->getHeader()->setHtmlAttribute('class', 'bg-success text-center');
+        $fullNameColumn->getHeader()->setHtmlAttribute('class', 'bg-primary');
+        $birthdayColumn->getHeader()->setHtmlAttribute('class', 'bg-orange');
+        $countyTitleColumn->getHeader()->setHtmlAttribute('class', 'bg-maroon');
+        $companyTitleColumn->getHeader()->setHtmlAttribute('class', 'bg-purple');
 
         // Change Control Column
-        $display->getColumns()->getControlColumn()->getHeader()->setTitle('Control')->setAttribute('class', 'bg-black');
+        $display->getColumns()->getControlColumn()->getHeader()->setTitle('Control')->setHtmlAttribute('class', 'bg-black');
 
         $display->paginate(10);
 

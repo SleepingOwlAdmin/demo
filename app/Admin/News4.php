@@ -25,7 +25,7 @@ AdminSection::registerModel(News4::class, function (ModelConfiguration $model) {
                 AdminColumn::datetime('date')->setLabel('Date')->setFormat('d.m.Y')->setWidth('150px'),
                 AdminColumn::custom()->setLabel('Published')->setCallback(function ($instance) {
                     return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-                })->setWidth('50px')->setAttribute('class', 'text-center'),
+                })->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
             ]);
 
         return $display;

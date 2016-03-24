@@ -9,7 +9,7 @@ AdminSection::registerModel(Contact4::class, function (ModelConfiguration $model
 
     // Display
     $model->onDisplay(function () {
-        $display = AdminDisplay::datatables()->setAttribute('class', 'table-primary');
+        $display = AdminDisplay::datatables()->setHtmlAttribute('class', 'table-primary');
         $display->with('country', 'companies');
         $display->setFilters([
             AdminDisplayFilter::related('country_id')->setModel(Country::class)
@@ -24,8 +24,10 @@ AdminSection::registerModel(Contact4::class, function (ModelConfiguration $model
            AdminColumn::text('height')->setLabel('Height'),
            AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y')
                 ->setWidth('150px')
-                ->setAttribute('class', 'text-center'),
-           AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
+                ->setHtmlAttribute('class', 'text-center'),
+           AdminColumn::text('country.title')
+               ->setLabel('Country')
+               ->append(AdminColumn::filter('country_id')),
            AdminColumn::lists('companies.title')->setLabel('Companies')
         ]);
 

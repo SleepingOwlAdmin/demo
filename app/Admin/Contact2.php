@@ -26,7 +26,7 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
                 ->setWidth('200px'),
             AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y')
                 ->setWidth('150px')
-                ->setAttribute('class', 'text-center'),
+                ->setHtmlAttribute('class', 'text-center'),
             AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
             AdminColumn::lists('companies.title')->setLabel('Companies'),
         ]);

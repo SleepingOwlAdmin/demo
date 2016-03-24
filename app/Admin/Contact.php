@@ -10,7 +10,7 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
     $model->onDisplay(function () {
         $display = AdminDisplay::table()->paginate(10);
 
-        $display->setAttribute('class', 'table-info table-hover');
+        $display->setHtmlAttribute('class', 'table-info table-hover');
 
         $display->with('country', 'companies', 'author');
         $display->setFilters([
@@ -20,7 +20,7 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
         $display->setColumns([
             $photo = AdminColumn::image('photo')
                 ->setLabel('Photo<br/><small>(image)</small>')
-                ->setAttribute('class', 'hidden-sm hidden-xs')
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs')
                 ->setWidth('100px'),
             AdminColumn::link('fullName')
                 ->setLabel('Name<br/><small>(string with accessor)</small>')
@@ -28,11 +28,11 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
             AdminColumn::datetime('birthday')
                 ->setLabel('Birthday<br/><small>(datetime)</small>')
                 ->setWidth('150px')
-                ->setAttribute('class', 'text-center')
+                ->setHtmlAttribute('class', 'text-center')
                 ->setFormat('d.m.Y'),
             $country = AdminColumn::text('country.title')
                 ->setLabel('Country<br/><small>(string from related model)</small>')
-                ->setAttribute('class', 'hidden-sm hidden-xs hidden-md')
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs hidden-md')
                 ->append(
                     AdminColumn::filter('country_id')
                 ),
@@ -40,22 +40,22 @@ AdminSection::registerModel(Contact::class, function (ModelConfiguration $model)
                 ->setLabel('Author'),
             $companiesCount = AdminColumn::count('companies')
                 ->setLabel('Companies<br/><small>(count)</small>')
-                ->setAttribute('class', 'text-center hidden-sm hidden-xs')
+                ->setHtmlAttribute('class', 'text-center hidden-sm hidden-xs')
                 ->setWidth('50px'),
             $companies = AdminColumn::lists('companies.title')
                 ->setLabel('Companies<br/><small>(lists)</small>')
-                ->setAttribute('class', 'hidden-sm hidden-xs hidden-md'),
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs hidden-md'),
             AdminColumn::custom()->setLabel('Has Photo?<br/><small>(custom)</small>')->setCallback(function ($instance) {
                 return $instance->photo ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })
-                ->setAttribute('class', 'text-center')
+                ->setHtmlAttribute('class', 'text-center')
                 ->setWidth('50px'),
         ]);
 
-        $photo->getHeader()->setAttribute('class', 'hidden-sm hidden-xs');
-        $country->getHeader()->setAttribute('class', 'hidden-sm hidden-xs hidden-md');
-        $companies->getHeader()->setAttribute('class', 'hidden-sm hidden-xs hidden-md');
-        $companiesCount->getHeader()->setAttribute('class', 'hidden-sm hidden-xs');
+        $photo->getHeader()->setHtmlAttribute('class', 'hidden-sm hidden-xs');
+        $country->getHeader()->setHtmlAttribute('class', 'hidden-sm hidden-xs hidden-md');
+        $companies->getHeader()->setHtmlAttribute('class', 'hidden-sm hidden-xs hidden-md');
+        $companiesCount->getHeader()->setHtmlAttribute('class', 'hidden-sm hidden-xs');
 
         return $display;
     });
