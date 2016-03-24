@@ -58,7 +58,7 @@ AdminSection::registerModel(Form::class, function (ModelConfiguration $model) {
             ])
             ->addBody([
                 AdminFormElement::textarea('textarea', 'Textarea'),
-                AdminFormElement::ckeditor('ckeditor', 'Ckeditor'),
+                AdminFormElement::wysiwyg('ckeditor', 'Ckeditor'),
             ]);
 
         return $form;

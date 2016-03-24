@@ -30,7 +30,7 @@ AdminSection::registerModel(News5::class, function (ModelConfiguration $model) {
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
             AdminFormElement::checkbox('published', 'Published'),
-            AdminFormElement::ckeditor('text', 'Text'),
+            AdminFormElement::wysiwyg('text', 'Text'),
         ]);
     });
 });
