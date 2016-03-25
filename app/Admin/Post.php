@@ -15,7 +15,7 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
     $model->onCreateAndEdit(function() {
         return AdminForm::form()->setItems([
             AdminFormElement::text('title', 'Title')->required(),
-            AdminFormElement::wysiwyg('text', 'Text')->required(),
+            AdminFormElement::wysiwyg('text', 'Text', 'simplemde')->required()->setFilteredValueToField('text_html'),
         ]);
     });
 })->addMenuPage(Post::class);

@@ -64,7 +64,7 @@ AdminSection::registerModel(News3::class, function (ModelConfiguration $model) {
                 AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
                 AdminFormElement::checkbox('published', 'Published'),
             ])->addBody([
-                AdminFormElement::wysiwyg('text', 'Text'),
+                AdminFormElement::wysiwyg('text', 'Text', 'tinymce'),
             ]);
 
         $form->getButtons()

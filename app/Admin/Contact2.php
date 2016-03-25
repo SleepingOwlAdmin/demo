@@ -61,7 +61,7 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
                     return [
                         AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
                         AdminFormElement::multiselect('companies', 'Companies')->setModelForOptions(new Company)->setDisplay('title'),
-                        AdminFormElement::textarea('comment', 'Comment'),
+                        AdminFormElement::wysiwyg('comment', 'Comment', 'simplemde')->disableFilter(),
                     ];
                 })
         );
