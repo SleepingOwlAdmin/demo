@@ -44,9 +44,6 @@
 			"php artisan sleepingowl:install",
             "php artisan ide-helper:generate"
         ],
-        "pre-update-cmd": [
-            "php artisan clear-compiled"
-        ],
         "post-update-cmd": [
             "php artisan optimize"
         ]
