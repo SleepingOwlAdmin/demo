@@ -39,11 +39,14 @@ class AuthServiceProvider extends ServiceProvider
         //    });
         // }
 
-        view()->composer(AdminTemplate::getTemplateViewPath('_partials.header'), function($view) {
-            $view->getFactory()->inject(
-                'navbar.right', view('auth.partials.navbar')
-            );
-        });
+        /**
+         * HACK This kills all tests. No idea as to why.
+         */
+        //view()->composer(AdminTemplate::getViewPath('_partials.header'), function($view) {
+        //    $view->getFactory()->inject(
+        //        'navbar.right', view('auth.partials.navbar')
+        //    );
+        //});
     }
 
     /**
