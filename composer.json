@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "laravelrus/sleepingowl": "dev-master",
+        "laravelrus/sleepingowl": "dev-development",
         "baum/baum": "~1.1",
         "barryvdh/laravel-ide-helper": "^2.1"
     },
