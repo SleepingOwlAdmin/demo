@@ -4,5 +4,8 @@
 /public/packages
 Homestead.yaml
 Homestead.json
+/config/sleeping_owl.php
+_ide_helper.php
+.phpstorm.meta.php
 .env
 .idea

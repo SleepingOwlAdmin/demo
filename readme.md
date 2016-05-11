@@ -7,11 +7,11 @@ You can watch live http://demo.sleepingowladmin.ru/admin
 **Login**: admin@site.com
 **Password**: password
 
-After clone run `composer install`
-Create `.env` file
-Run `php artisan key:generate`
-Configutre database connection
-Run `php artisan migrate --seed`
+* After cloning the repository run `composer install`
+* Create `.env` file from `.env.example`
+* Run `php artisan key:generate`
+* Configure database connection
+* Run `php artisan migrate --seed`
 
 Enjoy!
 
