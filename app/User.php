@@ -4,10 +4,12 @@ namespace App;
 
 use App\Model\Contact;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use KodiComponents\Support\Upload;
+use Illuminate\Http\UploadedFile;
 
 class User extends Authenticatable
 {
-    use HasRoles;
+    use HasRoles, Upload;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +33,40 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'avatar' => 'image',
+    ];
+    
+    /**
+     * @return array
+     */
+    public function getUploadSettings()
+    {
+        return [
+            'avatar' => [
+                'fit' => [300, 300, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                }],
+            ],
+        ];
+    }
+
+    /**
+     * @param UploadedFile $file
+     *
+     * @return string
+     */
+    protected function getUploadFilename(UploadedFile $file)
+    {
+        return md5($this->id).'.'.$file->getClientOriginalExtension();
+    }
+
+    /**
      * @return bool
      */
     public function isSuperAdmin()
@@ -52,6 +88,18 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlOrBlankAttribute()
+    {
+        if (empty($url = $this->avatar_url)) {
+            return asset('images/blank.png');
+        }
+
+        return $url;
     }
 
     /**
