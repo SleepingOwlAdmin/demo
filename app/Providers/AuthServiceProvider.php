@@ -39,15 +39,13 @@ class AuthServiceProvider extends ServiceProvider
         //    });
         // }
 
-        if (! $this->app->environment('testing')) {
-            view()->composer(AdminTemplate::getViewPath('_partials.header'), function($view) {
-                $view->getFactory()->inject(
-                    'navbar.right', view('auth.partials.navbar_admin', [
-                        'user' => auth()->user()
-                    ])
-                );
-            });
-        }
+        view()->composer(AdminTemplate::getViewPath('_partials.header'), function($view) {
+            $view->getFactory()->inject(
+                'navbar.right', view('auth.partials.navbar_admin', [
+                    'user' => auth()->user()
+                ])
+            );
+        });
     }
 
     /**
