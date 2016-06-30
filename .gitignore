@@ -9,3 +9,4 @@ _ide_helper.php
 .phpstorm.meta.php
 .env
 .idea
+composer.lock
