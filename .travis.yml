@@ -24,4 +24,5 @@ before_install:
 install:
   - travis_retry composer install --no-interaction --prefer-dist
   - "php -r \"copy('.env.example', '.env');\""
-  - php artisan modules:migrate --seed
+  - php artisan key:generate
+  - php artisan migrate --seed
