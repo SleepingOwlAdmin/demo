@@ -1,4 +1,5 @@
 language: php
+sudo: required
 
 php:
   - 5.5
@@ -6,8 +7,21 @@ php:
   - 7.0
   - hhvm
 
+env:
+  - DB_USERNAME=root
+
+services:
+  - mysql
+
 before_script:
   - travis_retry composer self-update
 
+before_install:
+  - phpenv config-rm xdebug.ini
+  - mysql -e 'create database homestead;'
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('secret') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
 install:
   - travis_retry composer install --no-interaction --prefer-dist
+  - "php -r \"copy('.env.example', '.env');\""
+  - php artisan modules:migrate --seed

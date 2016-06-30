@@ -1,5 +1,7 @@
 ## SleepingOwl Admin Demo Application
 
+[![Build Status](https://travis-ci.org/SleepingOwlAdmin/demo.svg?branch=master)](https://travis-ci.org/SleepingOwlAdmin/demo)
+
 This is demo application for [SleepingOwl Admin](https://github.com/LaravelRUS/SleepingOwlAdmin).
 
 You can watch live http://demo.sleepingowladmin.ru/admin
