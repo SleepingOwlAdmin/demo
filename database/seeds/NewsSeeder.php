@@ -11,7 +11,7 @@ class NewsSeeder extends Seeder
     {
         News::truncate();
 
-        factory(News::class, 100)->create();
+        factory(News::class, 50)->create();
     }
 
 }

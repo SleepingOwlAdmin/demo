@@ -14,6 +14,7 @@ class ContactTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->artisan('db:seed');
 
         $this->actingAs(App\User::first());
         $this->faker = Faker\Factory::create();

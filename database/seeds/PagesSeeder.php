@@ -11,15 +11,7 @@ class PagesSeeder extends Seeder
     {
         Page::truncate();
 
-        $pages = factory(Page::class, 100)->create();
-
-        $pages->each(function(Page $page) use($pages) {
-            $childPage = $pages->random();
-
-            try {
-                $page->makeChildOf($childPage);
-            } catch (\Exception $e) {}
-        });
+        factory(Page::class, 20)->create();
     }
 
 }

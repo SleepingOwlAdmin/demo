@@ -9,6 +9,7 @@ class CompanyTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->artisan('db:seed');
 
         $this->actingAs(App\User::first());
     }

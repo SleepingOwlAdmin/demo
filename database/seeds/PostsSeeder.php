@@ -11,7 +11,7 @@ class PostsSeeder extends Seeder
     {
         Post::truncate();
 
-        factory(Post::class, 200)->create()->each(function(Post $post) {
+        factory(Post::class, 50)->create()->each(function(Post $post) {
             if (mt_rand(0, 10) < 3) {
                 $post->delete();
             }

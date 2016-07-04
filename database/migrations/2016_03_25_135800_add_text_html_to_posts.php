@@ -25,7 +25,7 @@ class AddTextHtmlToPosts extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->drop('text_html');
+            $table->dropColumn('text_html');
         });
     }
 }

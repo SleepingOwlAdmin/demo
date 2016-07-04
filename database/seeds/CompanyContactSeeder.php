@@ -14,7 +14,7 @@ class CompanyContactSeeder extends Seeder
         /** @var Company[] $companies */
         $companies = Company::all();
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             try {
                 $contacts->random()->companies()->attach($companies->random());
             } catch (\Exception $e) {

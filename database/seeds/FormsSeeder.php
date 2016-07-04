@@ -24,7 +24,7 @@ class FormsSeeder extends Seeder
             $files[] = $file->getFilename();
         }
 
-        factory(Form::class, 100)->create()->each(function(Form $form) use($faker, $files, $imagesPath) {
+        factory(Form::class, 30)->create()->each(function(Form $form) use($faker, $files, $imagesPath) {
             $image       = $faker->optional()->randomElement($files);
             $images      = [];
             $imagesCount = mt_rand(0, 3);

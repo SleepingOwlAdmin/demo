@@ -28,7 +28,7 @@ class ContactsSeeder extends Seeder
         $countries = Country::lists('id')->all();
         $users     = User::lists('id')->all();
 
-        factory(Contact::class, 100)->create()->each(function(Contact $contact) use($faker, $files, $users, $countries, $imagesPath) {
+        factory(Contact::class, 20)->create()->each(function(Contact $contact) use($faker, $files, $users, $countries, $imagesPath) {
             $image = $faker->optional()->randomElement($files);
 
             $contact->author()->associate($faker->randomElement($users));
