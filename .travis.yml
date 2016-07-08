@@ -3,8 +3,9 @@ sudo: required
 
 php:
   - 5.6
+  - 5.7
   - 7.0
-  - hhvm
+  - nightly
 
 env:
   - DB_USERNAME=root
