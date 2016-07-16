@@ -10,10 +10,10 @@
         "laravelrus/sleepingowl": "dev-development",
         "baum/baum": "~1.1",
         "intervention/image": "^2.3",
-        "barryvdh/laravel-ide-helper": "^2.1"
+        "fzaninotto/faker": "~1.4"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
+        "barryvdh/laravel-ide-helper": "^2.1",
         "mockery/mockery": "^0.9.4",
         "phpunit/phpunit": "~4.0",
         "symfony/css-selector": "2.8.*|3.0.*",
