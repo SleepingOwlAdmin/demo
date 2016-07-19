@@ -14,15 +14,19 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         $display = AdminDisplay::table();
         $display->with('country', 'companies');
         $display->setFilters([
-            AdminDisplayFilter::related('country_id')->setModel(Country::class)
+            AdminDisplayFilter::related('country_id')->setModel(Country::class),
+            AdminDisplayFilter::related('companies.title')->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS)
         ]);
 
         $display->setColumns([
             $photoColumn = AdminColumn::image('photo')->setLabel('Photo'),
             $fullNameColumn = AdminColumn::link('fullName')->setLabel('Name'),
             $birthdayColumn = AdminColumn::datetime('birthday')->setLabel('Birthday')->setFormat('d.m.Y'),
-            $countyTitleColumn = AdminColumn::text('country.title')->setLabel('Country')->append(AdminColumn::filter('country_id')),
-            $companyTitleColumn = AdminColumn::lists('companies.title')->setLabel('Companies'),
+            $countyTitleColumn = AdminColumn::text('country.title')->setLabel('Country')
+                ->append(AdminColumn::filter('country_id')),
+            $companyTitleColumn = AdminColumn::lists('companies.title')
+                ->setLabel('Companies')
+                ->append(AdminColumn::filter('companies.title')),
         ]);
 
         $photoColumn->getHeader()->setHtmlAttribute('class', 'bg-success text-center');
@@ -46,29 +50,35 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
         $display->setTabs(function() use ($id) {
             $tabs = [];
 
-            $form = AdminForm::form();
-            $form->setItems(
-                AdminFormElement::columns()
-                    ->addColumn(function() {
-                        return [
-                            AdminFormElement::text('firstName', 'First Name')->required(),
-                            AdminFormElement::text('lastName', 'Last Name')->required(),
-                            AdminFormElement::text('phone', 'Phone'),
-                            AdminFormElement::text('address', 'Address'),
-                        ];
-                    })->addColumn(function() {
-                        return [
-                            AdminFormElement::image('photo', 'Photo'),
-                            AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y'),
-                        ];
-                    })->addColumn(function() {
-                        return [
-                            AdminFormElement::text('country.title', 'Country title')->required(),
-                            AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
-                            AdminFormElement::textarea('comment', 'Comment'),
-                        ];
-                    })
+            $form = AdminForm::panel();
+
+            $form->addHeader(AdminFormElement::columns()
+                ->addColumn([
+                    AdminFormElement::text('firstName', 'First Name')->required()
+                ], 3)->addColumn([
+                    AdminFormElement::text('lastName', 'Last Name')->required()
+                ], 3)->addColumn([
+                    AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y')->required()
+                ])
             );
+
+            $form->addBody([
+                AdminFormElement::text('phone', 'Phone'),
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title')
+                    ], 4)->addColumn([
+                        AdminFormElement::textarea('address', 'Address')
+                    ])
+            ]);
+
+            $form->addBody([
+                AdminFormElement::textarea('comment', 'Comment'),
+            ]);
+
+            $form->addFooter([
+                AdminFormElement::image('photo', 'Photo'),
+            ]);
 
             $tabs[] = AdminDisplay::tab($form)->setLabel('Main Form')->setActive(true)->setIcon('<i class="fa fa-credit-card"></i>');
 
@@ -76,7 +86,8 @@ AdminSection::registerModel(Contact3::class, function (ModelConfiguration $model
                 $instance = Contact::find($id);
 
                 if (! is_null($instance->country_id)) {
-                    if (! is_null($country = AdminSection::getModel(Country::class)->fireFullEdit($instance->country_id))) {
+                    if (! is_null($country = AdminSection::getModel(Country::class)->fireEdit($instance->country_id))) {
+
                         $tabs[] = AdminDisplay::tab($country)->setLabel('Form from Related Model (Country)');
                     }
                 }
