@@ -38,33 +38,45 @@ AdminSection::registerModel(Contact2::class, function (ModelConfiguration $model
     $model->onCreateAndEdit(function($id = null) {
         $form = AdminForm::panel();
 
-        $form->setItems(
-            AdminFormElement::columns()
-                ->addColumn(function() {
-                    return [
-                        AdminFormElement::text('firstName', 'First Name')
-                            ->required('Please, type first name'),
+        $form->addHeader([
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::text('firstName', 'First Name')->required()
+                    ], 3)->addColumn([
+                        AdminFormElement::text('lastName', 'Last Name')->required()->addValidationMessage('required', 'You need to set last name')
+                    ], 3)->addColumn([
+                        AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y')->required()
+                    ])
+        ]);
 
-                        AdminFormElement::text('lastName', 'Last Name')
-                            ->required()
-                            ->addValidationMessage('required', 'You need to set last name'),
+        $companies = AdminSection::getModel(Company::class)->fireDisplay();
 
-                        AdminFormElement::text('phone', 'Phone'),
-                        AdminFormElement::text('address', 'Address'),
-                    ];
-                })->addColumn(function() {
-                    return [
-                        AdminFormElement::image('photo', 'Photo'),
-                        AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y'),
-                    ];
-                })->addColumn(function() {
-                    return [
-                        AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title'),
-                        AdminFormElement::multiselect('companies', 'Companies')->setModelForOptions(new Company)->setDisplay('title'),
-                        AdminFormElement::wysiwyg('comment', 'Comment', 'simplemde')->disableFilter(),
-                    ];
-                })
-        );
+        $companies->getScopes()->push(['withContact', $id]);
+        $companies->setParameter('contact_id', $id);
+        $companies->getColumns()->disableControls();
+
+        $tabs = AdminDisplay::tabbed([
+            'Contacts' => new \SleepingOwl\Admin\Form\FormElements([
+                AdminFormElement::text('phone', 'Phone'),
+                AdminFormElement::columns()
+                    ->addColumn([
+                        AdminFormElement::select('country_id', 'Country')->setModelForOptions(new Country)->setDisplay('title')
+                    ], 4)->addColumn([
+                        AdminFormElement::textarea('address', 'Address')
+                    ])
+            ]),
+            'Comment' => new \SleepingOwl\Admin\Form\FormElements([
+                AdminFormElement::wysiwyg('comment', 'Comment', 'simplemde')->disableFilter(),
+            ]),
+            'Companies' => new \SleepingOwl\Admin\Form\FormElements([
+                AdminFormElement::multiselect('companies', 'Companies')->setModelForOptions(new Company)->setDisplay('title'),
+                $companies
+            ]),
+        ]);
+
+        $form->addElement($tabs);
+
+        $form->addBody(AdminFormElement::image('photo', 'Photo'));
 
         $form->getButtons()
             ->setSaveButtonText('Save contact')
