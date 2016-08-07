@@ -25,6 +25,10 @@ class HomeController extends AdminController
      */
     public function dashboard()
     {
-        return $this->renderContent(view('dashboard'));
+
+        return $this->renderContent(
+            view('dashboard'),
+            trans('sleeping_owl::lang.dashboard')
+        );
     }
 }
