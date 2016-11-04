@@ -38,14 +38,6 @@ class AuthServiceProvider extends ServiceProvider
         //        return $user->hasPermission($permission);
         //    });
         // }
-
-        view()->composer(AdminTemplate::getViewPath('_partials.header'), function($view) {
-            $view->getFactory()->inject(
-                'navbar.right', view('auth.partials.navbar_admin', [
-                    'user' => auth()->user()
-                ])
-            );
-        });
     }
 
     /**
