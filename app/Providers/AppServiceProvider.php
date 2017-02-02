@@ -3,18 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use SleepingOwl\Admin\Contracts\Widgets\WidgetsRegistryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * @var array
-     */
-    protected $widgets = [
-        \App\Widgets\DashboardMap::class,
-        \App\Widgets\NavigationUserBlock::class
-    ];
-
     /**
      * Bootstrap any application services.
      *
@@ -22,12 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /** @var WidgetsRegistryInterface $widgetsRegistry */
-        $widgetsRegistry = $this->app[WidgetsRegistryInterface::class];
-
-        foreach ($this->widgets as $widget) {
-            $widgetsRegistry->registerWidget($widget);
-        }
+        //
     }
 
     /**

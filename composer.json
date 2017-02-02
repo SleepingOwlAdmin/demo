@@ -5,26 +5,27 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-        "laravelrus/sleepingowl": "dev-development",
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*",
+        "laravelrus/sleepingowl": "4.*@dev",
         "baum/baum": "~1.1",
         "intervention/image": "^2.3",
-        "fzaninotto/faker": "~1.4"
+        "barryvdh/laravel-ide-helper": "^2.1"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.1",
-        "mockery/mockery": "^0.9.4",
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Admin\\": "admin/"
         }
     },
     "autoload-dev": {
@@ -34,24 +35,23 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize",
-            "php artisan sleepingowl:install",
-            "php artisan ide-helper:generate"
+            "php artisan optimize"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize",
-            "php artisan vendor:publish --tag=assets --force"
+            "php artisan sleepingowl:update"
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

@@ -1,12 +1,8 @@
-/vendor
 /node_modules
 /public/storage
-/public/packages
-Homestead.yaml
+/storage/*.key
+/vendor
+/.idea
 Homestead.json
-/config/sleeping_owl.php
-_ide_helper.php
-.phpstorm.meta.php
+Homestead.yaml
 .env
-.idea
-composer.lock
