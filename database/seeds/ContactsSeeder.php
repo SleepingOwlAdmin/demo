@@ -25,8 +25,8 @@ class ContactsSeeder extends Seeder
             $files[] = $file->getFilename();
         }
 
-        $countries = Country::lists('id')->all();
-        $users     = User::lists('id')->all();
+        $countries = Country::pluck('id')->all();
+        $users     = User::pluck('id')->all();
 
         factory(Contact::class, 20)->create()->each(function(Contact $contact) use($faker, $files, $users, $countries, $imagesPath) {
             $image = $faker->optional()->randomElement($files);
