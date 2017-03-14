@@ -76,8 +76,8 @@ class Contacts5 extends Section
                  ->addColumn([
                         AdminFormElement::select('country_id', 'Country', Country::class)->setDisplay('title')
                 ], 4)
-        );   
-        $formVisual = AdminForm::form()->addElement(
+        );
+        $formHTML = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::textarea('address', 'Address')->required('so sad but this field is empty')
             ])
