@@ -27,6 +27,9 @@ $navigation->setFromArray([
              (new Page(\App\Model\Contact5::class))
                 ->setIcon('fa fa-fax')
                 ->setPriority(400),
+            (new Page(\App\Model\Contact6::class))
+                ->setIcon('fa fa-fax')
+                ->setPriority(400),
         ]
     ],
     [

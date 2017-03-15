@@ -28,6 +28,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         'App\Model\Contact3' => 'Admin\Http\Sections\Contacts3',
         'App\Model\Contact4' => 'Admin\Http\Sections\Contacts4',
         'App\Model\Contact5' => 'Admin\Http\Sections\Contacts5',
+        'App\Model\Contact6' => 'Admin\Http\Sections\Contacts6',
         'App\Model\Country' => 'Admin\Http\Sections\Countries',
         'App\Model\Form' => 'Admin\Http\Sections\Form',
         'App\Model\News' => 'Admin\Http\Sections\News',
