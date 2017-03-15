@@ -2,19 +2,20 @@
 namespace Admin\Http\Sections;
 use AdminColumn;
 use AdminDisplay;
-use AdminDisplayFilter;
+
 use AdminForm;
 use AdminFormElement;
-use AdminSection;
-use App\Model\Company;
+
 use App\Model\Country;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 use SleepingOwl\Admin\Form\FormElements;
+
+use App\Model\Contact6;
 /**
- * Class Contacts5
+ * Class Contacts6
  *
  * @property \App\Model\Contact5 $model
  *
@@ -41,7 +42,7 @@ class Contacts6 extends Section
      */
     public function onDisplay()
     {
-        $table = AdminDisplay::datatablesAsync()
+        $table = AdminDisplay::datatablesAsync()->setModelClass(Contact6::class)
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px'),
