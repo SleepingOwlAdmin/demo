@@ -5,13 +5,14 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
-use FormElements;
 use AdminSection;
 use App\Model\Company;
 use App\Model\Country;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
+
+use SleepingOwl\Admin\Form\FormElements;
 /**
  * Class Contacts5
  *
