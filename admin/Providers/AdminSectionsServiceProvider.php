@@ -22,24 +22,29 @@ class AdminSectionsServiceProvider extends ServiceProvider
      * @var array
      */
     protected $sections = [
-        'App\Model\Company' => 'Admin\Http\Sections\Companies',
-        'App\Model\Contact' => 'Admin\Http\Sections\Contacts',
-        'App\Model\Contact2' => 'Admin\Http\Sections\Contacts2',
-        'App\Model\Contact3' => 'Admin\Http\Sections\Contacts3',
-        'App\Model\Contact4' => 'Admin\Http\Sections\Contacts4',
-        'App\Model\Contact5' => 'Admin\Http\Sections\Contacts5',
-        'App\Model\Contact6' => 'Admin\Http\Sections\Contacts6',
-        'App\Model\Country' => 'Admin\Http\Sections\Countries',
-        'App\Model\Form' => 'Admin\Http\Sections\Form',
-        'App\Model\News' => 'Admin\Http\Sections\News',
-        'App\Model\News2' => 'Admin\Http\Sections\News2',
-        'App\Model\News3' => 'Admin\Http\Sections\News3',
-        'App\Model\News4' => 'Admin\Http\Sections\News4',
-        'App\Model\News5' => 'Admin\Http\Sections\News5',
-        'App\Model\Page' => 'Admin\Http\Sections\Pages',
-        'App\Model\Post' => 'Admin\Http\Sections\Posts',
-        'App\Role' => 'Admin\Http\Sections\Roles',
-        'App\User' => 'Admin\Http\Sections\Users',
+        'App\Model\Company'         => 'Admin\Http\Sections\Companies',
+        'App\Model\Country'         => 'Admin\Http\Sections\Countries',
+        'App\Model\Form'            => 'Admin\Http\Sections\Form',
+        'App\Model\Page'            => 'Admin\Http\Sections\Pages',
+        'App\Model\Post'            => 'Admin\Http\Sections\Posts',
+
+        'App\Model\Contact'         => 'Admin\Http\Sections\Contacts',
+        'App\Model\Contact2'        => 'Admin\Http\Sections\Contacts2',
+        'App\Model\Contact3'        => 'Admin\Http\Sections\Contacts3',
+        'App\Model\Contact4'        => 'Admin\Http\Sections\Contacts4',
+
+        'App\Model\News'            => 'Admin\Http\Sections\News',
+        'App\Model\News2'           => 'Admin\Http\Sections\News2',
+        'App\Model\News3'           => 'Admin\Http\Sections\News3',
+        'App\Model\News4'           => 'Admin\Http\Sections\News4',
+        'App\Model\News5'           => 'Admin\Http\Sections\News5',
+
+        'App\Model\Contact5'        => 'Admin\Http\Sections\Contacts5',
+        'App\Model\Contact6'        => 'Admin\Http\Sections\Contacts6',
+        'App\Model\NewsTabsBadges'  => 'Admin\Http\Sections\TabsBadges',
+
+        'App\Role'                  => 'Admin\Http\Sections\Roles',
+        'App\User'                  => 'Admin\Http\Sections\Users',
     ];
 
     /**
@@ -49,13 +54,14 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function boot(\SleepingOwl\Admin\Admin $admin)
     {
-        parent::boot($admin);
-
         $this->loadViewsFrom(base_path("admin/resources/views"), 'admin');
         $this->registerPolicies('Admin\\Policies\\');
 
         $this->app->call([$this, 'registerRoutes']);
         $this->app->call([$this, 'registerNavigation']);
+
+        parent::boot($admin);
+
         $this->app->call([$this, 'registerViews']);
         $this->app->call([$this, 'registerMediaPackages']);
     }

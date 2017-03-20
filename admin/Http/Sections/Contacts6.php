@@ -1,19 +1,21 @@
 <?php
 namespace Admin\Http\Sections;
-use AdminColumn;
-use AdminDisplay;
 
 use AdminForm;
+use AdminColumn;
+use AdminDisplay;
 use AdminFormElement;
-
-use App\Model\Country;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
-use SleepingOwl\Admin\Contracts\Form\FormInterface;
-use SleepingOwl\Admin\Section;
-
 use SleepingOwl\Admin\Form\FormElements;
 
+use App\Model\Country;
 use App\Model\Contact6;
+
+use SleepingOwl\Admin\Section;
+use SleepingOwl\Admin\Contracts\Initializable;
+use SleepingOwl\Admin\Contracts\Form\FormInterface;
+use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+
+
 /**
  * Class Contacts6
  *
@@ -21,7 +23,7 @@ use App\Model\Contact6;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Contacts6 extends Section
+class Contacts6 extends Section implements Initializable
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -37,6 +39,21 @@ class Contacts6 extends Section
      * @var string
      */
     protected $alias;
+
+    /**
+     * Initialize class.
+     */
+
+    public function initialize()
+    {
+        $page = \AdminNavigation::getPages()->findById('tabs-examples');
+
+        $page->addPage(
+            $this->makePage(300)
+        );
+
+    }
+
     /**
      * @return DisplayInterface
      */
@@ -58,6 +75,7 @@ class Contacts6 extends Section
 
         $tabs->appendTab(
             new  FormElements([
+                '<p class="alert bg-info">Использование <B>DataTablesAsync</B> в <B>Tabs</B> </p>',
                 $table
             ])
             ,

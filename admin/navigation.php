@@ -24,12 +24,12 @@ $navigation->setFromArray([
             (new Page(\App\Model\Contact4::class))
                 ->setIcon('fa fa-fax')
                 ->setPriority(400),
-             (new Page(\App\Model\Contact5::class))
-                ->setIcon('fa fa-fax')
-                ->setPriority(400),
-            (new Page(\App\Model\Contact6::class))
-                ->setIcon('fa fa-fax')
-                ->setPriority(400),
+//            (new Page(\App\Model\Contact5::class))
+//                ->setIcon('fa fa-fax')
+//                ->setPriority(400),
+//            (new Page(\App\Model\Contact6::class))
+//                ->setIcon('fa fa-fax')
+//                ->setPriority(400),
         ]
     ],
     [
@@ -52,6 +52,12 @@ $navigation->setFromArray([
                 ->setIcon('fa fa-newspaper-o')
                 ->setPriority(40)
         ]
+    ],
+    [
+        'title' => "Tabs Examples",
+        'icon' => 'fa fa-newspaper-o',
+        'id'=>'tabs-examples',
+
     ],
     [
         'title' => 'Permissions',

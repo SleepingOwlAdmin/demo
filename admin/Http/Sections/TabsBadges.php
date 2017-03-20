@@ -2,30 +2,29 @@
 namespace Admin\Http\Sections;
 
 use AdminForm;
+use AdminColumn;
 use AdminDisplay;
 use AdminFormElement;
+use AdminColumnEditable;
+
 
 use SleepingOwl\Admin\Form\FormElements;
 
 
-use App\Model\Company;
+use App\Model\NewsTabsBadges;
 use App\Model\Country;
-use App\Model\Contact;
 
-use AdminSection;
-use SleepingOwl\Admin\Section;
-use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 
 /**
- * Class Contacts5
+ * Class TabsBadges
  *
  * @property \App\Model\Contact5 $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Contacts5 extends Section implements Initializable
+class TabsBadges extends Contacts5
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -36,11 +35,12 @@ class Contacts5 extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Tabbed Forms ';
+    protected $title = 'Tabs Badges';
     /**
      * @var string
      */
-    protected $alias;
+    protected $alias = 'tabs-badges';
+
 
     /**
      * Initialize class.
@@ -62,47 +62,48 @@ class Contacts5 extends Section implements Initializable
     public function onDisplay()
     {
 
-        $oneForm[] ='<p class="alert bg-info">
-                        В данном примере показано использование нескольких независимых форм в табах.
-                        <br>
-                        При нажатии кнопки Сохранить сохраняется только форма активного Таба.
-                    </p>
-                   
-        ';
+        $columns = [
+            AdminColumn::link('title', 'Title'),
+            AdminColumn::datetime('date', 'Date')->setFormat('d.m.Y')->setWidth('150px'),
+            AdminColumnEditable::checkbox('published', 'Published'),
+        ];
 
 
-        foreach (Contact::limit(1)->pluck('id') as $id){
-            if (! is_null($id)){
-                $oneForm[] = $this->fireEdit($id);
-            }
-        }
+        $table =  AdminDisplay::table()->setApply(function($query) {
+            $query->orderBy('date', 'desc');
+        })->paginate(10)->setColumns($columns);
 
-        $severalforms[] ='<p class="alert bg-info">В данном примере показано использование нескольких форм на одной странице полученных методом FireEdit()<BR/> Сохраняеются изменения только одной формы.</p>';
+        $tablePublushed =  AdminDisplay::table()->setApply(function($query) {
+            $query->orderBy('date', 'desc');
+        })->paginate(10)->getScopes()->set('published') ->setColumns($columns);
 
-        foreach (Company::limit(5)->pluck('id') as $id){
-            if (!is_null($id)){
-                $severalforms[] = AdminSection::getModel(Company::class)->fireEdit($id);
-            }
-        }
+        $tableUnpublushed =  AdminDisplay::table()->setApply(function($query) {
+            $query->orderBy('date', 'desc');
+        })->paginate(10)->getScopes()->set('unpublished') ->setColumns($columns);
 
 
-        $columns = AdminFormElement::columns();
 
-        foreach (Company::limit(5)->pluck('id') as $id){
-            if (!is_null($id)){
-                $columns->addColumn([ AdminSection::getModel(Company::class)->fireEdit($id)], 6);
-            }
-        }
 
 
         $tabs = AdminDisplay::tabbed();
 
-        $tabs->appendTab(new FormElements($oneForm),'Forms In Tab');
 
+        $tabs->setElements([
 
-        $tabs->appendTab(new FormElements($severalforms),'Several Fired Forms In Tab Example');
+             AdminDisplay::tab($table)->setLabel('All News')->setBadge(NewsTabsBadges::count()),
 
-        $tabs->appendTab(new FormElements([$columns]),'Fired Forms In Columns');
+             AdminDisplay::tab($tablePublushed)
+                 ->setIcon('<i class="glyphicon glyphicon-send"></i>')
+                 ->setLabel('Published News')
+                 ->setBadge(function(){
+                    return NewsTabsBadges::published()->count();
+             }),
+
+             AdminDisplay::tab($tableUnpublushed)->setLabel('Unpublished News')->seticon('<i class="glyphicon glyphicon-alert"></i>')->setBadge(function(){
+                 return NewsTabsBadges::where('published', 0)->count();
+             }),
+        ]);
+
 
         return $tabs;
     }
@@ -114,7 +115,7 @@ class Contacts5 extends Section implements Initializable
     public function onEdit($id)
     {
         $formPrimary = AdminForm::form()->addElement(
-               AdminFormElement::columns()
+            AdminFormElement::columns()
                 ->addColumn([
                     AdminFormElement::text('firstName', 'First Name')->required()
                 ], 3)
@@ -124,26 +125,26 @@ class Contacts5 extends Section implements Initializable
                 ->addColumn([
                     AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y')->required()
                 ],3)
-                 ->addColumn([
-                        AdminFormElement::select('country_id', 'Country', Country::class)->setDisplay('title')
+                ->addColumn([
+                    AdminFormElement::select('country_id', 'Country', Country::class)->setDisplay('title')
                 ], 12)
         );
         $formHTML = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::textarea('address', 'Address')->required('so sad but this field is empty')
             ])
-        );     
+        );
         $formVisual = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::wysiwyg('address', 'Address')->required('so sad but this field is empty.')
             ])
-        );     
-             
-             
+        );
+
+
         $tabs = AdminDisplay::tabbed();
 
         $tabs->appendTab($formPrimary,  'Primary');
-     
+
         $tabs->appendTab($formHTML,     'HTML Adress Redactor');
 
         $tabs->appendTab($formVisual,   'Visual Adress Redactor');
