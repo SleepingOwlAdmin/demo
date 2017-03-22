@@ -11,6 +11,7 @@ $navigation->setFromArray([
     [
         'title' => "Contacts",
         'icon' => 'fa fa-credit-card',
+        'priority' =>'1000',
         'pages' => [
             (new Page(\App\Model\Contact::class))
                 ->setIcon('fa fa-fax')
@@ -35,6 +36,7 @@ $navigation->setFromArray([
     [
         'title' => "Content",
         'icon' => 'fa fa-newspaper-o',
+        'priority' =>'1000',
         'pages' => [
             (new Page(\App\Model\News::class))
                 ->setIcon('fa fa-newspaper-o')
@@ -56,12 +58,14 @@ $navigation->setFromArray([
     [
         'title' => "Tabs Examples",
         'icon' => 'fa fa-newspaper-o',
+        'priority' =>'1000',
         'id'=>'tabs-examples',
 
     ],
     [
         'title' => 'Permissions',
         'icon' => 'fa fa-group',
+        'priority' =>'10000',
         'pages' => [
             (new Page(\App\User::class))
                 ->setIcon('fa fa-user')

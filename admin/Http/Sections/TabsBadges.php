@@ -6,11 +6,10 @@ use AdminColumn;
 use AdminDisplay;
 use AdminFormElement;
 use AdminColumnEditable;
-
-
 use SleepingOwl\Admin\Form\FormElements;
 
 
+use App\Model\News;
 use App\Model\NewsTabsBadges;
 use App\Model\Country;
 
@@ -69,7 +68,7 @@ class TabsBadges extends Contacts5
         ];
 
 
-        $table =  AdminDisplay::table()->setApply(function($query) {
+        $table =  AdminDisplay::table()->setModelClass(News::class)->setApply(function($query) {
             $query->orderBy('date', 'desc');
         })->paginate(10)->setColumns($columns);
 
@@ -87,24 +86,42 @@ class TabsBadges extends Contacts5
 
         $tabs = AdminDisplay::tabbed();
 
-
         $tabs->setElements([
 
-             AdminDisplay::tab($table)->setLabel('All News')->setBadge(NewsTabsBadges::count()),
+                AdminDisplay::tab(
+                    new  FormElements([
+                        '<p class="alert bg-info">
+                            В <B>AdminDisplay::tab()</B> можно вызвать <B>setBadge</B> или передать в конструктор <B><em>Badge|string|Closure</em></B>
+                            <Br>
+                            То есть либо передать готовое значения для таба, либо передать callback который вычислит это значение, либо сам Badge.                        
+                        </p>
+                        ',
 
-             AdminDisplay::tab($tablePublushed)
-                 ->setIcon('<i class="glyphicon glyphicon-send"></i>')
-                 ->setLabel('Published News')
-                 ->setBadge(function(){
-                    return NewsTabsBadges::published()->count();
-             }),
+                        $table
+                    ])
+                )->setLabel('All News')->setBadge(NewsTabsBadges::count()),
 
-             AdminDisplay::tab($tableUnpublushed)->setLabel('Unpublished News')->seticon('<i class="glyphicon glyphicon-alert"></i>')->setBadge(function(){
+                AdminDisplay::tab($tablePublushed)
+                     ->setIcon('<i class="glyphicon glyphicon-send"></i>')
+                     ->setLabel('Published News')
+                     ->setBadge(function(){
+                        return NewsTabsBadges::published()->count();
+                    }),
+
+                AdminDisplay::tab($tableUnpublushed)
+                     ->setLabel('Unpublished News')
+                     ->seticon('<i class="glyphicon glyphicon-alert"></i>')
+                     ->setBadge(function(){
                  return NewsTabsBadges::where('published', 0)->count();
-             }),
+                }),
         ]);
+//
 
+//        $tabs->addElement(
+//
+//        );
 
+       // '<p class="alert bg-info">Использование <B>DataTablesAsync</B> в <B>Tabs</B> </p>',
         return $tabs;
     }
     /**
