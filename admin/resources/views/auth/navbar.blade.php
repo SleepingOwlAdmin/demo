@@ -21,9 +21,12 @@
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-                <a href="{{ url('/logout') }}">
+                <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-btn fa-sign-out"></i> @lang('sleeping_owl::lang.auth.logout')
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </li>
         </ul>
     </li>
