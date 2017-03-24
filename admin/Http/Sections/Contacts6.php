@@ -1,4 +1,5 @@
 <?php
+
 namespace Admin\Http\Sections;
 
 use AdminForm;
@@ -25,6 +26,7 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
  */
 class Contacts6 extends Section implements Initializable
 {
+
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
@@ -59,18 +61,41 @@ class Contacts6 extends Section implements Initializable
      */
     public function onDisplay()
     {
-        $table = AdminDisplay::datatablesAsync()->setModelClass(Contact6::class)
+        $table = AdminDisplay::datatablesAsync()->setName('somename')->setModelClass(Contact6::class)
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px'),
-                AdminColumn::datetime('birthday', 'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
+                AdminColumn::datetime('birthday',
+                    'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
+            ]);
+
+
+        $table2 = AdminDisplay::datatablesAsync()->setName('meganame')->setModelClass(Contact6::class)
+            ->setColumns([
+                AdminColumn::text('id', '#')->setWidth('200px'),
+                AdminColumn::link('fullName', 'Name')->setWidth('200px'),
+                AdminColumn::datetime('birthday',
+                    'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
+            ]);
+        $table3 = AdminDisplay::datatablesAsync()->setName('dupername')->setModelClass(Contact6::class)
+            ->setColumns([
+                AdminColumn::image('photo', 'Photo')->setWidth('100px'),
+                AdminColumn::datetime('birthday',
+                    'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
+            ]);
+
+        $table4 = AdminDisplay::datatablesAsync()->setName('fastname')->setModelClass(Contact6::class)
+            ->setColumns([
+                AdminColumn::image('photo', 'Photo')->setWidth('100px'),
+                AdminColumn::link('fullName', 'Name')->setWidth('200px')
             ]);
 
         $tabs = AdminDisplay::tabbed();
 
         $columns = AdminFormElement::columns()
-            ->addElement([$table])
-            ->addColumn([$table]);
+            ->addElement([$table2])
+            ->addColumn([$table3])
+            ->addColumn([$table4]);
 
 
         $tabs->appendTab(
@@ -92,6 +117,7 @@ class Contacts6 extends Section implements Initializable
         return $tabs;
 
     }
+
     /**
      * @param int $id
      *
@@ -100,43 +126,45 @@ class Contacts6 extends Section implements Initializable
     public function onEdit($id)
     {
         $formPrimary = AdminForm::form()->addElement(
-               AdminFormElement::columns()
+            AdminFormElement::columns()
                 ->addColumn([
                     AdminFormElement::text('firstName', 'First Name')->required()
                 ], 3)
                 ->addColumn([
-                    AdminFormElement::text('lastName', 'Last Name')->required()->addValidationMessage('required', 'You need to set last name')
+                    AdminFormElement::text('lastName', 'Last Name')->required()->addValidationMessage('required',
+                        'You need to set last name')
                 ], 3)
                 ->addColumn([
                     AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y')->required()
                 ])
-                 ->addColumn([
-                        AdminFormElement::select('country_id', 'Country', Country::class)->setDisplay('title')
+                ->addColumn([
+                    AdminFormElement::select('country_id', 'Country', Country::class)->setDisplay('title')
                 ], 4)
         );
-        $formHTML = AdminForm::form()->addElement(
+        $formHTML    = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::textarea('address', 'Address')->required('so sad but this field is empty')
             ])
-        );     
-        $formVisual = AdminForm::form()->addElement(
+        );
+        $formVisual  = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::wysiwyg('address', 'Address')->required('so sad but this field is empty.')
             ])
-        );     
-             
-             
+        );
+
+
         $tabs = AdminDisplay::tabbed();
 
-        $tabs->appendTab($formPrimary,  'Primary');
-     
-        $tabs->appendTab($formHTML,     'HTML Adress Redactor');
+        $tabs->appendTab($formPrimary, 'Primary');
 
-        $tabs->appendTab($formVisual,   'Visual Adress Redactor');
-             
-             
+        $tabs->appendTab($formHTML, 'HTML Adress Redactor');
+
+        $tabs->appendTab($formVisual, 'Visual Adress Redactor');
+
+
         return $tabs;
     }
+
     /**
      * @return FormInterface
      */
