@@ -78,7 +78,7 @@ class TabbedDataTablesAsync extends Section implements Initializable
             null,
             AdminColumnFilter::select()->setModel(new Contact6)->setDisplay('address')->setPlaceholder('Имя не выбрано'),
 
-        ])->setPlacement('panel.heading');
+        ]);
 
 
 
@@ -112,7 +112,11 @@ class TabbedDataTablesAsync extends Section implements Initializable
 
         $tabs->appendTab(
             new  FormElements([
-                '<p class="alert bg-info">Использование <B>DataTablesAsync</B> в <B>Tabs</B> </p>',
+                '<div class="alert bg-info">
+                    <h4> Использование <B>DataTablesAsync</B> в <B>Tabs</B></h4>
+                    <p>У каждой формы в табе должен быть уникальный <b>name</b> проставленный методом <b>setName</b> у таблицы</p>
+                    <h5>AdminDisplay::datatablesAsync()->setName("somename")</h5>  
+                </div>',
                 $table
             ])
             ,
