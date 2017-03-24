@@ -40,7 +40,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         'App\Model\News5'           => 'Admin\Http\Sections\News5',
 
         'App\Model\Contact5'        => 'Admin\Http\Sections\Contacts5',
-        'App\Model\Contact6'        => 'Admin\Http\Sections\Contacts6',
+        'App\Model\Contact6'        => 'Admin\Http\Sections\TabbedDataTablesAsync',
         'App\Model\NewsTabsBadges'  => 'Admin\Http\Sections\TabsBadges',
 
         'App\Role'                  => 'Admin\Http\Sections\Roles',
@@ -71,7 +71,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function registerNavigation(NavigationInterface $navigation)
     {
-        require base_path('admin/navigation.php');
+        require base_path('admin/TabbedDataTablesAsync.php');
     }
 
     /**

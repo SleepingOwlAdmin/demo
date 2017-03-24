@@ -6,6 +6,7 @@ use AdminForm;
 use AdminColumn;
 use AdminDisplay;
 use AdminFormElement;
+use AdminColumnFilter;
 use SleepingOwl\Admin\Form\FormElements;
 
 use App\Model\Country;
@@ -24,7 +25,7 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Contacts6 extends Section implements Initializable
+class TabbedDataTablesAsync extends Section implements Initializable
 {
 
     /**
@@ -65,9 +66,20 @@ class Contacts6 extends Section implements Initializable
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px'),
+                AdminColumn::text('address', 'Address')->setWidth('200px'),
                 AdminColumn::datetime('birthday',
                     'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
             ]);
+
+
+
+        $table->setColumnFilters([
+            null,
+            null,
+            AdminColumnFilter::select()->setModel(new Contact6)->setDisplay('address')->setPlaceholder('Имя не выбрано'),
+
+        ])->setPlacement('panel.heading');
+
 
 
         $table2 = AdminDisplay::datatablesAsync()->setName('meganame')->setModelClass(Contact6::class)
