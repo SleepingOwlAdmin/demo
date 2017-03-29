@@ -42,7 +42,11 @@ class Form extends Section implements Initializable
      */
     public function initialize()
     {
-        $this->addToNavigation(100);
+        $page = \AdminNavigation::getPages()->findById('forms-examples');
+
+        $page->addPage(
+            $this->makePage(0)
+        );
     }
 
     /**

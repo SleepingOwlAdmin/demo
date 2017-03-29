@@ -64,11 +64,6 @@ class News extends Section
             AdminFormElement::checkbox('published', 'Published'),
             AdminFormElement::wysiwyg('text', 'Text'),
         ]);
-
-        $form->getButtons()
-             ->setSaveButtonText('Save news')
-             ->hideSaveAndCloseButton();
-
         return $form;
     }
 

@@ -62,6 +62,18 @@ $navigation->setFromArray([
         'id'=>'tabs-examples',
 
     ],
+
+    [
+        'title' => "Forms & Buttons",
+        'icon' => 'fa fa-newspaper-o',
+        'priority' =>'1001',
+        'id'=>'forms-examples',
+        'badge' => 'New'
+    ],
+
+
+
+
     [
         'title' => 'Permissions',
         'icon' => 'fa fa-group',

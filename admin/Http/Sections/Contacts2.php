@@ -112,10 +112,6 @@ class Contacts2 extends Section
 
         $form->addBody(AdminFormElement::image('photo', 'Photo'));
 
-        $form->getButtons()
-             ->setSaveButtonText('Save contact')
-             ->hideCancelButton();
-
         return $form;
     }
 

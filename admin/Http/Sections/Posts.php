@@ -6,9 +6,13 @@ use AdminColumn;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
+use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+
 use SleepingOwl\Admin\Section;
+use SleepingOwl\Admin\Contracts\Initializable;
+
 
 /**
  * Class Posts
@@ -17,7 +21,7 @@ use SleepingOwl\Admin\Section;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Posts extends Section
+class Posts extends Section implements Initializable
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -35,6 +39,15 @@ class Posts extends Section
      * @var string
      */
     protected $alias;
+
+    /**
+     * Initialize class.
+     */
+    public function initialize()
+    {
+        $this->addToNavigation()->setIcon('fa fa-globe');
+    }
+
 
     /**
      * @return DisplayInterface

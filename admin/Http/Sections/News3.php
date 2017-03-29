@@ -105,9 +105,6 @@ class News3 extends Section
                 AdminFormElement::wysiwyg('text', 'Text', 'tinymce'),
             ]);
 
-        $form->getButtons()
-             ->setSaveButtonText('Save news')
-             ->hideSaveAndCloseButton();
 
         return $form;
     }

@@ -120,11 +120,6 @@ class Contacts extends Section
             })
         );
 
-        $form
-            ->getButtons()
-            ->setSaveButtonText('Save contact')
-            ->hideCancelButton();
-
         return $form;
     }
 
