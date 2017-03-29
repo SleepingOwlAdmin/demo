@@ -24,7 +24,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
     protected $sections = [
         'App\Model\Company'         => 'Admin\Http\Sections\Companies',
         'App\Model\Country'         => 'Admin\Http\Sections\Countries',
-        'App\Model\Form'            => 'Admin\Http\Sections\Form',
         'App\Model\Page'            => 'Admin\Http\Sections\Pages',
         'App\Model\Post'            => 'Admin\Http\Sections\Posts',
 
@@ -42,6 +41,11 @@ class AdminSectionsServiceProvider extends ServiceProvider
         'App\Model\Contact5'        => 'Admin\Http\Sections\Contacts5',
         'App\Model\Contact6'        => 'Admin\Http\Sections\TabbedDataTablesAsync',
         'App\Model\NewsTabsBadges'  => 'Admin\Http\Sections\TabsBadges',
+
+
+        'App\Model\Forms\Form'      => 'Admin\Http\Sections\Forms\Form',
+        'App\Model\Forms\Form2'     => 'Admin\Http\Sections\Forms\FormButtons',
+
 
         'App\Role'                  => 'Admin\Http\Sections\Roles',
         'App\User'                  => 'Admin\Http\Sections\Users',

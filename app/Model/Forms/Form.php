@@ -1,9 +1,10 @@
-<?php namespace App\Model;
+<?php namespace App\Model\Forms;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
+    protected $table ='forms';
 
     protected $fillable = [
         'title',

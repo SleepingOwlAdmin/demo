@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Http\Sections;
+namespace Admin\Http\Sections\Forms;
 
 use AdminColumn;
 use AdminDisplay;
@@ -30,7 +30,7 @@ class Form extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Form Items';
+    protected $title = 'All Form Items';
 
     /**
      * @var string
