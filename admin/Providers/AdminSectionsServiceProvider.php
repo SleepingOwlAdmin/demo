@@ -71,7 +71,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function registerNavigation(NavigationInterface $navigation)
     {
-        require base_path('admin/TabbedDataTablesAsync.php');
+        require base_path('admin/navigation.php');
     }
 
     /**

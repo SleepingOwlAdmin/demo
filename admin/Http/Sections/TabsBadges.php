@@ -6,10 +6,10 @@ use AdminColumn;
 use AdminDisplay;
 use AdminFormElement;
 use AdminColumnEditable;
+use KodiComponents\Navigation\Badge;
 use SleepingOwl\Admin\Form\FormElements;
 
 
-use App\Model\News;
 use App\Model\NewsTabsBadges;
 use App\Model\Country;
 
@@ -68,7 +68,7 @@ class TabsBadges extends Contacts5
         ];
 
 
-        $table =  AdminDisplay::table()->setModelClass(News::class)->setApply(function($query) {
+        $table =  AdminDisplay::table()->setModelClass(NewsTabsBadges::class)->setApply(function($query) {
             $query->orderBy('date', 'desc');
         })->paginate(10)->setColumns($columns);
 
@@ -81,20 +81,16 @@ class TabsBadges extends Contacts5
         })->paginate(10)->getScopes()->set('unpublished') ->setColumns($columns);
 
 
-
-
-
         $tabs = AdminDisplay::tabbed();
 
         $tabs->setElements([
 
                 AdminDisplay::tab(
                     new  FormElements([
-                        '<p class="alert bg-info">
-                            В <B>AdminDisplay::tab()</B> можно вызвать <B>setBadge</B> или передать в конструктор <B><em>Badge|string|Closure</em></B>
-                            <Br>
-                            То есть либо передать готовое значения для таба, либо передать callback который вычислит это значение, либо сам Badge.                        
-                        </p>
+                        '<div class="alert bg-info">
+                           <p>В <B>AdminDisplay::tab()</B> можно вызвать <B>setBadge</B> или передать в конструктор <B><em>Badge|string|Closure</em></B></p>                           
+                           <p>То есть либо передать готовое значения для таба, либо передать callback который вычислит это значение, либо сам Badge. </p>  
+                        </div>
                         ',
 
                         $table
@@ -114,14 +110,11 @@ class TabsBadges extends Contacts5
                      ->setBadge(function(){
                  return NewsTabsBadges::where('published', 0)->count();
                 }),
+                AdminDisplay::tab($tableUnpublushed)
+                    ->setLabel('Last')
+                    ->setBadge(new Badge()),
         ]);
-//
 
-//        $tabs->addElement(
-//
-//        );
-
-       // '<p class="alert bg-info">Использование <B>DataTablesAsync</B> в <B>Tabs</B> </p>',
         return $tabs;
     }
     /**

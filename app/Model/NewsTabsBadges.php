@@ -1,4 +1,5 @@
 <?php namespace App\Model;
+
 class NewsTabsBadges extends News
 {
     public function scopePublished($query){

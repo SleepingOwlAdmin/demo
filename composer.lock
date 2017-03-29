@@ -1476,6 +1476,7 @@
                 "laravel"
             ],
             "time": "2017-03-29T14:45:05+00:00"
+
         },
         {
             "name": "league/flysystem",
