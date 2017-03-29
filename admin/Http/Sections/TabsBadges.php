@@ -10,7 +10,6 @@ use KodiComponents\Navigation\Badge;
 use SleepingOwl\Admin\Form\FormElements;
 
 
-use App\Model\News;
 use App\Model\NewsTabsBadges;
 use App\Model\Country;
 
@@ -69,7 +68,7 @@ class TabsBadges extends Contacts5
         ];
 
 
-        $table =  AdminDisplay::table()->setModelClass(News::class)->setApply(function($query) {
+        $table =  AdminDisplay::table()->setModelClass(NewsTabsBadges::class)->setApply(function($query) {
             $query->orderBy('date', 'desc');
         })->paginate(10)->setColumns($columns);
 
