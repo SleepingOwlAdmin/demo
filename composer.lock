@@ -784,16 +784,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb"
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/20ff8bbb57205368b4b42d094642a3e52dac85fb",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
                 "shasum": ""
             },
             "require": {
@@ -822,7 +822,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-11-02T15:56:58+00:00"
+            "time": "2017-03-29T16:04:15+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1417,12 +1417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelRUS/SleepingOwlAdmin.git",
-                "reference": "f81d9d7758e9b27b5e6815f2c82cea388e4b3a34"
+                "reference": "25020fc3200d9b4c320cea368014126a31b1d90d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/f81d9d7758e9b27b5e6815f2c82cea388e4b3a34",
-                "reference": "f81d9d7758e9b27b5e6815f2c82cea388e4b3a34",
+                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/25020fc3200d9b4c320cea368014126a31b1d90d",
+                "reference": "25020fc3200d9b4c320cea368014126a31b1d90d",
                 "shasum": ""
             },
             "require": {
@@ -1475,7 +1475,7 @@
                 "crud",
                 "laravel"
             ],
-            "time": "2017-03-29T15:28:16+00:00"
+            "time": "2017-03-30T04:11:15+00:00"
         },
         {
             "name": "league/flysystem",
