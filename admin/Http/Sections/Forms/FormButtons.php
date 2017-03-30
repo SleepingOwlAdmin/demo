@@ -108,9 +108,11 @@ class FormButtons extends Section implements Initializable
 
         $form2->getButtons()->replaceButtons([
             'delete' => null,
-            'save'   => AdminFormButton::save()->setText('Сохранить'),
-            'save_and_create' => (new SaveAndCreate())->setText('Сохранить и создать'),
-            'save_and_close'  => (new SaveAndClose())->setText('Сохранить и закрыть'),
+            'save'   => AdminFormButton::save()->setGroupElements([
+                'save_and_create' => (new SaveAndCreate())->setText('Сохранить и создать'),
+                'save_and_close'  => new SaveAndClose(),
+            ])->setText('Сохранить'),
+
             'cancel'  => AdminFormButton::cancel()->setText('Отменить'),
         ]);
 
@@ -121,22 +123,27 @@ class FormButtons extends Section implements Initializable
                     <h4><B>Default AdminForm Buttons </B> </h4>
                     <p>Мы можем заменить или убрать какую-либо кнопку передав ассоциативный массив в метод setButtons</p>
                     <pre>
-  $form->getButtons()->replaceButtons ([
-    \'delete\' => null,
-    \'save\'   => (new Save())->setText(\'Сохранить\'),
-    \'save_and_create\' => (new SaveAndCreate())->setText(\'Сохранить и создать\'),
-    \'save_and_close\'  => (new SaveAndClose())->setText(\'Сохранить и закрыть\'),
-    \'cancel\'  => (new Cancel())->setText(\'Отменить\'),
-      
-   ]); 
-   или 
+  
     $form->getButtons()->replaceButtons([
-            \'delete\' => null,
-            \'save\'   => AdminFormButton::save()->setText(\'Сохранить\'),
-            \'save_and_create\' => AdminFormButton::saveAndCreate()->setText(\'Сохранить и создать\'),
-            \'save_and_close\'  => AdminFormButton::saveAndClose()->setText(\'Сохранить и закрыть\'),
-            \'cancel\'  => AdminFormButton::cancel()->setText(\'Отменить\'),
+            \'delete\' => null, // Убираем кнопку Delete
+            \'save\'   => (new Save())->setGroupElements([
+                \'save_and_create\' => new SaveAndCreate()->setText(\'Сохранить и создать\'),
+                \'save_and_close\'  => new SaveAndClose(),
+            ])->setText(\'Сохранить\'),
+
+            \'cancel\'  => (new Cancel())->setText(\'Отменить\'),
         ]);
+   или 
+   $form->getButtons()->replaceButtons([
+            \'delete\' => null, // Убираем кнопку Delete
+            \'save\'   =>  AdminFormButton::save()->setGroupElements([
+                \'save_and_create\' => (new SaveAndCreate())->setText(\'Сохранить и создать\'),
+                \'save_and_close\'  => AdminFormButton::saveAndClose(),
+            ])->setText(\'Сохранить\'),
+
+            \'cancel\'  => AdminFormButton::cancel(->setText(\'Отменить\'),
+        ]);
+           
                     </pre>
                     <p>Будут изменены только перечисленные в массиве кнопки</p>                   
                  
@@ -181,6 +188,11 @@ class FormButtons extends Section implements Initializable
 
             'delete' => new Delete(),
             'call_to_grandma' => (new Save())->setText('Позвонить бабушке'),
+            'write'   => (new Save())->setGroupElements([
+                'write_will' => AdminFormButton::save()->setText('Написать завещание'),
+                'write_order'  => AdminFormButton::save()->setText('Оформить заказ'),
+                'write_mail'  => AdminFormButton::save()->setText('Отправить письмо'),
+            ])->setText('Написать'),
         ]);
 
 
