@@ -17,6 +17,10 @@ use SleepingOwl\Admin\Section;
 
 
 use SleepingOwl\Admin\Form\Buttons\Save;
+use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
+use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
+use SleepingOwl\Admin\Form\Buttons\Delete;
+use SleepingOwl\Admin\Form\Buttons\Cancel;
 
 
 
@@ -64,26 +68,8 @@ class FormButtons extends Section implements Initializable
     public function onDisplay()
     {
 
-     ;
-            return $this->fireEdit( Form::first()->id );
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return FormInterface
-     */
-    public function onEdit($id)
-    {
 
         $tabs = AdminDisplay::tabbed();
-
-        $form = AdminForm::panel()
-            ->addBody([
-                AdminFormElement::text('title', 'Title')->required(),
-        ]);
-
-        $form->getButtons();
 
         $tabs->appendTab(
             new  FormElements([
@@ -91,7 +77,7 @@ class FormButtons extends Section implements Initializable
                     <h4><B>Default AdminForm Buttons </B> </h4>
                     <p>У каждой формы по умолчанию задан набор кнопок, который представлен в виде массива</p>
                     <pre>
-   buttons = [
+   $this->buttons = [
         \'delete\' => new Delete(),
         \'save\'   => (new Save())->setGroupElements([
             \'save_and_create\' => new SaveAndCreate(),
@@ -101,7 +87,8 @@ class FormButtons extends Section implements Initializable
    ];
                     </pre>
                 </div>',
-                $form
+
+                $this->fireEdit(Form::First()->id)
             ])
             ,
             //Название таба
@@ -111,16 +98,20 @@ class FormButtons extends Section implements Initializable
 
 
 
-        $form2 = AdminForm::panel()->setModelClass(Form::class)
-            ->setElements([
-                AdminFormElement::text('title', 'Title')->required(),
-            ]);
 
-        $form2->getButtons()->setButtons([
+
+
+        $form2 = $this->fireEdit( Form::first()->id );
+
+
+        $form2->getButtons()->replaceButtons([
             'delete' => null,
-
-            'save'   => (new Save())-> setText('Сохранить'),
+            'save'   => (new Save())->setText('Сохранить'),
+            'save_and_create' => (new SaveAndCreate())->setText('Сохранить и создать'),
+            'save_and_close'  => (new SaveAndClose())->setText('Сохранить и закрыть'),
+            'cancel'  => (new Cancel())->setText('Отменить'),
         ]);
+
 
         $tabs->appendTab(
             new  FormElements([
@@ -128,13 +119,17 @@ class FormButtons extends Section implements Initializable
                     <h4><B>Default AdminForm Buttons </B> </h4>
                     <p>Мы можем заменить или убрать какую-либо кнопку передав ассоциативный массив в метод setButtons</p>
                     <pre>
-  $form->getButtons()->setButtons ([
-        \'delete\' => null,
-        \'save\' => new Save()::setText(\'Сохранить\'),
-       
+  $form->getButtons()->replaceButtons ([
+    \'delete\' => null,
+    \'save\'   => (new Save())->setText(\'Сохранить\'),
+    \'save_and_create\' => (new SaveAndCreate())->setText(\'Сохранить и создать\'),
+    \'save_and_close\'  => (new SaveAndClose())->setText(\'Сохранить и закрыть\'),
+    \'cancel\'  => (new Cancel())->setText(\'Отменить\'),
+      
    ]);
                     </pre>
-                    <p>Будут изменены только перечисленные в массиве кнопки</p>
+                    <p>Будут изменены только перечисленные в массиве кнопки</p>                   
+                 
                 </div>',
                 $form2
             ])
@@ -143,41 +138,158 @@ class FormButtons extends Section implements Initializable
             'Replace Form Buttons'
         );
 
+
+        $form3 = $this->fireEdit( Form::first()->id );
+
+        $form3->getButtons()->setButtons([]);
+
         $tabs->appendTab(
-            $form
+            new  FormElements([
+            '<div class="alert bg-info">
+                    <h4><B>Clear All  AdminForm Buttons </B> </h4>
+                    <p>Мы можем удалить все кнопки передав пустой массив в setButtons:</p>
+                    <pre>
+  $form->getButtons()->setButtons ([]);
+                    </pre>                                    
+                </div>',
+            $form3
+        ])
             ,
             //Название таба
             'Clear Form Buttons'
         );
 
+
+        $form4 = $this->fireEdit( Form::first()->id );
+
+        $form4->getButtons()->setButtons([
+            'cancel' => new Cancel(),
+            'save'   => (new Save())->setGroupElements([
+                'save_and_create' => new SaveAndCreate(),
+                'save_and_close'  => new SaveAndClose(),
+            ]),
+
+            'delete' => new Delete(),
+            'call_to_grandma' => (new Save())->setText('Позвонить бабушке'),
+        ]);
+
+
         $tabs->appendTab(
-            $form
+            new  FormElements([
+                    '<div class="alert bg-info">
+                    <h4><B>Clear All  AdminForm Buttons </B> </h4>
+                    <p>Передав свой массив, мы можем изменить порядок кнопок или добавить новые setButtons:</p>
+                    <pre>
+   $form4->getButtons()->setButtons([
+            \'cancel\' => new Cancel(),
+            \'save\'   => (new Save())->setGroupElements([
+                \'save_and_create\' => new SaveAndCreate(),
+                \'save_and_close\'  => new SaveAndClose(),
+            ]),
+
+            \'delete\' => new Delete(),
+            \'call_to_grandma\' => (new Save())->setText(\'Позвонить бабушке\'),
+    ]);
+                </pre>                       
+                <p>Вы можете создать свой класс Кнопки со своей логикой или унаследовать его от существующего.</p>
+                </div>',
+                    $form4
+            ])
             ,
             //Название таба
             'Add Form Buttons'
         );
 
-        $tabs->appendTab(
-            $form
-            ,
-            //Название таба
-            'Form Buttons HTML Attributes'
-        );
+
+
+        $form5 = $this->fireEdit( Form::first()->id );
+
+        $form5->getButtons()->setButtons([
+            'cancel' => (new Cancel())->getHtmlAttribute('style','border:5px solid green'),
+            'save'   => (new Save())->setGroupElements([
+                'save_and_create' => new SaveAndCreate(),
+                'save_and_close'  => new SaveAndClose(),
+            ]),
+
+            'delete' => new Delete(),
+        ]);
 
         $tabs->appendTab(
-            $form
+            new  FormElements([
+                '<div class="alert bg-info">
+                    <h4><B> AdminForm Buttons Placement</B> </h4>
+                    <p>Можно добавлять кнопоки используя метод setPlacement</p>
+                    <p>В этот метод мы передаем ассоциативный массив с указанием места установки дополнительных кнопок.</p>
+                    <pre>
+ $form5->getButtons()
+    ->setPlacements([
+        \'after\' => [\'title\', \'date\'],
+        \'before\' => [\'title\']
+]);
+                </pre>                       
+                </div>',
+                $form5
+            ])
             ,
             //Название таба
             'Form Buttons Placement'
         );
 
+
+
+
+
+        $form6 = $this->fireEdit( Form::first()->id );
+
+        $form6->getButtons()->replaceButtons ([
+            'save'   => (new Save())->setText('Сохранить')->setHtmlAttributes(['style'=>'border:3px solid purple; background: violet;', 'data-custom'=>'mydata']),
+
+            'delete'   => (new Delete())->setText('Не удалять')->setHtmlAttribute('style','border:3px solid purple; background: orange;'),
+        ])->setHtmlAttributes(['class'=>'pull-right','style'=>'background: grey']);
+
+        $tabs->appendTab(
+            new  FormElements([
+                '<div class="alert bg-info">
+                    <h4><B>Default AdminForm Buttons </B> </h4>
+                    <p>Для каждой кнопки или группы кнопок можно поменять или задать HTML атрибуты</p>
+                    <pre>
+      $form6->getButtons()->replaceButtons ([
+            \'save\'   => (new Save())->setText(\'Сохранить\')->setHtmlAttributes([\'style\'=>\'border:3px solid purple; background: violet;\', \'data-custom\'=>\'mydata\']),
+
+            \'delete\'   => (new Delete())->setText(\'Не удалять\')->setHtmlAttribute(\'style\',\'border:3px solid purple; background: violet;\'),
+        ])->setHtmlAttributes([\'class\'=>\'pull-right\',\'style\'=>\'background: grey\']);
+                    </pre>
+                    <p>Будут изменены только перечисленные в массиве кнопки</p>                   
+                 
+                </div>',
+                $form6
+            ])
+            ,
+            //Название таба
+            'Form Buttons HTML Attributes'
+        );
+
+
+
+
         return $tabs;
 
 
 
+    }
 
-
-
+    /**
+     * @param int $id
+     *
+     * @return FormInterface
+     */
+    public function onEdit($id)
+    {
+        return AdminForm::panel()
+            ->addBody([
+                AdminFormElement::text('title', 'Title')->required(),
+                AdminFormElement::date('date', 'Date'),
+        ]);
     }
 
     /**
