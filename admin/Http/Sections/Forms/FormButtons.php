@@ -23,6 +23,8 @@ use SleepingOwl\Admin\Form\Buttons\Delete;
 use SleepingOwl\Admin\Form\Buttons\Cancel;
 
 
+use AdminFormButton;
+
 
 /**
  * Class Form
@@ -106,10 +108,10 @@ class FormButtons extends Section implements Initializable
 
         $form2->getButtons()->replaceButtons([
             'delete' => null,
-            'save'   => (new Save())->setText('Сохранить'),
+            'save'   => AdminFormButton::save()->setText('Сохранить'),
             'save_and_create' => (new SaveAndCreate())->setText('Сохранить и создать'),
             'save_and_close'  => (new SaveAndClose())->setText('Сохранить и закрыть'),
-            'cancel'  => (new Cancel())->setText('Отменить'),
+            'cancel'  => AdminFormButton::cancel()->setText('Отменить'),
         ]);
 
 
@@ -126,7 +128,15 @@ class FormButtons extends Section implements Initializable
     \'save_and_close\'  => (new SaveAndClose())->setText(\'Сохранить и закрыть\'),
     \'cancel\'  => (new Cancel())->setText(\'Отменить\'),
       
-   ]);
+   ]); 
+   или 
+    $form->getButtons()->replaceButtons([
+            \'delete\' => null,
+            \'save\'   => AdminFormButton::save()->setText(\'Сохранить\'),
+            \'save_and_create\' => AdminFormButton::saveAndCreate()->setText(\'Сохранить и создать\'),
+            \'save_and_close\'  => AdminFormButton::saveAndClose()->setText(\'Сохранить и закрыть\'),
+            \'cancel\'  => AdminFormButton::cancel()->setText(\'Отменить\'),
+        ]);
                     </pre>
                     <p>Будут изменены только перечисленные в массиве кнопки</p>                   
                  
