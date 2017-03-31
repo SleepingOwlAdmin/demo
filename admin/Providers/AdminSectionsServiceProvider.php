@@ -2,6 +2,8 @@
 
 namespace Admin\Providers;
 
+use Admin\Http\Sections\Contacts;
+use Admin\Policies\ContactsSectionModelPolicy;
 use Illuminate\Routing\Router;
 use SleepingOwl\Admin\Contracts\Navigation\NavigationInterface;
 use SleepingOwl\Admin\Contracts\Template\MetaInterface;

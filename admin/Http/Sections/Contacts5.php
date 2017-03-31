@@ -5,6 +5,7 @@ use AdminForm;
 use AdminDisplay;
 use AdminFormElement;
 
+use Illuminate\Support\Facades\Input;
 use SleepingOwl\Admin\Form\FormElements;
 
 

@@ -1417,12 +1417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelRUS/SleepingOwlAdmin.git",
-                "reference": "25020fc3200d9b4c320cea368014126a31b1d90d"
+                "reference": "4212c7a9ddd250e9ddd51311aa7dfe23332e4e0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/25020fc3200d9b4c320cea368014126a31b1d90d",
-                "reference": "25020fc3200d9b4c320cea368014126a31b1d90d",
+                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/4212c7a9ddd250e9ddd51311aa7dfe23332e4e0f",
+                "reference": "4212c7a9ddd250e9ddd51311aa7dfe23332e4e0f",
                 "shasum": ""
             },
             "require": {
@@ -1475,7 +1475,7 @@
                 "crud",
                 "laravel"
             ],
-            "time": "2017-03-30T04:11:15+00:00"
+            "time": "2017-03-30T14:32:10+00:00"
         },
         {
             "name": "league/flysystem",

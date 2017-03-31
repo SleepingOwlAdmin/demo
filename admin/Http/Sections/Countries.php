@@ -6,6 +6,7 @@ use AdminColumn;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use AdminSection;
 use App\Model\Contact;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -84,11 +85,32 @@ class Countries extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $form = AdminForm::form();
-        $form->setElements([
-            AdminFormElement::text('title', 'Title')->required()->unique(),
-        ]);
-        return $form;
+        $display = AdminDisplay::tabbed();
+        $display->setTabs(function () use ($id) {
+            $tabs = [];
+
+            $form = AdminForm::form();
+            $form->setElements([
+                AdminFormElement::text('title', 'Title')->required()->unique(),
+            ]);
+
+            $tabs[] = AdminDisplay::tab($form)->setLabel("Main Edit")
+                ->setActive(true)
+                ->setIcon('<i class="fa fa-money"></i>');
+
+            if(!is_null($id)){
+                $contacts = AdminSection::getModel(Contact::class)->fireDisplay(['scopes' => ['withBusiness', $id]]);
+
+                $tabs[] = AdminDisplay::tab($contacts)
+                    ->setLabel("Contacts")
+                    ->setIcon('<i class="fa fa-credit-card"></i>');
+            }
+            return $tabs;
+
+
+        });
+        return $display;
+
     }
 
     /**

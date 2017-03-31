@@ -41,9 +41,9 @@ class Contacts extends Section
     /**
      * @return DisplayInterface
      */
-    public function onDisplay()
+    public function onDisplay($scopes = [])
     {
-        $display = AdminDisplay::table()->paginate(10);
+        $display = AdminDisplay::datatablesAsync()->paginate(10);
 
         $display->setHtmlAttribute('class', 'table-info table-hover');
 
