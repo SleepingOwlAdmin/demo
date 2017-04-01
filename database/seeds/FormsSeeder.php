@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Factory;
-use App\Model\Form;
+use App\Model\Forms\Form;
 use Illuminate\Database\Seeder;
 use Symfony\Component\Finder\Finder;
 

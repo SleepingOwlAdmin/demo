@@ -38,7 +38,9 @@ class News5 extends News4
     public function onDisplay()
     {
         $display = AdminDisplay::table()->setActions(
-            AdminColumn::action('export', 'Export')->setIcon('fa fa-share')
+            AdminColumn::action('export', 'Export')
+                ->setAction(route('admin.news.export'))
+                ->setIcon('fa fa-share')
         )->setColumns([
             AdminColumn::checkbox(),
             AdminColumn::link('title', 'Title'),
