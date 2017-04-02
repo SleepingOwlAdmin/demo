@@ -64,6 +64,7 @@ class TabbedDataTablesAsync extends Section implements Initializable
     {
         $table = AdminDisplay::datatablesAsync()->setName('somename')->setModelClass(Contact6::class)
             ->setColumns([
+                AdminColumn::text('id', 'ID')->setHtmlAttribute('class', 'reorder')->setWidth('100px'),
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px'),
                 AdminColumn::text('address', 'Address')->setWidth('200px'),
