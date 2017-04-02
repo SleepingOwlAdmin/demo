@@ -9,6 +9,8 @@ use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
+use SleepingOwl\Admin\Display\Column\Order;
+use SleepingOwl\Admin\Display\Tree\OrderTreeType;
 use SleepingOwl\Admin\Navigation\Badge;
 use SleepingOwl\Admin\Section;
 
@@ -51,7 +53,7 @@ class PageOrders extends Section implements Initializable
      */
     public function onDisplay()
     {
-        return AdminDisplay::tree()->setValue('title');
+        return AdminDisplay::tree(OrderTreeType::class)->setValue('title');
     }
 
     /**
