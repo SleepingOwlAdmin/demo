@@ -19,7 +19,7 @@ use SleepingOwl\Admin\Section;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Pages extends Section implements Initializable
+class PageOrders extends Section implements Initializable
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -31,7 +31,7 @@ class Pages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Pages';
+    protected $title = 'Pages (order)';
 
     /**
      * @var string
@@ -43,7 +43,7 @@ class Pages extends Section implements Initializable
      */
     public function initialize()
     {
-        $this->addToNavigation()->setIcon('fa fa-sitemap');
+        $this->addToNavigation()->setIcon('fa fa-sitemap')->setBadge(new Badge('New'));
     }
 
     /**

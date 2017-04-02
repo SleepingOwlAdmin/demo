@@ -19,6 +19,7 @@ class CreatePagesTable extends Migration
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
+            $table->integer('order')->default(0);
             $table->string('title');
             $table->text('text');
             $table->timestamps();

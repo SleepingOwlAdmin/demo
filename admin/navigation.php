@@ -25,12 +25,6 @@ $navigation->setFromArray([
             (new Page(\App\Model\Contact4::class))
                 ->setIcon('fa fa-fax')
                 ->setPriority(400),
-//            (new Page(\App\Model\Contact5::class))
-//                ->setIcon('fa fa-fax')
-//                ->setPriority(400),
-//            (new Page(\App\Model\Contact6::class))
-//                ->setIcon('fa fa-fax')
-//                ->setPriority(400),
         ]
     ],
     [
@@ -68,7 +62,7 @@ $navigation->setFromArray([
         'icon' => 'fa fa-newspaper-o',
         'priority' =>'1001',
         'id'=>'forms-examples',
-        'badge' => 'New'
+        'badge' => new \SleepingOwl\Admin\Navigation\Badge('New')
     ],
 
 
