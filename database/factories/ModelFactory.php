@@ -57,7 +57,7 @@ $factory->define(App\Model\Country::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Model\Form::class, function (Faker\Generator $faker) {
+$factory->define(App\Model\Forms\Form::class, function (Faker\Generator $faker) {
     return [
         'title'     => $faker->sentence(4),
         'textaddon' => $faker->sentence(2),
