@@ -31,5 +31,3 @@
         </ul>
     </li>
 @endif
-
-@parent
