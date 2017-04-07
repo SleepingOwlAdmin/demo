@@ -56,6 +56,8 @@ class Posts extends Section implements Initializable
     {
         return AdminDisplay::table()->setColumns([
             AdminColumn::link('title', 'Title'),
+            AdminColumn::text('contact.country.title', 'Country'),
+            AdminColumn::text('contact.FullName', 'Full Name'),
         ])->paginate(5);
     }
 
@@ -66,9 +68,22 @@ class Posts extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        return AdminForm::form()->setItems([
+        return AdminForm::panel()->addBody([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::wysiwyg('text', 'Text', 'simplemde')->required()->setFilteredValueToField('text_html'),
+            AdminFormElement::select('country_id', 'Страна')
+                ->setModelForOptions(\App\Model\Country::class)
+                ->setHtmlAttribute('placeholder', 'Выберите страну')
+                ->setValueSkipped(true)
+                ->setDisplay('title')
+                ->required(),
+            AdminFormElement::dependentselect('contact_id', 'Контакт', ['country_id'])
+                ->setModelForOptions(\App\Model\Contact::class)
+                ->setHtmlAttribute('placeholder', 'Выберите контакт')
+                ->setDisplay('FullName')
+                ->setLoadOptionsQueryPreparer(function($item, $query) {
+                    return $query->where('country_id', $item->getDependValue('country_id'));
+                }),
         ]);
     }
 
