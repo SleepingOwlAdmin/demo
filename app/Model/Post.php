@@ -16,4 +16,12 @@ class Post extends Model
         'text_html',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function contact()
+    {
+        return $this->belongsTo('App\Model\Contact');
+    }
+
 }
