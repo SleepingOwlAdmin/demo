@@ -71,10 +71,9 @@ class Posts extends Section implements Initializable
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::wysiwyg('text', 'Text', 'simplemde')->required()->setFilteredValueToField('text_html'),
-            AdminFormElement::select('country_id', 'Страна')
+            AdminFormElement::select('country_id')->setLabel('Страна')
                 ->setModelForOptions(\App\Model\Country::class)
                 ->setHtmlAttribute('placeholder', 'Выберите страну')
-                ->setValueSkipped(true)
                 ->setDisplay('title')
                 ->required(),
             AdminFormElement::dependentselect('contact_id', 'Контакт', ['country_id'])
