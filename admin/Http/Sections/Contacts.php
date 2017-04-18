@@ -54,7 +54,7 @@ class Contacts extends Section
 
         $display->setColumns([
             $photo = AdminColumn::image('photo', 'Photo<br/><small>(image)</small>')
-                ->setHtmlAttribute('class', 'hidden-sm hidden-xs')
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
                 ->setWidth('100px'),
 
             AdminColumn::link('fullName', 'Name<br/><small>(string with accessor)</small>')
