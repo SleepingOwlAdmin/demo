@@ -2,6 +2,8 @@
 
 class NewsTabsBadges extends News
 {
+    protected $table='contacts';
+    
     public function scopePublished($query){
        return $query->where('published', 1);
     }
