@@ -8,7 +8,7 @@ use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Form\FormElements;
 
-//use App\Model\Forms\Form;
+use App\Model\Forms\Form;
 
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -211,6 +211,11 @@ class FormButtons extends Section implements Initializable
 
             \'delete\' => new Delete(),
             \'call_to_grandma\' => (new Save())->setText(\'Позвонить бабушке\'),
+            \'write\'   => (new Save())->setGroupElements([
+                \'write_will\' => AdminFormButton::save()->setText(\'Написать завещание\'),
+                \'write_order\'  => AdminFormButton::save()->setText(\'Оформить заказ\'),
+                \'write_mail\'  => AdminFormButton::save()->setText(\'Отправить письмо\'),
+            ])->setText(\'Написать\'),
     ]);
                 </pre>                       
                 <p>Вы можете создать свой класс Кнопки со своей логикой или унаследовать его от существующего.</p>
@@ -267,7 +272,8 @@ class FormButtons extends Section implements Initializable
             'save'   => (new Save())->setText('Сохранить')->setHtmlAttributes(['style'=>'border:3px solid purple; background: violet;', 'data-custom'=>'mydata']),
 
             'delete'   => (new Delete())->setText('Не удалять')->setHtmlAttribute('style','border:3px solid purple; background: orange;'),
-        ])->setHtmlAttributes(['class'=>'pull-right','style'=>'background: grey']);
+        ])->setHtmlAttributes(['class'=>'pull-right','style'=>'background: #d9edf7;']);
+        
 
         $tabs->appendTab(
             new  FormElements([
