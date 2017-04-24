@@ -61,7 +61,8 @@ class News extends Section
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Title')->required(),
             AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
-            AdminFormElement::checkbox('published', 'Published'),
+            AdminFormElement::radio('published', 'Published')->setOptions(['0' => 'Not published', '1' => 'Published'])
+                ->required(),
             AdminFormElement::wysiwyg('text', 'Text'),
         ]);
         return $form;
