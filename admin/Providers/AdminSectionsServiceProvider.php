@@ -46,6 +46,10 @@ class AdminSectionsServiceProvider extends ServiceProvider
         'App\Model\NewsTabsBadges'  => 'Admin\Http\Sections\TabsBadges',
 
 
+        'App\Model\NewsJS'          => 'Admin\Http\Sections\NewsJS',
+
+
+
         'App\Model\Forms\Form'      => 'Admin\Http\Sections\Forms\Form',
         'App\Model\Forms\Form2'     => 'Admin\Http\Sections\Forms\FormButtons',
 
@@ -61,6 +65,9 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function boot(\SleepingOwl\Admin\Admin $admin)
     {
+
+        \AdminColumnEditable::add('text', \Admin\Display\Column\Editable\Text::class);
+
         $this->loadViewsFrom(base_path("admin/resources/views"), 'admin');
         $this->registerPolicies('Admin\\Policies\\');
 
