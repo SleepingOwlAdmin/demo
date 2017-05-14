@@ -1,0 +1,1 @@
+<button class="btn btn-success" onclick="$('.datatables').DataTable().api().draw();">Refresh DataTable</button>

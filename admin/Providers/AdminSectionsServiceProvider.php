@@ -46,7 +46,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
         'App\Model\NewsTabsBadges'  => 'Admin\Http\Sections\TabsBadges',
 
 
-        'App\Model\NewsJS'          => 'Admin\Http\Sections\NewsJS',
 
 
 
@@ -56,6 +55,13 @@ class AdminSectionsServiceProvider extends ServiceProvider
 
         'App\Role'                  => 'Admin\Http\Sections\Roles',
         'App\User'                  => 'Admin\Http\Sections\Users',
+
+
+        'App\Model\DataTables\NewsEditableColumns' => 'Admin\Http\Sections\DataTables\EditableColumns',
+        'App\Model\DataTables\NewsRefreshAsync'    => 'Admin\Http\Sections\DataTables\RefreshAsync',
+        'App\Model\DataTables\NewsActions'         => 'Admin\Http\Sections\DataTables\Actions',
+        'App\Model\DataTables\CountryStopPageRefresh' => 'Admin\Http\Sections\DataTables\StopPageRefresh',
+
     ];
 
     /**
@@ -66,7 +72,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
     public function boot(\SleepingOwl\Admin\Admin $admin)
     {
 
-        \AdminColumnEditable::add('text', \Admin\Display\Column\Editable\Text::class);
 
         $this->loadViewsFrom(base_path("admin/resources/views"), 'admin');
         $this->registerPolicies('Admin\\Policies\\');

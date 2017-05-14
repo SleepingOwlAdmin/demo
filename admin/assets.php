@@ -14,3 +14,8 @@
 
 //$packages->add('jquery')
 //    ->js(null, asset('libs/jquery.js'));
+
+Meta::addJs('custom',    asset('customjs/jquery.form.min.js'),'admin-default');
+
+PackageManager::add('stopRefresh')
+    ->js('tree',         asset('customjs/stopPageRefresh.js'), ['admin-default'], true);

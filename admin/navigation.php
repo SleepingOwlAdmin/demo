@@ -63,12 +63,19 @@ $navigation->setFromArray([
         'priority' =>'1001',
         'id'=>'forms-examples',
     ],
+//    [
+//        'title' => "JavaScript",
+//        'icon' => 'glyphicon glyphicon-blackboard',
+//        'priority' =>'1001',
+//        'id'=>'javascript',
+//        'badge' => new \SleepingOwl\Admin\Navigation\Badge('New')
+//    ],
 
     [
-        'title' => "JavaScript",
+        'title' => "DataTables",
         'icon' => 'glyphicon glyphicon-blackboard',
         'priority' =>'1001',
-        'id'=>'javascript',
+        'id'=>'datatables',
         'badge' => new \SleepingOwl\Admin\Navigation\Badge('New')
     ],
 

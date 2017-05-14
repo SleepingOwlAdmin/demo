@@ -13,10 +13,8 @@ $router->post('/news/export.json', ['as' => 'admin.news.export', function (\Illu
 
     $response = new \Illuminate\Http\JsonResponse([
 		'title' => 'Congratulation! You exported news.',
-		'news' => App\Model\News5::whereIn('id', $request->input('id', []))->get()
+		'news' => App\Model\News5::whereIn('id', $request->_id)->get()
 	]);
-
-	$response->setJsonOptions(JSON_PRETTY_PRINT);
 
 	return $response;
 
