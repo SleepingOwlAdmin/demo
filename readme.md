@@ -9,13 +9,23 @@ You can watch live http://demo.sleepingowladmin.ru/admin
 **Login**: admin@site.com
 **Password**: password
 
+Enjoy!
+
+## How to install with (Openserver, WAMP, MAMP, LAMP, Vertigo or something else)
+
 * After cloning the repository run `composer install`
-* Create `.env` file from `.env.example`
+* Create `.env` file from `.env.example` and replace database and other data to you inside
 * Run `composer update`
 * Run `php artisan key:generate`
-* Configure database connection
 * Run `php artisan migrate --seed`
 
+Enjoy!
+
+## How to install with Docker
+* Install docker & docker-compose
+* After cloning the repository run `docker-compose up -d`
+* Put `your-docker-ip demo.soa.com` into your hosts file
+* Run `php artisan migrate --seed`
 Enjoy!
 
 ## Documentation

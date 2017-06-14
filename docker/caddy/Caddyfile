@@ -1,0 +1,9 @@
+http://demo.soa.com {
+    tls off
+    root /app/public
+    gzip
+    fastcgi / app:9000 php
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}

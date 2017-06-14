@@ -1,0 +1,69 @@
+version: "2"
+
+services:
+  data:
+    image: busybox
+    container_name: "soa_data"
+    volumes:
+      - /data
+      - /var/lib/mysql
+      - /var/lib/postgresql
+
+  redis:
+    image: redis:3.0.7
+    container_name: "soa_redis"
+    ports:
+      - "6379:6379"
+    volumes_from:
+      - data
+
+  mysql:
+    image: mysql
+    container_name: "soa_mysql"
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./docker/mysql/.env
+    volumes:
+      - ./docker/mysql/newdb.sql:/docker-entrypoint-initdb.d/newdb.sql
+    volumes_from:
+      - data
+
+
+#  pgsql:
+#    image: postgres
+#    container_name: "soa_pgsql"
+#    ports:
+#      - "5432:5432"
+#    env_file:
+#      - ./docker/pgsql/.env
+#    volumes_from:
+#      - data
+
+  front:
+    image: abiosoft/caddy
+    container_name: "soa_caddy"
+    environment:
+      - CADDYPATH=/etc/caddycerts
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/Caddyfile
+      - ./docker/caddy/caddyssl:/etc/caddycerts
+    depends_on:
+      - app
+    volumes_from:
+      - app
+
+  app:
+    image: soa:build
+    build: .
+    container_name: "soa_app"
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      - redis
+    command: /usr/local/sbin/php-fpm --allow-to-run-as-root
+
