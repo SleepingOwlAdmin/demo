@@ -18,6 +18,8 @@ use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 
+use SleepingOwl\Admin\Form\Buttons\Cancel;
+
 /**
  * Class TabsBadges
  *
@@ -68,7 +70,7 @@ class EditableColumns extends Section implements Initializable
                 AdminColumn::custom('№',function( )use (&$i) {return ++$i;}),
                 AdminColumnEditable::text('title', 'Title'),
                 AdminColumnEditable::text('text', 'Text'),
-                AdminColumn::datetime('date', 'Date')->setFormat('d.m.Y')->setWidth('150px'),
+                AdminColumnEditable::datetime('date', 'Date')->setWidth('200px'),
                 AdminColumnEditable::checkbox('published', 'Published'),
             ])
             ->paginate(10);
@@ -79,9 +81,14 @@ class EditableColumns extends Section implements Initializable
         $tabs->appendTab(
                     new  FormElements([
                         '<div class="alert bg-info">
-                           <p>На данный момент существует 2 типа колонок с возможностью редактирования:</p>
+                           <p>На данный момент существует 4 типа колонок с возможностью редактирования:</p>
                            <p>AdminColumnEditable::text(\'fielName\', \'Label\'),</p>                       
-                           <p>AdminColumnEditable::checkbox(\'fielName\', \'Label\'),</p>                       
+                           <p>AdminColumnEditable::checkbox(\'fielName\', \'Label\'),</p>
+                           <p>AdminColumnEditable::datetime(\'fielName\', \'Label\'),</p>
+                           <p>AdminColumnEditable::select(\'fielName\')</p>
+                           <p>      ->setModelForOptions(new SourseModel)</p>
+                           <p>      ->setLabel(\'label\')</p>
+                           <p>      ->setDisplay(\'title\')</p>
                                
                                
                         </div>
@@ -109,7 +116,9 @@ class EditableColumns extends Section implements Initializable
      */
     public function onEdit($id)
     {
-
+        $form->getButtons()->setButtons([
+            'cancel'  => (new Cancel()),
+        ]);
     }
     /**
      * @return FormInterface
