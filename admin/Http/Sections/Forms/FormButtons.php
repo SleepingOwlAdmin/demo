@@ -62,6 +62,7 @@ class FormButtons extends Section implements Initializable
         $page->addPage(
             $this->makePage(0,'New')
         );
+
     }
 
     /**

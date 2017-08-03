@@ -13859,7 +13859,7 @@ namespace {
          * 
          *
          * @param string $class
-         * @return \SleepingOwl\Admin\ModelConfigurationInterface 
+         * @return \SleepingOwl\Admin\ModelConfigurationInterface
          * @static 
          */
         public static function getModel($class){

@@ -80,7 +80,7 @@ class TabbedDataTablesAsync extends Section implements Initializable
             AdminColumnFilter::select()->setModel(new Contact6)->setDisplay('address')->setPlaceholder('Имя не выбрано'),
 
         ]);
-
+        $table->getColumnFilters()->setPlacement('table.header');
 
 
         $table2 = AdminDisplay::datatablesAsync()->setName('meganame')->setModelClass(Contact6::class)
@@ -90,13 +90,16 @@ class TabbedDataTablesAsync extends Section implements Initializable
                 AdminColumn::datetime('birthday',
                     'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
             ]);
+
+
+
         $table3 = AdminDisplay::datatablesAsync()->setName('dupername')->setModelClass(Contact6::class)
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::datetime('birthday',
                     'Birthday')->setFormat('d.m.Y')->setWidth('150px')->setHtmlAttribute('class', 'text-center'),
             ]);
-
+        $table3 ->getActions()->setView(view('admin::datatables.toolbar'))->setPlacement('panel.heading.actions');
         $table4 = AdminDisplay::datatablesAsync()->setName('fastname')->setModelClass(Contact6::class)
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),

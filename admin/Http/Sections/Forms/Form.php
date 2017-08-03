@@ -47,6 +47,7 @@ class Form extends Section implements Initializable
         $page->addPage(
             $this->makePage(0)
         );
+
     }
 
     /**
@@ -95,9 +96,9 @@ class Form extends Section implements Initializable
              ])->nullable()->required(),
             ])
             ->addBody([
-                AdminFormElement::dependentselect('city_id', 'City', ['select'])->setModelForOptions(\App\Model\Country::class)
-                    ->setDisplay("title")
-                    ->required(),
+//                AdminFormElement::dependentselect('city_id', 'City', ['select'])->setModelForOptions(\App\Model\Country::class)
+//                    ->setDisplay("title")
+//                    ->required(),
 
                 AdminFormElement::image('image', 'Image'),
                 AdminFormElement::images('images', 'Images'),
