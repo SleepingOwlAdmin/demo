@@ -100,7 +100,7 @@ class Contacts extends Section
      */
     public function onEdit($id)
     {
-        $form = AdminForm::panel();
+        $form = AdminForm::panel()->addScript('custom-image', '/customjs/customimage.js', ['admin-default']);
 
         $form->setItems(
             AdminFormElement::columns()
@@ -113,7 +113,7 @@ class Contacts extends Section
                 ];
             })->addColumn(function() {
                 return [
-                    AdminFormElement::image('photo', 'Photo'),
+                    AdminFormElement::image('photo', 'Photo')->setView(view('admin.custom.image')),
                     AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y'),
                     AdminFormElement::hidden('user_id')->setDefaultValue(auth()->user()->id),
                 ];

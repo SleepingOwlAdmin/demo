@@ -120,6 +120,9 @@ return [
          */
         'ckeditor' => [
             'height' => 200,
+            'extraPlugins'              => 'uploadimage,image2,justify,youtube,uploadfile',
+#	                'uploadUrl'                 => '/storage/images_admin',
+#           'filebrowserUploadUrl'      => '/storage/images_admin',
         ],
 
         /*
