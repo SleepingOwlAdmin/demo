@@ -116,9 +116,16 @@ class EditableColumns extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $form->getButtons()->setButtons([
-            'cancel'  => (new Cancel()),
+
+
+        $form =AdminForm::form()->setElements([
+            AdminFormElement::text('title', 'Title'),
+            AdminFormElement::text('text', 'Text'),
+            AdminFormElement::datetime('date', 'Date'),
+            AdminFormElement::checkbox('published', 'Published'),
         ]);
+
+       return $form;
     }
     /**
      * @return FormInterface

@@ -17,7 +17,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     protected $widgets = [
         \Admin\Widgets\DashboardMap::class,
-        \Admin\Widgets\NavigationUserBlock::class
+        \Admin\Widgets\NavigationNotifications::class,
+        \Admin\Widgets\NavigationUserBlock::class,
     ];
 
     /**
