@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.36 on 2017-09-19.
+ * Generated for Laravel 5.5.9 on 2017-09-20.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -428,30 +428,16 @@ namespace Illuminate\Support\Facades {
         /**
          * Resolve the given type from the container.
          * 
-         * (Overriding Container::makeWith)
+         * (Overriding Container::make)
          *
          * @param string $abstract
          * @param array $parameters
          * @return mixed 
          * @static 
          */ 
-        public static function makeWith($abstract, $parameters)
+        public static function make($abstract, $parameters = array())
         {
-            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
-        }
-        
-        /**
-         * Resolve the given type from the container.
-         * 
-         * (Overriding Container::make)
-         *
-         * @param string $abstract
-         * @return mixed 
-         * @static 
-         */ 
-        public static function make($abstract)
-        {
-            return \Illuminate\Foundation\Application::make($abstract);
+            return \Illuminate\Foundation\Application::make($abstract, $parameters);
         }
         
         /**
@@ -544,6 +530,17 @@ namespace Illuminate\Support\Facades {
         public static function getCachedServicesPath()
         {
             return \Illuminate\Foundation\Application::getCachedServicesPath();
+        }
+        
+        /**
+         * Get the path to the cached packages.php file.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getCachedPackagesPath()
+        {
+            return \Illuminate\Foundation\Application::getCachedPackagesPath();
         }
         
         /**
@@ -826,6 +823,24 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Returns true if the container can return an entry for the given identifier.
+         * 
+         * Returns false otherwise.
+         * 
+         * `has($id)` returning true does not mean that `get($id)` will not throw an exception.
+         * It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.
+         *
+         * @param string $id Identifier of the entry to look for.
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($id)
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            return \Illuminate\Foundation\Application::has($id);
+        }
+        
+        /**
          * Determine if the given abstract type has been resolved.
          *
          * @param string $abstract
@@ -984,13 +999,13 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $abstract
          * @param mixed $instance
-         * @return void 
+         * @return mixed 
          * @static 
          */ 
         public static function instance($abstract, $instance)
         {
             //Method inherited from \Illuminate\Container\Container            
-            \Illuminate\Foundation\Application::instance($abstract, $instance);
+            return \Illuminate\Foundation\Application::instance($abstract, $instance);
         }
         
         /**
@@ -1103,6 +1118,35 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Illuminate\Container\Container            
             return \Illuminate\Foundation\Application::factory($abstract);
+        }
+        
+        /**
+         * An alias function name for make().
+         *
+         * @param string $abstract
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */ 
+        public static function makeWith($abstract, $parameters = array())
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
+        }
+        
+        /**
+         * Finds an entry of the container by its identifier and returns it.
+         *
+         * @param string $id Identifier of the entry to look for.
+         * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
+         * @throws ContainerExceptionInterface Error while retrieving the entry.
+         * @return mixed Entry.
+         * @static 
+         */ 
+        public static function get($id)
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            return \Illuminate\Foundation\Application::get($id);
         }
         
         /**
@@ -1568,14 +1612,25 @@ namespace Illuminate\Support\Facades {
         /**
          * Create the user provider implementation for the driver.
          *
-         * @param string $provider
-         * @return \Illuminate\Contracts\Auth\UserProvider 
+         * @param string|null $provider
+         * @return \Illuminate\Contracts\Auth\UserProvider|null 
          * @throws \InvalidArgumentException
          * @static 
          */ 
-        public static function createUserProvider($provider)
+        public static function createUserProvider($provider = null)
         {
             return \Illuminate\Auth\AuthManager::createUserProvider($provider);
+        }
+        
+        /**
+         * Get the default user provider name.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultUserProvider()
+        {
+            return \Illuminate\Auth\AuthManager::getDefaultUserProvider();
         }
         
         /**
@@ -1818,35 +1873,12 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the session store used by the guard.
          *
-         * @return \Illuminate\Session\Store 
+         * @return \Illuminate\Contracts\Session\Session. 
          * @static 
          */ 
         public static function getSession()
         {
             return \Illuminate\Auth\SessionGuard::getSession();
-        }
-        
-        /**
-         * Get the user provider used by the guard.
-         *
-         * @return \Illuminate\Contracts\Auth\UserProvider 
-         * @static 
-         */ 
-        public static function getProvider()
-        {
-            return \Illuminate\Auth\SessionGuard::getProvider();
-        }
-        
-        /**
-         * Set the user provider used by the guard.
-         *
-         * @param \Illuminate\Contracts\Auth\UserProvider $provider
-         * @return void 
-         * @static 
-         */ 
-        public static function setProvider($provider)
-        {
-            \Illuminate\Auth\SessionGuard::setProvider($provider);
         }
         
         /**
@@ -1930,16 +1962,51 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the user provider used by the guard.
+         *
+         * @return \Illuminate\Contracts\Auth\UserProvider 
+         * @static 
+         */ 
+        public static function getProvider()
+        {
+            return \Illuminate\Auth\SessionGuard::getProvider();
+        }
+        
+        /**
+         * Set the user provider used by the guard.
+         *
+         * @param \Illuminate\Contracts\Auth\UserProvider $provider
+         * @return void 
+         * @static 
+         */ 
+        public static function setProvider($provider)
+        {
+            \Illuminate\Auth\SessionGuard::setProvider($provider);
+        }
+        
+        /**
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Auth\SessionGuard::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Auth\SessionGuard::mixin($mixin);
         }
         
         /**
@@ -2041,6 +2108,32 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Register an "if" statement directive.
+         *
+         * @param string $name
+         * @param callable $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function if($name, $callback)
+        {
+            \Illuminate\View\Compilers\BladeCompiler::if($name, $callback);
+        }
+        
+        /**
+         * Check the result of a condition.
+         *
+         * @param string $name
+         * @param array $parameters
+         * @return bool 
+         * @static 
+         */ 
+        public static function check($name, $parameters = null)
+        {
+            return \Illuminate\View\Compilers\BladeCompiler::check($name, $parameters);
+        }
+        
+        /**
          * Register a handler for custom directives.
          *
          * @param string $name
@@ -2122,7 +2215,7 @@ namespace Illuminate\Support\Facades {
          * Get a cache store instance by name.
          *
          * @param string|null $name
-         * @return mixed 
+         * @return \Illuminate\Contracts\Cache\Repository 
          * @static 
          */ 
         public static function store($name = null)
@@ -2230,6 +2323,22 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Obtains multiple cache items by their unique keys.
+         *
+         * @param \Psr\SimpleCache\iterable $keys A list of keys that can obtained in a single operation.
+         * @param mixed $default Default value to return for keys that do not exist.
+         * @return \Psr\SimpleCache\iterable A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
+         * @throws \Psr\SimpleCache\InvalidArgumentException
+         *   MUST be thrown if $keys is neither an array nor a Traversable,
+         *   or if any of the $keys are not a legal value.
+         * @static 
+         */ 
+        public static function getMultiple($keys, $default = null)
+        {
+            return \Illuminate\Cache\Repository::getMultiple($keys, $default);
+        }
+        
+        /**
          * Retrieve an item from the cache and delete it.
          *
          * @param string $key
@@ -2247,7 +2356,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $key
          * @param mixed $value
-         * @param \DateTime|float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|float|int $minutes
          * @return void 
          * @static 
          */ 
@@ -2257,10 +2366,28 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
+         *
+         * @param string $key The key of the item to store.
+         * @param mixed $value The value of the item to store, must be serializable.
+         * @param null|int|\DateInterval $ttl Optional. The TTL value of this item. If no value is sent and
+         *                                     the driver supports TTL then the library may set a default value
+         *                                     for it or let the driver take care of that.
+         * @return bool True on success and false on failure.
+         * @throws \Psr\SimpleCache\InvalidArgumentException
+         *   MUST be thrown if the $key string is not a legal value.
+         * @static 
+         */ 
+        public static function set($key, $value, $ttl = null)
+        {
+            return \Illuminate\Cache\Repository::set($key, $value, $ttl);
+        }
+        
+        /**
          * Store multiple items in the cache for a given number of minutes.
          *
          * @param array $values
-         * @param float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|float|int $minutes
          * @return void 
          * @static 
          */ 
@@ -2270,11 +2397,29 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Persists a set of key => value pairs in the cache, with an optional TTL.
+         *
+         * @param \Psr\SimpleCache\iterable $values A list of key => value pairs for a multiple-set operation.
+         * @param null|int|\DateInterval $ttl Optional. The TTL value of this item. If no value is sent and
+         *                                      the driver supports TTL then the library may set a default value
+         *                                      for it or let the driver take care of that.
+         * @return bool True on success and false on failure.
+         * @throws \Psr\SimpleCache\InvalidArgumentException
+         *   MUST be thrown if $values is neither an array nor a Traversable,
+         *   or if any of the $values are not a legal value.
+         * @static 
+         */ 
+        public static function setMultiple($values, $ttl = null)
+        {
+            return \Illuminate\Cache\Repository::setMultiple($values, $ttl);
+        }
+        
+        /**
          * Store an item in the cache if the key does not exist.
          *
          * @param string $key
          * @param mixed $value
-         * @param \DateTime|float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|float|int $minutes
          * @return bool 
          * @static 
          */ 
@@ -2326,7 +2471,7 @@ namespace Illuminate\Support\Facades {
          * Get an item from the cache, or store the default value.
          *
          * @param string $key
-         * @param \DateTime|float|int $minutes
+         * @param \DateTimeInterface|\DateInterval|float|int $minutes
          * @param \Closure $callback
          * @return mixed 
          * @static 
@@ -2372,6 +2517,46 @@ namespace Illuminate\Support\Facades {
         public static function forget($key)
         {
             return \Illuminate\Cache\Repository::forget($key);
+        }
+        
+        /**
+         * Delete an item from the cache by its unique key.
+         *
+         * @param string $key The unique cache key of the item to delete.
+         * @return bool True if the item was successfully removed. False if there was an error.
+         * @throws \Psr\SimpleCache\InvalidArgumentException
+         *   MUST be thrown if the $key string is not a legal value.
+         * @static 
+         */ 
+        public static function delete($key)
+        {
+            return \Illuminate\Cache\Repository::delete($key);
+        }
+        
+        /**
+         * Deletes multiple cache items in a single operation.
+         *
+         * @param \Psr\SimpleCache\iterable $keys A list of string-based keys to be deleted.
+         * @return bool True if the items were successfully removed. False if there was an error.
+         * @throws \Psr\SimpleCache\InvalidArgumentException
+         *   MUST be thrown if $keys is neither an array nor a Traversable,
+         *   or if any of the $keys are not a legal value.
+         * @static 
+         */ 
+        public static function deleteMultiple($keys)
+        {
+            return \Illuminate\Cache\Repository::deleteMultiple($keys);
+        }
+        
+        /**
+         * Wipes clean the entire cache's keys.
+         *
+         * @return bool True on success and false on failure.
+         * @static 
+         */ 
+        public static function clear()
+        {
+            return \Illuminate\Cache\Repository::clear();
         }
         
         /**
@@ -2486,13 +2671,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Cache\Repository::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Cache\Repository::mixin($mixin);
         }
         
         /**
@@ -2584,7 +2781,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the specified configuration value.
          *
-         * @param string $key
+         * @param array|string $key
          * @param mixed $default
          * @return mixed 
          * @static 
@@ -2592,6 +2789,18 @@ namespace Illuminate\Support\Facades {
         public static function get($key, $default = null)
         {
             return \Illuminate\Config\Repository::get($key, $default);
+        }
+        
+        /**
+         * Get many configuration values.
+         *
+         * @param array $keys
+         * @return array 
+         * @static 
+         */ 
+        public static function getMany($keys)
+        {
+            return \Illuminate\Config\Repository::getMany($keys);
         }
         
         /**
@@ -2707,12 +2916,14 @@ namespace Illuminate\Support\Facades {
          * @param string $domain
          * @param bool $secure
          * @param bool $httpOnly
+         * @param bool $raw
+         * @param string|null $sameSite
          * @return \Symfony\Component\HttpFoundation\Cookie 
          * @static 
          */ 
-        public static function make($name, $value, $minutes = 0, $path = null, $domain = null, $secure = false, $httpOnly = true)
+        public static function make($name, $value, $minutes = 0, $path = null, $domain = null, $secure = false, $httpOnly = true, $raw = false, $sameSite = null)
         {
-            return \Illuminate\Cookie\CookieJar::make($name, $value, $minutes, $path, $domain, $secure, $httpOnly);
+            return \Illuminate\Cookie\CookieJar::make($name, $value, $minutes, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
         }
         
         /**
@@ -2724,12 +2935,14 @@ namespace Illuminate\Support\Facades {
          * @param string $domain
          * @param bool $secure
          * @param bool $httpOnly
+         * @param bool $raw
+         * @param string|null $sameSite
          * @return \Symfony\Component\HttpFoundation\Cookie 
          * @static 
          */ 
-        public static function forever($name, $value, $path = null, $domain = null, $secure = false, $httpOnly = true)
+        public static function forever($name, $value, $path = null, $domain = null, $secure = false, $httpOnly = true, $raw = false, $sameSite = null)
         {
-            return \Illuminate\Cookie\CookieJar::forever($name, $value, $path, $domain, $secure, $httpOnly);
+            return \Illuminate\Cookie\CookieJar::forever($name, $value, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
         }
         
         /**
@@ -2801,12 +3014,13 @@ namespace Illuminate\Support\Facades {
          * @param string $path
          * @param string $domain
          * @param bool $secure
+         * @param string $sameSite
          * @return $this 
          * @static 
          */ 
-        public static function setDefaultPathAndDomain($path, $domain, $secure = false)
+        public static function setDefaultPathAndDomain($path, $domain, $secure = false, $sameSite = null)
         {
-            return \Illuminate\Cookie\CookieJar::setDefaultPathAndDomain($path, $domain, $secure);
+            return \Illuminate\Cookie\CookieJar::setDefaultPathAndDomain($path, $domain, $secure, $sameSite);
         }
         
         /**
@@ -2835,6 +3049,18 @@ namespace Illuminate\Support\Facades {
         public static function supported($key, $cipher)
         {
             return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
+        }
+        
+        /**
+         * Create a new encryption key for the given cipher.
+         *
+         * @param string $cipher
+         * @return string 
+         * @static 
+         */ 
+        public static function generateKey($cipher)
+        {
+            return \Illuminate\Encryption\Encrypter::generateKey($cipher);
         }
         
         /**
@@ -3313,6 +3539,19 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Illuminate\Database\Connection            
             return \Illuminate\Database\MySqlConnection::raw($value);
+        }
+        
+        /**
+         * Indicate if any records have been modified.
+         *
+         * @param bool $value
+         * @return void 
+         * @static 
+         */ 
+        public static function recordsHaveBeenModified($value = true)
+        {
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::recordsHaveBeenModified($value);
         }
         
         /**
@@ -3914,7 +4153,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Register an event listener with the dispatcher.
          *
-         * @param string|\Closure $listener
+         * @param \Closure|string $listener
          * @param bool $wildcard
          * @return \Closure 
          * @static 
@@ -4316,12 +4555,13 @@ namespace Illuminate\Support\Facades {
          * Get an array of all files in a directory.
          *
          * @param string $directory
+         * @param bool $hidden
          * @return array 
          * @static 
          */ 
-        public static function files($directory)
+        public static function files($directory, $hidden = false)
         {
-            return \Illuminate\Filesystem\Filesystem::files($directory);
+            return \Illuminate\Filesystem\Filesystem::files($directory, $hidden);
         }
         
         /**
@@ -4423,13 +4663,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Filesystem\Filesystem::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Filesystem\Filesystem::mixin($mixin);
         }
         
         /**
@@ -4451,7 +4703,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a given ability has been defined.
          *
-         * @param string $ability
+         * @param string|array $ability
          * @return bool 
          * @static 
          */ 
@@ -4552,16 +4804,29 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Determine if the given ability should be granted for the current user.
+         * Determine if all of the given abilities should be granted for the current user.
          *
-         * @param string $ability
+         * @param \Illuminate\Auth\Access\iterable|string $abilities
          * @param array|mixed $arguments
          * @return bool 
          * @static 
          */ 
-        public static function check($ability, $arguments = array())
+        public static function check($abilities, $arguments = array())
         {
-            return \Illuminate\Auth\Access\Gate::check($ability, $arguments);
+            return \Illuminate\Auth\Access\Gate::check($abilities, $arguments);
+        }
+        
+        /**
+         * Determine if any one of the given abilities should be granted for the current user.
+         *
+         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param array|mixed $arguments
+         * @return bool 
+         * @static 
+         */ 
+        public static function any($abilities, $arguments = array())
+        {
+            return \Illuminate\Auth\Access\Gate::any($abilities, $arguments);
         }
         
         /**
@@ -4623,6 +4888,17 @@ namespace Illuminate\Support\Facades {
         public static function abilities()
         {
             return \Illuminate\Auth\Access\Gate::abilities();
+        }
+        
+        /**
+         * Get all of the defined policies.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function policies()
+        {
+            return \Illuminate\Auth\Access\Gate::policies();
         }
          
     }
@@ -4828,6 +5104,18 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Add a new JSON path to the loader.
+         *
+         * @param string $path
+         * @return void 
+         * @static 
+         */ 
+        public static function addJsonPath($path)
+        {
+            \Illuminate\Translation\Translator::addJsonPath($path);
+        }
+        
+        /**
          * Parse a key into namespace, group, and item.
          *
          * @param string $key
@@ -4865,7 +5153,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the language line loader implementation.
          *
-         * @return \Illuminate\Translation\LoaderInterface 
+         * @return \Illuminate\Contracts\Translation\Loader 
          * @static 
          */ 
         public static function getLoader()
@@ -4948,13 +5236,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Translation\Translator::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Translation\Translator::mixin($mixin);
         }
         
         /**
@@ -5301,9 +5601,22 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Send a new message using a view.
+         * Render the given message as a view.
          *
          * @param string|array $view
+         * @param array $data
+         * @return \Illuminate\View\View 
+         * @static 
+         */ 
+        public static function render($view, $data = array())
+        {
+            return \Illuminate\Mail\Mailer::render($view, $data);
+        }
+        
+        /**
+         * Send a new message using a view.
+         *
+         * @param string|array|\Illuminate\Mail\MailableContract $view
          * @param array $data
          * @param \Closure|string $callback
          * @return void 
@@ -5317,16 +5630,14 @@ namespace Illuminate\Support\Facades {
         /**
          * Queue a new e-mail message for sending.
          *
-         * @param string|array $view
-         * @param array $data
-         * @param \Closure|string $callback
+         * @param string|array|\Illuminate\Mail\MailableContract $view
          * @param string|null $queue
          * @return mixed 
          * @static 
          */ 
-        public static function queue($view, $data = array(), $callback = null, $queue = null)
+        public static function queue($view, $queue = null)
         {
-            return \Illuminate\Mail\Mailer::queue($view, $data, $callback, $queue);
+            return \Illuminate\Mail\Mailer::queue($view, $queue);
         }
         
         /**
@@ -5334,14 +5645,12 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $queue
          * @param string|array $view
-         * @param array $data
-         * @param \Closure|string $callback
          * @return mixed 
          * @static 
          */ 
-        public static function onQueue($queue, $view, $data, $callback)
+        public static function onQueue($queue, $view)
         {
-            return \Illuminate\Mail\Mailer::onQueue($queue, $view, $data, $callback);
+            return \Illuminate\Mail\Mailer::onQueue($queue, $view);
         }
         
         /**
@@ -5351,46 +5660,40 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $queue
          * @param string|array $view
-         * @param array $data
-         * @param \Closure|string $callback
          * @return mixed 
          * @static 
          */ 
-        public static function queueOn($queue, $view, $data, $callback)
+        public static function queueOn($queue, $view)
         {
-            return \Illuminate\Mail\Mailer::queueOn($queue, $view, $data, $callback);
+            return \Illuminate\Mail\Mailer::queueOn($queue, $view);
         }
         
         /**
          * Queue a new e-mail message for sending after (n) seconds.
          *
-         * @param int $delay
-         * @param string|array $view
-         * @param array $data
-         * @param \Closure|string $callback
+         * @param \DateTimeInterface|\DateInterval|int $delay
+         * @param string|array|\Illuminate\Mail\MailableContract $view
          * @param string|null $queue
          * @return mixed 
          * @static 
          */ 
-        public static function later($delay, $view, $data = array(), $callback = null, $queue = null)
+        public static function later($delay, $view, $queue = null)
         {
-            return \Illuminate\Mail\Mailer::later($delay, $view, $data, $callback, $queue);
+            return \Illuminate\Mail\Mailer::later($delay, $view, $queue);
         }
         
         /**
          * Queue a new e-mail message for sending after (n) seconds on the given queue.
          *
          * @param string $queue
-         * @param int $delay
+         * @param \DateTimeInterface|\DateInterval|int $delay
          * @param string|array $view
-         * @param array $data
-         * @param \Closure|string $callback
          * @return mixed 
          * @static 
          */ 
-        public static function laterOn($queue, $delay, $view, $data, $callback)
+        public static function laterOn($queue, $delay, $view)
         {
-            return \Illuminate\Mail\Mailer::laterOn($queue, $delay, $view, $data, $callback);
+            return \Illuminate\Mail\Mailer::laterOn($queue, $delay, $view);
         }
         
         /**
@@ -5454,13 +5757,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Mail\Mailer::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Mail\Mailer::mixin($mixin);
         }
         
         /**
@@ -5730,7 +6045,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Push a new job onto the queue after a delay.
          *
-         * @param \DateTime|int $delay
+         * @param \DateTimeInterface|\DateInterval|int $delay
          * @param string $job
          * @param mixed $data
          * @param string $queue
@@ -5773,7 +6088,7 @@ namespace Illuminate\Support\Facades {
          * Push a new job onto the queue after a delay.
          *
          * @param string $queue
-         * @param \DateTime|int $delay
+         * @param \DateTimeInterface|\DateInterval|int $delay
          * @param string $job
          * @param mixed $data
          * @return mixed 
@@ -5798,6 +6113,19 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Illuminate\Queue\Queue            
             return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
+        }
+        
+        /**
+         * Get the expiration timestamp for an object-based queue handler.
+         *
+         * @param mixed $job
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getJobExpiration($job)
+        {
+            //Method inherited from \Illuminate\Queue\Queue            
+            return \Illuminate\Queue\SyncQueue::getJobExpiration($job);
         }
         
         /**
@@ -6138,35 +6466,37 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current request URI matches a pattern.
          *
+         * @param mixed $patterns
          * @return bool 
          * @static 
          */ 
-        public static function is()
+        public static function is($patterns = null)
         {
-            return \Illuminate\Http\Request::is();
+            return \Illuminate\Http\Request::is($patterns);
         }
         
         /**
-         * Check if the route name matches the given string.
+         * Determine if the route name matches a given pattern.
          *
-         * @param string $name
+         * @param mixed $patterns
          * @return bool 
          * @static 
          */ 
-        public static function routeIs($name)
+        public static function routeIs($patterns = null)
         {
-            return \Illuminate\Http\Request::routeIs($name);
+            return \Illuminate\Http\Request::routeIs($patterns);
         }
         
         /**
          * Determine if the current request URL and query string matches a pattern.
          *
+         * @param mixed $patterns
          * @return bool 
          * @static 
          */ 
-        public static function fullUrlIs()
+        public static function fullUrlIs($patterns = null)
         {
-            return \Illuminate\Http\Request::fullUrlIs();
+            return \Illuminate\Http\Request::fullUrlIs($patterns);
         }
         
         /**
@@ -7716,7 +8046,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Determine if the request contains a non-empty value for an input item.
+         * Determine if the request contains a given input item key.
          *
          * @param string|array $key
          * @return bool 
@@ -7728,14 +8058,50 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get all of the input and files for the request.
+         * Determine if the request contains any of the given inputs.
+         *
+         * @param mixed $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasAny($keys = null)
+        {
+            return \Illuminate\Http\Request::hasAny($keys);
+        }
+        
+        /**
+         * Determine if the request contains a non-empty value for an input item.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function filled($key)
+        {
+            return \Illuminate\Http\Request::filled($key);
+        }
+        
+        /**
+         * Get the keys for all of the input and files.
          *
          * @return array 
          * @static 
          */ 
-        public static function all()
+        public static function keys()
         {
-            return \Illuminate\Http\Request::all();
+            return \Illuminate\Http\Request::keys();
+        }
+        
+        /**
+         * Get all of the input and files for the request.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */ 
+        public static function all($keys = null)
+        {
+            return \Illuminate\Http\Request::all($keys);
         }
         
         /**
@@ -7776,18 +8142,6 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Intersect an array of items with the input data.
-         *
-         * @param array|mixed $keys
-         * @return array 
-         * @static 
-         */ 
-        public static function intersect($keys)
-        {
-            return \Illuminate\Http\Request::intersect($keys);
-        }
-        
-        /**
          * Retrieve a query string item from the request.
          *
          * @param string $key
@@ -7798,6 +8152,19 @@ namespace Illuminate\Support\Facades {
         public static function query($key = null, $default = null)
         {
             return \Illuminate\Http\Request::query($key, $default);
+        }
+        
+        /**
+         * Retrieve a request payload item from the request.
+         *
+         * @param string $key
+         * @param string|array|null $default
+         * @return string|array 
+         * @static 
+         */ 
+        public static function post($key = null, $default = null)
+        {
+            return \Illuminate\Http\Request::post($key, $default);
         }
         
         /**
@@ -7865,13 +8232,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Http\Request::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Http\Request::mixin($mixin);
         }
         
         /**
@@ -7884,6 +8263,16 @@ namespace Illuminate\Support\Facades {
         public static function hasMacro($name)
         {
             return \Illuminate\Http\Request::hasMacro($name);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function validate($rules, $params = null)
+        {
+            return \Illuminate\Http\Request::validate($rules, $params);
         }
          
     }
@@ -8071,13 +8460,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Routing\ResponseFactory::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Routing\ResponseFactory::mixin($mixin);
         }
         
         /**
@@ -8188,6 +8589,46 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Register a new Fallback route with the router.
+         *
+         * @param \Closure|array|string|null $action
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function fallback($action)
+        {
+            return \Illuminate\Routing\Router::fallback($action);
+        }
+        
+        /**
+         * Create a redirect from one URI to another.
+         *
+         * @param string $uri
+         * @param string $destination
+         * @param int $status
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function redirect($uri, $destination, $status = 301)
+        {
+            return \Illuminate\Routing\Router::redirect($uri, $destination, $status);
+        }
+        
+        /**
+         * Register a new route that returns a view.
+         *
+         * @param string $uri
+         * @param string $view
+         * @param array $data
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function view($uri, $view, $data = array())
+        {
+            return \Illuminate\Routing\Router::view($uri, $view, $data);
+        }
+        
+        /**
          * Register a new route with the given verbs.
          *
          * @param array|string $methods
@@ -8219,12 +8660,12 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return void 
+         * @return \Illuminate\Routing\PendingResourceRegistration 
          * @static 
          */ 
         public static function resource($name, $controller, $options = array())
         {
-            \Illuminate\Routing\Router::resource($name, $controller, $options);
+            return \Illuminate\Routing\Router::resource($name, $controller, $options);
         }
         
         /**
@@ -8233,12 +8674,12 @@ namespace Illuminate\Support\Facades {
          * @param string $name
          * @param string $controller
          * @param array $options
-         * @return void 
+         * @return \Illuminate\Routing\PendingResourceRegistration 
          * @static 
          */ 
         public static function apiResource($name, $controller, $options = array())
         {
-            \Illuminate\Routing\Router::apiResource($name, $controller, $options);
+            return \Illuminate\Routing\Router::apiResource($name, $controller, $options);
         }
         
         /**
@@ -8281,7 +8722,7 @@ namespace Illuminate\Support\Facades {
          * Dispatch the request to the application.
          *
          * @param \Illuminate\Http\Request $request
-         * @return \Illuminate\Http\Response 
+         * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse 
          * @static 
          */ 
         public static function dispatch($request)
@@ -8318,12 +8759,25 @@ namespace Illuminate\Support\Facades {
          *
          * @param \Symfony\Component\HttpFoundation\Request $request
          * @param mixed $response
-         * @return \Illuminate\Http\Response 
+         * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse 
          * @static 
          */ 
         public static function prepareResponse($request, $response)
         {
             return \Illuminate\Routing\Router::prepareResponse($request, $response);
+        }
+        
+        /**
+         * Static version of prepareResponse.
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @param mixed $response
+         * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse 
+         * @static 
+         */ 
+        public static function toResponse($request, $response)
+        {
+            return \Illuminate\Routing\Router::toResponse($request, $response);
         }
         
         /**
@@ -8622,24 +9076,25 @@ namespace Illuminate\Support\Facades {
         /**
          * Alias for the "currentRouteNamed" method.
          *
+         * @param mixed $patterns
          * @return bool 
          * @static 
          */ 
-        public static function is()
+        public static function is($patterns = null)
         {
-            return \Illuminate\Routing\Router::is();
+            return \Illuminate\Routing\Router::is($patterns);
         }
         
         /**
-         * Determine if the current route matches a given name.
+         * Determine if the current route matches a pattern.
          *
-         * @param string $name
+         * @param mixed $patterns
          * @return bool 
          * @static 
          */ 
-        public static function currentRouteNamed($name)
+        public static function currentRouteNamed($patterns = null)
         {
-            return \Illuminate\Routing\Router::currentRouteNamed($name);
+            return \Illuminate\Routing\Router::currentRouteNamed($patterns);
         }
         
         /**
@@ -8656,12 +9111,13 @@ namespace Illuminate\Support\Facades {
         /**
          * Alias for the "currentRouteUses" method.
          *
+         * @param array $patterns
          * @return bool 
          * @static 
          */ 
-        public static function uses()
+        public static function uses($patterns = null)
         {
-            return \Illuminate\Routing\Router::uses();
+            return \Illuminate\Routing\Router::uses($patterns);
         }
         
         /**
@@ -8750,13 +9206,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Routing\Router::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Routing\Router::mixin($mixin);
         }
         
         /**
@@ -8811,6 +9279,17 @@ namespace Illuminate\Support\Facades {
         public static function getColumnListing($table)
         {
             return \Illuminate\Database\Schema\MySqlBuilder::getColumnListing($table);
+        }
+        
+        /**
+         * Drop all tables from the database.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function dropAllTables()
+        {
+            \Illuminate\Database\Schema\MySqlBuilder::dropAllTables();
         }
         
         /**
@@ -9279,7 +9758,7 @@ namespace Illuminate\Support\Facades {
          * @return void 
          * @static 
          */ 
-        public static function flash($key, $value)
+        public static function flash($key, $value = true)
         {
             \Illuminate\Session\Store::flash($key, $value);
         }
@@ -9763,7 +10242,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $path
          * @param string|resource $contents
-         * @param array $options
+         * @param mixed $options
          * @return bool 
          * @static 
          */ 
@@ -9952,6 +10431,36 @@ namespace Illuminate\Support\Facades {
         public static function temporaryUrl($path, $expiration, $options = array())
         {
             return \Illuminate\Filesystem\FilesystemAdapter::temporaryUrl($path, $expiration, $options);
+        }
+        
+        /**
+         * Get a temporary URL for the file at the given path.
+         *
+         * @param \League\Flysystem\AwsS3v3\AwsS3Adapter $adapter
+         * @param string $path
+         * @param \DateTimeInterface $expiration
+         * @param array $options
+         * @return string 
+         * @static 
+         */ 
+        public static function getAwsTemporaryUrl($adapter, $path, $expiration, $options)
+        {
+            return \Illuminate\Filesystem\FilesystemAdapter::getAwsTemporaryUrl($adapter, $path, $expiration, $options);
+        }
+        
+        /**
+         * Get a temporary URL for the file at the given path.
+         *
+         * @param \League\Flysystem\Rackspace\RackspaceAdapter $adapter
+         * @param string $path
+         * @param \DateTimeInterface $expiration
+         * @param $options
+         * @return string 
+         * @static 
+         */ 
+        public static function getRackspaceTemporaryUrl($adapter, $path, $expiration, $options)
+        {
+            return \Illuminate\Filesystem\FilesystemAdapter::getRackspaceTemporaryUrl($adapter, $path, $expiration, $options);
         }
         
         /**
@@ -10369,13 +10878,25 @@ namespace Illuminate\Support\Facades {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Illuminate\Routing\UrlGenerator::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Illuminate\Routing\UrlGenerator::mixin($mixin);
         }
         
         /**
@@ -10559,6 +11080,20 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the first view that actually exists from the given list.
+         *
+         * @param array $views
+         * @param array $data
+         * @param array $mergeData
+         * @return \Illuminate\Contracts\View\View 
+         * @static 
+         */ 
+        public static function first($views, $data = array(), $mergeData = array())
+        {
+            return \Illuminate\View\Factory::first($views, $data, $mergeData);
+        }
+        
+        /**
          * Get the rendered content of the view based on a given condition.
          *
          * @param bool $condition
@@ -10604,7 +11139,7 @@ namespace Illuminate\Support\Facades {
          * Get the appropriate view engine for the given path.
          *
          * @param string $path
-         * @return \Illuminate\View\Engines\EngineInterface 
+         * @return \Illuminate\Contracts\View\Engine 
          * @throws \InvalidArgumentException
          * @static 
          */ 
@@ -11273,1530 +11808,60 @@ namespace Illuminate\Support\Facades {
  
 }
 
-namespace KodiCMS\Assets\Facades { 
+namespace Intervention\Image\Facades { 
 
-    class PackageManager {
+    class Image {
         
         /**
-         * 
+         * Overrides configuration settings
          *
-         * @param string|\KodiCMS\Assets\PackageInterface $package
-         * @return \KodiCMS\Assets\Package 
+         * @param array $config
          * @static 
          */ 
-        public static function add($package)
+        public static function configure($config = array())
         {
-            return \KodiCMS\Assets\PackageManager::add($package);
+            return \Intervention\Image\ImageManager::configure($config);
         }
         
         /**
-         * 
+         * Initiates an Image instance from different input types
          *
-         * @param string $name
-         * @return \KodiCMS\Assets\PackageInterface|null 
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
          * @static 
          */ 
-        public static function load($name)
+        public static function make($data)
         {
-            return \KodiCMS\Assets\PackageManager::load($name);
+            return \Intervention\Image\ImageManager::make($data);
         }
         
         /**
-         * Create a new collection instance if the value isn't one already.
+         * Creates an empty image canvas
          *
-         * @param mixed $items
-         * @return static 
+         * @param integer $width
+         * @param integer $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
          * @static 
          */ 
-        public static function make($items = array())
+        public static function canvas($width, $height, $background = null)
         {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::make($items);
+            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
         }
         
         /**
-         * Create a new collection by invoking the callback a given number of times.
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
          *
-         * @param int $number
-         * @param callable $callback
-         * @return static 
+         * @param \Closure $callback
+         * @param integer $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
          * @static 
          */ 
-        public static function times($number, $callback = null)
+        public static function cache($callback, $lifetime = null, $returnObj = false)
         {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::times($number, $callback);
-        }
-        
-        /**
-         * Get all of the items in the collection.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function all()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::all();
-        }
-        
-        /**
-         * Get the average value of a given key.
-         *
-         * @param callable|string|null $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function avg($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::avg($callback);
-        }
-        
-        /**
-         * Alias for the "avg" method.
-         *
-         * @param callable|string|null $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function average($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::average($callback);
-        }
-        
-        /**
-         * Get the median of a given key.
-         *
-         * @param null $key
-         * @return mixed 
-         * @static 
-         */ 
-        public static function median($key = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::median($key);
-        }
-        
-        /**
-         * Get the mode of a given key.
-         *
-         * @param mixed $key
-         * @return array|null 
-         * @static 
-         */ 
-        public static function mode($key = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::mode($key);
-        }
-        
-        /**
-         * Collapse the collection of items into a single array.
-         *
-         * @return static 
-         * @static 
-         */ 
-        public static function collapse()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::collapse();
-        }
-        
-        /**
-         * Determine if an item exists in the collection.
-         *
-         * @param mixed $key
-         * @param mixed $operator
-         * @param mixed $value
-         * @return bool 
-         * @static 
-         */ 
-        public static function contains($key, $operator = null, $value = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::contains($key, $operator, $value);
-        }
-        
-        /**
-         * Determine if an item exists in the collection using strict comparison.
-         *
-         * @param mixed $key
-         * @param mixed $value
-         * @return bool 
-         * @static 
-         */ 
-        public static function containsStrict($key, $value = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::containsStrict($key, $value);
-        }
-        
-        /**
-         * Cross join with the given lists, returning all possible permutations.
-         *
-         * @param mixed $lists
-         * @return static 
-         * @static 
-         */ 
-        public static function crossJoin($lists = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::crossJoin($lists);
-        }
-        
-        /**
-         * Get the items in the collection that are not present in the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function diff($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::diff($items);
-        }
-        
-        /**
-         * Get the items in the collection whose keys and values are not present in the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function diffAssoc($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::diffAssoc($items);
-        }
-        
-        /**
-         * Get the items in the collection whose keys are not present in the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function diffKeys($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::diffKeys($items);
-        }
-        
-        /**
-         * Execute a callback over each item.
-         *
-         * @param callable $callback
-         * @return $this 
-         * @static 
-         */ 
-        public static function each($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::each($callback);
-        }
-        
-        /**
-         * Execute a callback over each nested chunk of items.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function eachSpread($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::eachSpread($callback);
-        }
-        
-        /**
-         * Determine if all items in the collection pass the given test.
-         *
-         * @param string|callable $key
-         * @param mixed $operator
-         * @param mixed $value
-         * @return bool 
-         * @static 
-         */ 
-        public static function every($key, $operator = null, $value = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::every($key, $operator, $value);
-        }
-        
-        /**
-         * Get all items except for those with the specified keys.
-         *
-         * @param mixed $keys
-         * @return static 
-         * @static 
-         */ 
-        public static function except($keys)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::except($keys);
-        }
-        
-        /**
-         * Run a filter over each of the items.
-         *
-         * @param callable|null $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function filter($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::filter($callback);
-        }
-        
-        /**
-         * Apply the callback if the value is truthy.
-         *
-         * @param bool $value
-         * @param callable $callback
-         * @param callable $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function when($value, $callback, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::when($value, $callback, $default);
-        }
-        
-        /**
-         * Apply the callback if the value is falsy.
-         *
-         * @param bool $value
-         * @param callable $callback
-         * @param callable $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function unless($value, $callback, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::unless($value, $callback, $default);
-        }
-        
-        /**
-         * Filter items by the given key value pair.
-         *
-         * @param string $key
-         * @param mixed $operator
-         * @param mixed $value
-         * @return static 
-         * @static 
-         */ 
-        public static function where($key, $operator, $value = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::where($key, $operator, $value);
-        }
-        
-        /**
-         * Filter items by the given key value pair using strict comparison.
-         *
-         * @param string $key
-         * @param mixed $value
-         * @return static 
-         * @static 
-         */ 
-        public static function whereStrict($key, $value)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::whereStrict($key, $value);
-        }
-        
-        /**
-         * Filter items by the given key value pair.
-         *
-         * @param string $key
-         * @param mixed $values
-         * @param bool $strict
-         * @return static 
-         * @static 
-         */ 
-        public static function whereIn($key, $values, $strict = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::whereIn($key, $values, $strict);
-        }
-        
-        /**
-         * Filter items by the given key value pair using strict comparison.
-         *
-         * @param string $key
-         * @param mixed $values
-         * @return static 
-         * @static 
-         */ 
-        public static function whereInStrict($key, $values)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::whereInStrict($key, $values);
-        }
-        
-        /**
-         * Filter items by the given key value pair.
-         *
-         * @param string $key
-         * @param mixed $values
-         * @param bool $strict
-         * @return static 
-         * @static 
-         */ 
-        public static function whereNotIn($key, $values, $strict = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::whereNotIn($key, $values, $strict);
-        }
-        
-        /**
-         * Filter items by the given key value pair using strict comparison.
-         *
-         * @param string $key
-         * @param mixed $values
-         * @return static 
-         * @static 
-         */ 
-        public static function whereNotInStrict($key, $values)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::whereNotInStrict($key, $values);
-        }
-        
-        /**
-         * Get the first item from the collection.
-         *
-         * @param callable|null $callback
-         * @param mixed $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function first($callback = null, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::first($callback, $default);
-        }
-        
-        /**
-         * Get a flattened array of the items in the collection.
-         *
-         * @param int $depth
-         * @return static 
-         * @static 
-         */ 
-        public static function flatten($depth = 'INF')
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::flatten($depth);
-        }
-        
-        /**
-         * Flip the items in the collection.
-         *
-         * @return static 
-         * @static 
-         */ 
-        public static function flip()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::flip();
-        }
-        
-        /**
-         * Remove an item from the collection by key.
-         *
-         * @param string|array $keys
-         * @return $this 
-         * @static 
-         */ 
-        public static function forget($keys)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::forget($keys);
-        }
-        
-        /**
-         * Get an item from the collection by key.
-         *
-         * @param mixed $key
-         * @param mixed $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function get($key, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::get($key, $default);
-        }
-        
-        /**
-         * Group an associative array by a field or using a callback.
-         *
-         * @param callable|string $groupBy
-         * @param bool $preserveKeys
-         * @return static 
-         * @static 
-         */ 
-        public static function groupBy($groupBy, $preserveKeys = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::groupBy($groupBy, $preserveKeys);
-        }
-        
-        /**
-         * Key an associative array by a field or using a callback.
-         *
-         * @param callable|string $keyBy
-         * @return static 
-         * @static 
-         */ 
-        public static function keyBy($keyBy)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::keyBy($keyBy);
-        }
-        
-        /**
-         * Determine if an item exists in the collection by key.
-         *
-         * @param mixed $key
-         * @return bool 
-         * @static 
-         */ 
-        public static function has($key)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::has($key);
-        }
-        
-        /**
-         * Concatenate values of a given key as a string.
-         *
-         * @param string $value
-         * @param string $glue
-         * @return string 
-         * @static 
-         */ 
-        public static function implode($value, $glue = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::implode($value, $glue);
-        }
-        
-        /**
-         * Intersect the collection with the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function intersect($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::intersect($items);
-        }
-        
-        /**
-         * Intersect the collection with the given items by key.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function intersectKey($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::intersectKey($items);
-        }
-        
-        /**
-         * Determine if the collection is empty or not.
-         *
-         * @return bool 
-         * @static 
-         */ 
-        public static function isEmpty()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::isEmpty();
-        }
-        
-        /**
-         * Determine if the collection is not empty.
-         *
-         * @return bool 
-         * @static 
-         */ 
-        public static function isNotEmpty()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::isNotEmpty();
-        }
-        
-        /**
-         * Get the keys of the collection items.
-         *
-         * @return static 
-         * @static 
-         */ 
-        public static function keys()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::keys();
-        }
-        
-        /**
-         * Get the last item from the collection.
-         *
-         * @param callable|null $callback
-         * @param mixed $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function last($callback = null, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::last($callback, $default);
-        }
-        
-        /**
-         * Get the values of a given key.
-         *
-         * @param string|array $value
-         * @param string|null $key
-         * @return static 
-         * @static 
-         */ 
-        public static function pluck($value, $key = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::pluck($value, $key);
-        }
-        
-        /**
-         * Run a map over each of the items.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function map($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::map($callback);
-        }
-        
-        /**
-         * Run a map over each nested chunk of items.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function mapSpread($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::mapSpread($callback);
-        }
-        
-        /**
-         * Run a grouping map over the items.
-         * 
-         * The callback should return an associative array with a single key/value pair.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function mapToGroups($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::mapToGroups($callback);
-        }
-        
-        /**
-         * Run an associative map over each of the items.
-         * 
-         * The callback should return an associative array with a single key/value pair.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function mapWithKeys($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::mapWithKeys($callback);
-        }
-        
-        /**
-         * Map a collection and flatten the result by a single level.
-         *
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function flatMap($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::flatMap($callback);
-        }
-        
-        /**
-         * Get the max value of a given key.
-         *
-         * @param callable|string|null $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function max($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::max($callback);
-        }
-        
-        /**
-         * Merge the collection with the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function merge($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::merge($items);
-        }
-        
-        /**
-         * Create a collection by using this collection for keys and another for its values.
-         *
-         * @param mixed $values
-         * @return static 
-         * @static 
-         */ 
-        public static function combine($values)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::combine($values);
-        }
-        
-        /**
-         * Union the collection with the given items.
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function union($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::union($items);
-        }
-        
-        /**
-         * Get the min value of a given key.
-         *
-         * @param callable|string|null $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function min($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::min($callback);
-        }
-        
-        /**
-         * Create a new collection consisting of every n-th element.
-         *
-         * @param int $step
-         * @param int $offset
-         * @return static 
-         * @static 
-         */ 
-        public static function nth($step, $offset = 0)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::nth($step, $offset);
-        }
-        
-        /**
-         * Get the items with the specified keys.
-         *
-         * @param mixed $keys
-         * @return static 
-         * @static 
-         */ 
-        public static function only($keys)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::only($keys);
-        }
-        
-        /**
-         * "Paginate" the collection by slicing it into a smaller collection.
-         *
-         * @param int $page
-         * @param int $perPage
-         * @return static 
-         * @static 
-         */ 
-        public static function forPage($page, $perPage)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::forPage($page, $perPage);
-        }
-        
-        /**
-         * Partition the collection into two arrays using the given callback or key.
-         *
-         * @param callable|string $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function partition($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::partition($callback);
-        }
-        
-        /**
-         * Pass the collection to the given callback and return the result.
-         *
-         * @param callable $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function pipe($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::pipe($callback);
-        }
-        
-        /**
-         * Get and remove the last item from the collection.
-         *
-         * @return mixed 
-         * @static 
-         */ 
-        public static function pop()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::pop();
-        }
-        
-        /**
-         * Push an item onto the beginning of the collection.
-         *
-         * @param mixed $value
-         * @param mixed $key
-         * @return $this 
-         * @static 
-         */ 
-        public static function prepend($value, $key = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::prepend($value, $key);
-        }
-        
-        /**
-         * Push an item onto the end of the collection.
-         *
-         * @param mixed $value
-         * @return $this 
-         * @static 
-         */ 
-        public static function push($value)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::push($value);
-        }
-        
-        /**
-         * Push all of the given items onto the collection.
-         *
-         * @param \Traversable $source
-         * @return self 
-         * @static 
-         */ 
-        public static function concat($source)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::concat($source);
-        }
-        
-        /**
-         * Get and remove an item from the collection.
-         *
-         * @param mixed $key
-         * @param mixed $default
-         * @return mixed 
-         * @static 
-         */ 
-        public static function pull($key, $default = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::pull($key, $default);
-        }
-        
-        /**
-         * Put an item in the collection by key.
-         *
-         * @param mixed $key
-         * @param mixed $value
-         * @return $this 
-         * @static 
-         */ 
-        public static function put($key, $value)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::put($key, $value);
-        }
-        
-        /**
-         * Get one or a specified number of items randomly from the collection.
-         *
-         * @param int|null $number
-         * @return mixed 
-         * @throws \InvalidArgumentException
-         * @static 
-         */ 
-        public static function random($number = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::random($number);
-        }
-        
-        /**
-         * Reduce the collection to a single value.
-         *
-         * @param callable $callback
-         * @param mixed $initial
-         * @return mixed 
-         * @static 
-         */ 
-        public static function reduce($callback, $initial = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::reduce($callback, $initial);
-        }
-        
-        /**
-         * Create a collection of all elements that do not pass a given truth test.
-         *
-         * @param callable|mixed $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function reject($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::reject($callback);
-        }
-        
-        /**
-         * Reverse items order.
-         *
-         * @return static 
-         * @static 
-         */ 
-        public static function reverse()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::reverse();
-        }
-        
-        /**
-         * Search the collection for a given value and return the corresponding key if successful.
-         *
-         * @param mixed $value
-         * @param bool $strict
-         * @return mixed 
-         * @static 
-         */ 
-        public static function search($value, $strict = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::search($value, $strict);
-        }
-        
-        /**
-         * Get and remove the first item from the collection.
-         *
-         * @return mixed 
-         * @static 
-         */ 
-        public static function shift()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::shift();
-        }
-        
-        /**
-         * Shuffle the items in the collection.
-         *
-         * @param int $seed
-         * @return static 
-         * @static 
-         */ 
-        public static function shuffle($seed = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::shuffle($seed);
-        }
-        
-        /**
-         * Slice the underlying collection array.
-         *
-         * @param int $offset
-         * @param int $length
-         * @return static 
-         * @static 
-         */ 
-        public static function slice($offset, $length = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::slice($offset, $length);
-        }
-        
-        /**
-         * Split a collection into a certain number of groups.
-         *
-         * @param int $numberOfGroups
-         * @return static 
-         * @static 
-         */ 
-        public static function split($numberOfGroups)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::split($numberOfGroups);
-        }
-        
-        /**
-         * Chunk the underlying collection array.
-         *
-         * @param int $size
-         * @return static 
-         * @static 
-         */ 
-        public static function chunk($size)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::chunk($size);
-        }
-        
-        /**
-         * Sort through each item with a callback.
-         *
-         * @param callable|null $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function sort($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::sort($callback);
-        }
-        
-        /**
-         * Sort the collection using the given callback.
-         *
-         * @param callable|string $callback
-         * @param int $options
-         * @param bool $descending
-         * @return static 
-         * @static 
-         */ 
-        public static function sortBy($callback, $options = 0, $descending = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::sortBy($callback, $options, $descending);
-        }
-        
-        /**
-         * Sort the collection in descending order using the given callback.
-         *
-         * @param callable|string $callback
-         * @param int $options
-         * @return static 
-         * @static 
-         */ 
-        public static function sortByDesc($callback, $options = 0)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::sortByDesc($callback, $options);
-        }
-        
-        /**
-         * Splice a portion of the underlying collection array.
-         *
-         * @param int $offset
-         * @param int|null $length
-         * @param mixed $replacement
-         * @return static 
-         * @static 
-         */ 
-        public static function splice($offset, $length = null, $replacement = array())
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::splice($offset, $length, $replacement);
-        }
-        
-        /**
-         * Get the sum of the given values.
-         *
-         * @param callable|string|null $callback
-         * @return mixed 
-         * @static 
-         */ 
-        public static function sum($callback = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::sum($callback);
-        }
-        
-        /**
-         * Take the first or last {$limit} items.
-         *
-         * @param int $limit
-         * @return static 
-         * @static 
-         */ 
-        public static function take($limit)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::take($limit);
-        }
-        
-        /**
-         * Pass the collection to the given callback and then return it.
-         *
-         * @param callable $callback
-         * @return $this 
-         * @static 
-         */ 
-        public static function tap($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::tap($callback);
-        }
-        
-        /**
-         * Transform each item in the collection using a callback.
-         *
-         * @param callable $callback
-         * @return $this 
-         * @static 
-         */ 
-        public static function transform($callback)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::transform($callback);
-        }
-        
-        /**
-         * Return only unique items from the collection array.
-         *
-         * @param string|callable|null $key
-         * @param bool $strict
-         * @return static 
-         * @static 
-         */ 
-        public static function unique($key = null, $strict = false)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::unique($key, $strict);
-        }
-        
-        /**
-         * Return only unique items from the collection array using strict comparison.
-         *
-         * @param string|callable|null $key
-         * @return static 
-         * @static 
-         */ 
-        public static function uniqueStrict($key = null)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::uniqueStrict($key);
-        }
-        
-        /**
-         * Reset the keys on the underlying array.
-         *
-         * @return static 
-         * @static 
-         */ 
-        public static function values()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::values();
-        }
-        
-        /**
-         * Zip the collection together with one or more arrays.
-         * 
-         * e.g. new Collection([1, 2, 3])->zip([4, 5, 6]);
-         *      => [[1, 4], [2, 5], [3, 6]]
-         *
-         * @param mixed $items
-         * @return static 
-         * @static 
-         */ 
-        public static function zip($items)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::zip($items);
-        }
-        
-        /**
-         * Get the collection of items as a plain array.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function toArray()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::toArray();
-        }
-        
-        /**
-         * Convert the object into something JSON serializable.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function jsonSerialize()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::jsonSerialize();
-        }
-        
-        /**
-         * Get the collection of items as JSON.
-         *
-         * @param int $options
-         * @return string 
-         * @static 
-         */ 
-        public static function toJson($options = 0)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::toJson($options);
-        }
-        
-        /**
-         * Get an iterator for the items.
-         *
-         * @return \ArrayIterator 
-         * @static 
-         */ 
-        public static function getIterator()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::getIterator();
-        }
-        
-        /**
-         * Get a CachingIterator instance.
-         *
-         * @param int $flags
-         * @return \CachingIterator 
-         * @static 
-         */ 
-        public static function getCachingIterator($flags = 1)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::getCachingIterator($flags);
-        }
-        
-        /**
-         * Count the number of items in the collection.
-         *
-         * @return int 
-         * @static 
-         */ 
-        public static function count()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::count();
-        }
-        
-        /**
-         * Get a base Support collection instance from this collection.
-         *
-         * @return \Illuminate\Support\Collection 
-         * @static 
-         */ 
-        public static function toBase()
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::toBase();
-        }
-        
-        /**
-         * Determine if an item exists at an offset.
-         *
-         * @param mixed $key
-         * @return bool 
-         * @static 
-         */ 
-        public static function offsetExists($key)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::offsetExists($key);
-        }
-        
-        /**
-         * Get an item at a given offset.
-         *
-         * @param mixed $key
-         * @return mixed 
-         * @static 
-         */ 
-        public static function offsetGet($key)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::offsetGet($key);
-        }
-        
-        /**
-         * Set the item at a given offset.
-         *
-         * @param mixed $key
-         * @param mixed $value
-         * @return void 
-         * @static 
-         */ 
-        public static function offsetSet($key, $value)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            \KodiCMS\Assets\PackageManager::offsetSet($key, $value);
-        }
-        
-        /**
-         * Unset the item at a given offset.
-         *
-         * @param string $key
-         * @return void 
-         * @static 
-         */ 
-        public static function offsetUnset($key)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            \KodiCMS\Assets\PackageManager::offsetUnset($key);
-        }
-        
-        /**
-         * Add a method to the list of proxied methods.
-         *
-         * @param string $method
-         * @return void 
-         * @static 
-         */ 
-        public static function proxy($method)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            \KodiCMS\Assets\PackageManager::proxy($method);
-        }
-        
-        /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function macro($name, $macro)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            \KodiCMS\Assets\PackageManager::macro($name, $macro);
-        }
-        
-        /**
-         * Checks if macro is registered.
-         *
-         * @param string $name
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasMacro($name)
-        {
-            //Method inherited from \Illuminate\Support\Collection            
-            return \KodiCMS\Assets\PackageManager::hasMacro($name);
-        }
-         
-    }
-
-    class Meta {
-        
-        /**
-         * 
-         *
-         * @return \KodiCMS\Assets\AssetsInterface 
-         * @static 
-         */ 
-        public static function assets()
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::assets();
-        }
-        
-        /**
-         * 
-         *
-         * @param \KodiCMS\Assets\MetaDataInterface $data
-         * @return $this 
-         * @static 
-         */ 
-        public static function setMetaData($data)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setMetaData($data);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $title
-         * @return $this 
-         * @static 
-         */ 
-        public static function setTitle($title)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setTitle($title);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $description
-         * @return $this 
-         * @static 
-         */ 
-        public static function setMetaDescription($description)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setMetaDescription($description);
-        }
-        
-        /**
-         * 
-         *
-         * @param string|array $keywords
-         * @return $this 
-         * @static 
-         */ 
-        public static function setMetaKeywords($keywords)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setMetaKeywords($keywords);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $robots
-         * @return $this 
-         * @static 
-         */ 
-        public static function setMetaRobots($robots)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setMetaRobots($robots);
-        }
-        
-        /**
-         * 
-         *
-         * @param \KodiCMS\Assets\SocialMediaTagsInterface $socialTags
-         * @return $this 
-         * @static 
-         */ 
-        public static function addSocialTags($socialTags)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::addSocialTags($socialTags);
-        }
-        
-        /**
-         * 
-         *
-         * @param array $attributes
-         * @param null|string $group
-         * @return $this 
-         * @static 
-         */ 
-        public static function addMeta($attributes, $group = null)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::addMeta($attributes, $group);
-        }
-        
-        /**
-         * Указание favicon.
-         *
-         * @param string $url
-         * @param string $rel
-         * @param string $type
-         * @return $this 
-         * @static 
-         */ 
-        public static function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon')
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::setFavicon($url, $rel, $type);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $handle
-         * @param string $content
-         * @param array $params
-         * @param null|string $dependency
-         * @return $this 
-         * @static 
-         */ 
-        public static function addTagToGroup($handle, $content, $params = array(), $dependency = null)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::addTagToGroup($handle, $content, $params, $dependency);
-        }
-        
-        /**
-         * 
-         *
-         * @param string|null $handle
-         * @return $this 
-         * @static 
-         */ 
-        public static function removeFromGroup($handle = null)
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::removeFromGroup($handle);
-        }
-        
-        /**
-         * 
-         *
-         * @return string 
-         * @static 
-         */ 
-        public static function render()
-        {
-            //Method inherited from \KodiCMS\Assets\Meta            
-            return \SleepingOwl\Admin\Templates\Meta::render();
+            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
         }
          
     }
@@ -13341,13 +12406,25 @@ namespace Collective\Html {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Collective\Html\FormBuilder::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Collective\Html\FormBuilder::mixin($mixin);
         }
         
         /**
@@ -13724,13 +12801,25 @@ namespace Collective\Html {
          * Register a custom macro.
          *
          * @param string $name
-         * @param callable $macro
+         * @param object|callable $macro
          * @return void 
          * @static 
          */ 
         public static function macro($name, $macro)
         {
             \Collective\Html\HtmlBuilder::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Collective\Html\HtmlBuilder::mixin($mixin);
         }
         
         /**
@@ -13797,6 +12886,2007 @@ namespace Collective\Html {
         public static function componentCall($method, $parameters)
         {
             return \Collective\Html\HtmlBuilder::componentCall($method, $parameters);
+        }
+         
+    }
+
+    class HtmlFacade {
+        
+        /**
+         * Convert an HTML string to entities.
+         *
+         * @param string $value
+         * @return string 
+         * @static 
+         */ 
+        public static function entities($value)
+        {
+            return \Collective\Html\HtmlBuilder::entities($value);
+        }
+        
+        /**
+         * Convert entities to HTML characters.
+         *
+         * @param string $value
+         * @return string 
+         * @static 
+         */ 
+        public static function decode($value)
+        {
+            return \Collective\Html\HtmlBuilder::decode($value);
+        }
+        
+        /**
+         * Generate a link to a JavaScript file.
+         *
+         * @param string $url
+         * @param array $attributes
+         * @param bool $secure
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function script($url, $attributes = array(), $secure = null)
+        {
+            return \Collective\Html\HtmlBuilder::script($url, $attributes, $secure);
+        }
+        
+        /**
+         * Generate a link to a CSS file.
+         *
+         * @param string $url
+         * @param array $attributes
+         * @param bool $secure
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function style($url, $attributes = array(), $secure = null)
+        {
+            return \Collective\Html\HtmlBuilder::style($url, $attributes, $secure);
+        }
+        
+        /**
+         * Generate an HTML image element.
+         *
+         * @param string $url
+         * @param string $alt
+         * @param array $attributes
+         * @param bool $secure
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function image($url, $alt = null, $attributes = array(), $secure = null)
+        {
+            return \Collective\Html\HtmlBuilder::image($url, $alt, $attributes, $secure);
+        }
+        
+        /**
+         * Generate a link to a Favicon file.
+         *
+         * @param string $url
+         * @param array $attributes
+         * @param bool $secure
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function favicon($url, $attributes = array(), $secure = null)
+        {
+            return \Collective\Html\HtmlBuilder::favicon($url, $attributes, $secure);
+        }
+        
+        /**
+         * Generate a HTML link.
+         *
+         * @param string $url
+         * @param string $title
+         * @param array $attributes
+         * @param bool $secure
+         * @param bool $escape
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function link($url, $title = null, $attributes = array(), $secure = null, $escape = true)
+        {
+            return \Collective\Html\HtmlBuilder::link($url, $title, $attributes, $secure, $escape);
+        }
+        
+        /**
+         * Generate a HTTPS HTML link.
+         *
+         * @param string $url
+         * @param string $title
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function secureLink($url, $title = null, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::secureLink($url, $title, $attributes);
+        }
+        
+        /**
+         * Generate a HTML link to an asset.
+         *
+         * @param string $url
+         * @param string $title
+         * @param array $attributes
+         * @param bool $secure
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function linkAsset($url, $title = null, $attributes = array(), $secure = null)
+        {
+            return \Collective\Html\HtmlBuilder::linkAsset($url, $title, $attributes, $secure);
+        }
+        
+        /**
+         * Generate a HTTPS HTML link to an asset.
+         *
+         * @param string $url
+         * @param string $title
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function linkSecureAsset($url, $title = null, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::linkSecureAsset($url, $title, $attributes);
+        }
+        
+        /**
+         * Generate a HTML link to a named route.
+         *
+         * @param string $name
+         * @param string $title
+         * @param array $parameters
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function linkRoute($name, $title = null, $parameters = array(), $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::linkRoute($name, $title, $parameters, $attributes);
+        }
+        
+        /**
+         * Generate a HTML link to a controller action.
+         *
+         * @param string $action
+         * @param string $title
+         * @param array $parameters
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function linkAction($action, $title = null, $parameters = array(), $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::linkAction($action, $title, $parameters, $attributes);
+        }
+        
+        /**
+         * Generate a HTML link to an email address.
+         *
+         * @param string $email
+         * @param string $title
+         * @param array $attributes
+         * @param bool $escape
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function mailto($email, $title = null, $attributes = array(), $escape = true)
+        {
+            return \Collective\Html\HtmlBuilder::mailto($email, $title, $attributes, $escape);
+        }
+        
+        /**
+         * Obfuscate an e-mail address to prevent spam-bots from sniffing it.
+         *
+         * @param string $email
+         * @return string 
+         * @static 
+         */ 
+        public static function email($email)
+        {
+            return \Collective\Html\HtmlBuilder::email($email);
+        }
+        
+        /**
+         * Generates non-breaking space entities based on number supplied.
+         *
+         * @param int $num
+         * @return string 
+         * @static 
+         */ 
+        public static function nbsp($num = 1)
+        {
+            return \Collective\Html\HtmlBuilder::nbsp($num);
+        }
+        
+        /**
+         * Generate an ordered list of items.
+         *
+         * @param array $list
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString|string 
+         * @static 
+         */ 
+        public static function ol($list, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::ol($list, $attributes);
+        }
+        
+        /**
+         * Generate an un-ordered list of items.
+         *
+         * @param array $list
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString|string 
+         * @static 
+         */ 
+        public static function ul($list, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::ul($list, $attributes);
+        }
+        
+        /**
+         * Generate a description list of items.
+         *
+         * @param array $list
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function dl($list, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::dl($list, $attributes);
+        }
+        
+        /**
+         * Build an HTML attribute string from an array.
+         *
+         * @param array $attributes
+         * @return string 
+         * @static 
+         */ 
+        public static function attributes($attributes)
+        {
+            return \Collective\Html\HtmlBuilder::attributes($attributes);
+        }
+        
+        /**
+         * Obfuscate a string to prevent spam-bots from sniffing it.
+         *
+         * @param string $value
+         * @return string 
+         * @static 
+         */ 
+        public static function obfuscate($value)
+        {
+            return \Collective\Html\HtmlBuilder::obfuscate($value);
+        }
+        
+        /**
+         * Generate a meta tag.
+         *
+         * @param string $name
+         * @param string $content
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function meta($name, $content, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::meta($name, $content, $attributes);
+        }
+        
+        /**
+         * Generate an html tag.
+         *
+         * @param string $tag
+         * @param mixed $content
+         * @param array $attributes
+         * @return \Illuminate\Support\HtmlString 
+         * @static 
+         */ 
+        public static function tag($tag, $content, $attributes = array())
+        {
+            return \Collective\Html\HtmlBuilder::tag($tag, $content, $attributes);
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+            \Collective\Html\HtmlBuilder::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            \Collective\Html\HtmlBuilder::mixin($mixin);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+            return \Collective\Html\HtmlBuilder::hasMacro($name);
+        }
+        
+        /**
+         * Dynamically handle calls to the class.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return mixed 
+         * @throws \BadMethodCallException
+         * @static 
+         */ 
+        public static function macroCall($method, $parameters)
+        {
+            return \Collective\Html\HtmlBuilder::macroCall($method, $parameters);
+        }
+        
+        /**
+         * Register a custom component.
+         *
+         * @param $name
+         * @param $view
+         * @param array $signature
+         * @return void 
+         * @static 
+         */ 
+        public static function component($name, $view, $signature)
+        {
+            \Collective\Html\HtmlBuilder::component($name, $view, $signature);
+        }
+        
+        /**
+         * Check if a component is registered.
+         *
+         * @param $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasComponent($name)
+        {
+            return \Collective\Html\HtmlBuilder::hasComponent($name);
+        }
+        
+        /**
+         * Dynamically handle calls to the class.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return \Illuminate\Contracts\View\View|mixed 
+         * @throws \BadMethodCallException
+         * @static 
+         */ 
+        public static function componentCall($method, $parameters)
+        {
+            return \Collective\Html\HtmlBuilder::componentCall($method, $parameters);
+        }
+         
+    }
+ 
+}
+
+namespace KodiCMS\Assets\Facades { 
+
+    class PackageManager {
+        
+        /**
+         * 
+         *
+         * @param string|\KodiCMS\Assets\PackageInterface $package
+         * @return \KodiCMS\Assets\Package 
+         * @static 
+         */ 
+        public static function add($package)
+        {
+            return \KodiCMS\Assets\PackageManager::add($package);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @return \KodiCMS\Assets\PackageInterface|null 
+         * @static 
+         */ 
+        public static function load($name)
+        {
+            return \KodiCMS\Assets\PackageManager::load($name);
+        }
+        
+        /**
+         * Create a new collection instance if the value isn't one already.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function make($items = array())
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::make($items);
+        }
+        
+        /**
+         * Wrap the given value in a collection if applicable.
+         *
+         * @param mixed $value
+         * @return static 
+         * @static 
+         */ 
+        public static function wrap($value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::wrap($value);
+        }
+        
+        /**
+         * Get the underlying items from the given collection if applicable.
+         *
+         * @param array|static $value
+         * @return array 
+         * @static 
+         */ 
+        public static function unwrap($value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::unwrap($value);
+        }
+        
+        /**
+         * Create a new collection by invoking the callback a given amount of times.
+         *
+         * @param int $number
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function times($number, $callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::times($number, $callback);
+        }
+        
+        /**
+         * Get all of the items in the collection.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function all()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::all();
+        }
+        
+        /**
+         * Get the average value of a given key.
+         *
+         * @param callable|string|null $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function avg($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::avg($callback);
+        }
+        
+        /**
+         * Alias for the "avg" method.
+         *
+         * @param callable|string|null $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function average($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::average($callback);
+        }
+        
+        /**
+         * Get the median of a given key.
+         *
+         * @param null $key
+         * @return mixed 
+         * @static 
+         */ 
+        public static function median($key = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::median($key);
+        }
+        
+        /**
+         * Get the mode of a given key.
+         *
+         * @param mixed $key
+         * @return array|null 
+         * @static 
+         */ 
+        public static function mode($key = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::mode($key);
+        }
+        
+        /**
+         * Collapse the collection of items into a single array.
+         *
+         * @return static 
+         * @static 
+         */ 
+        public static function collapse()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::collapse();
+        }
+        
+        /**
+         * Determine if an item exists in the collection.
+         *
+         * @param mixed $key
+         * @param mixed $operator
+         * @param mixed $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function contains($key, $operator = null, $value = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::contains($key, $operator, $value);
+        }
+        
+        /**
+         * Determine if an item exists in the collection using strict comparison.
+         *
+         * @param mixed $key
+         * @param mixed $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function containsStrict($key, $value = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::containsStrict($key, $value);
+        }
+        
+        /**
+         * Cross join with the given lists, returning all possible permutations.
+         *
+         * @param mixed $lists
+         * @return static 
+         * @static 
+         */ 
+        public static function crossJoin($lists = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::crossJoin($lists);
+        }
+        
+        /**
+         * Dump the collection and end the script.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function dd()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::dd();
+        }
+        
+        /**
+         * Dump the collection.
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function dump()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::dump();
+        }
+        
+        /**
+         * Get the items in the collection that are not present in the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function diff($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::diff($items);
+        }
+        
+        /**
+         * Get the items in the collection whose keys and values are not present in the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function diffAssoc($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::diffAssoc($items);
+        }
+        
+        /**
+         * Get the items in the collection whose keys are not present in the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function diffKeys($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::diffKeys($items);
+        }
+        
+        /**
+         * Execute a callback over each item.
+         *
+         * @param callable $callback
+         * @return $this 
+         * @static 
+         */ 
+        public static function each($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::each($callback);
+        }
+        
+        /**
+         * Execute a callback over each nested chunk of items.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function eachSpread($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::eachSpread($callback);
+        }
+        
+        /**
+         * Determine if all items in the collection pass the given test.
+         *
+         * @param string|callable $key
+         * @param mixed $operator
+         * @param mixed $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function every($key, $operator = null, $value = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::every($key, $operator, $value);
+        }
+        
+        /**
+         * Get all items except for those with the specified keys.
+         *
+         * @param mixed $keys
+         * @return static 
+         * @static 
+         */ 
+        public static function except($keys)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::except($keys);
+        }
+        
+        /**
+         * Run a filter over each of the items.
+         *
+         * @param callable|null $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function filter($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::filter($callback);
+        }
+        
+        /**
+         * Apply the callback if the value is truthy.
+         *
+         * @param bool $value
+         * @param callable $callback
+         * @param callable $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function when($value, $callback, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::when($value, $callback, $default);
+        }
+        
+        /**
+         * Apply the callback if the value is falsy.
+         *
+         * @param bool $value
+         * @param callable $callback
+         * @param callable $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function unless($value, $callback, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::unless($value, $callback, $default);
+        }
+        
+        /**
+         * Filter items by the given key value pair.
+         *
+         * @param string $key
+         * @param mixed $operator
+         * @param mixed $value
+         * @return static 
+         * @static 
+         */ 
+        public static function where($key, $operator, $value = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::where($key, $operator, $value);
+        }
+        
+        /**
+         * Filter items by the given key value pair using strict comparison.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return static 
+         * @static 
+         */ 
+        public static function whereStrict($key, $value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::whereStrict($key, $value);
+        }
+        
+        /**
+         * Filter items by the given key value pair.
+         *
+         * @param string $key
+         * @param mixed $values
+         * @param bool $strict
+         * @return static 
+         * @static 
+         */ 
+        public static function whereIn($key, $values, $strict = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::whereIn($key, $values, $strict);
+        }
+        
+        /**
+         * Filter items by the given key value pair using strict comparison.
+         *
+         * @param string $key
+         * @param mixed $values
+         * @return static 
+         * @static 
+         */ 
+        public static function whereInStrict($key, $values)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::whereInStrict($key, $values);
+        }
+        
+        /**
+         * Filter items by the given key value pair.
+         *
+         * @param string $key
+         * @param mixed $values
+         * @param bool $strict
+         * @return static 
+         * @static 
+         */ 
+        public static function whereNotIn($key, $values, $strict = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::whereNotIn($key, $values, $strict);
+        }
+        
+        /**
+         * Filter items by the given key value pair using strict comparison.
+         *
+         * @param string $key
+         * @param mixed $values
+         * @return static 
+         * @static 
+         */ 
+        public static function whereNotInStrict($key, $values)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::whereNotInStrict($key, $values);
+        }
+        
+        /**
+         * Get the first item from the collection.
+         *
+         * @param callable|null $callback
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function first($callback = null, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::first($callback, $default);
+        }
+        
+        /**
+         * Get a flattened array of the items in the collection.
+         *
+         * @param int $depth
+         * @return static 
+         * @static 
+         */ 
+        public static function flatten($depth = 'INF')
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::flatten($depth);
+        }
+        
+        /**
+         * Flip the items in the collection.
+         *
+         * @return static 
+         * @static 
+         */ 
+        public static function flip()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::flip();
+        }
+        
+        /**
+         * Remove an item from the collection by key.
+         *
+         * @param string|array $keys
+         * @return $this 
+         * @static 
+         */ 
+        public static function forget($keys)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::forget($keys);
+        }
+        
+        /**
+         * Get an item from the collection by key.
+         *
+         * @param mixed $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function get($key, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::get($key, $default);
+        }
+        
+        /**
+         * Group an associative array by a field or using a callback.
+         *
+         * @param callable|string $groupBy
+         * @param bool $preserveKeys
+         * @return static 
+         * @static 
+         */ 
+        public static function groupBy($groupBy, $preserveKeys = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::groupBy($groupBy, $preserveKeys);
+        }
+        
+        /**
+         * Key an associative array by a field or using a callback.
+         *
+         * @param callable|string $keyBy
+         * @return static 
+         * @static 
+         */ 
+        public static function keyBy($keyBy)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::keyBy($keyBy);
+        }
+        
+        /**
+         * Determine if an item exists in the collection by key.
+         *
+         * @param mixed $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($key)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::has($key);
+        }
+        
+        /**
+         * Concatenate values of a given key as a string.
+         *
+         * @param string $value
+         * @param string $glue
+         * @return string 
+         * @static 
+         */ 
+        public static function implode($value, $glue = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::implode($value, $glue);
+        }
+        
+        /**
+         * Intersect the collection with the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function intersect($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::intersect($items);
+        }
+        
+        /**
+         * Intersect the collection with the given items by key.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function intersectByKeys($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::intersectByKeys($items);
+        }
+        
+        /**
+         * Determine if the collection is empty or not.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isEmpty()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::isEmpty();
+        }
+        
+        /**
+         * Determine if the collection is not empty.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isNotEmpty()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::isNotEmpty();
+        }
+        
+        /**
+         * Get the keys of the collection items.
+         *
+         * @return static 
+         * @static 
+         */ 
+        public static function keys()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::keys();
+        }
+        
+        /**
+         * Get the last item from the collection.
+         *
+         * @param callable|null $callback
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function last($callback = null, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::last($callback, $default);
+        }
+        
+        /**
+         * Get the values of a given key.
+         *
+         * @param string|array $value
+         * @param string|null $key
+         * @return static 
+         * @static 
+         */ 
+        public static function pluck($value, $key = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::pluck($value, $key);
+        }
+        
+        /**
+         * Run a map over each of the items.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function map($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::map($callback);
+        }
+        
+        /**
+         * Run a map over each nested chunk of items.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function mapSpread($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::mapSpread($callback);
+        }
+        
+        /**
+         * Run a grouping map over the items.
+         * 
+         * The callback should return an associative array with a single key/value pair.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function mapToGroups($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::mapToGroups($callback);
+        }
+        
+        /**
+         * Run an associative map over each of the items.
+         * 
+         * The callback should return an associative array with a single key/value pair.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function mapWithKeys($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::mapWithKeys($callback);
+        }
+        
+        /**
+         * Map a collection and flatten the result by a single level.
+         *
+         * @param callable $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function flatMap($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::flatMap($callback);
+        }
+        
+        /**
+         * Map the values into a new class.
+         *
+         * @param string $class
+         * @return static 
+         * @static 
+         */ 
+        public static function mapInto($class)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::mapInto($class);
+        }
+        
+        /**
+         * Get the max value of a given key.
+         *
+         * @param callable|string|null $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function max($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::max($callback);
+        }
+        
+        /**
+         * Merge the collection with the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function merge($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::merge($items);
+        }
+        
+        /**
+         * Create a collection by using this collection for keys and another for its values.
+         *
+         * @param mixed $values
+         * @return static 
+         * @static 
+         */ 
+        public static function combine($values)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::combine($values);
+        }
+        
+        /**
+         * Union the collection with the given items.
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function union($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::union($items);
+        }
+        
+        /**
+         * Get the min value of a given key.
+         *
+         * @param callable|string|null $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function min($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::min($callback);
+        }
+        
+        /**
+         * Create a new collection consisting of every n-th element.
+         *
+         * @param int $step
+         * @param int $offset
+         * @return static 
+         * @static 
+         */ 
+        public static function nth($step, $offset = 0)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::nth($step, $offset);
+        }
+        
+        /**
+         * Get the items with the specified keys.
+         *
+         * @param mixed $keys
+         * @return static 
+         * @static 
+         */ 
+        public static function only($keys)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::only($keys);
+        }
+        
+        /**
+         * "Paginate" the collection by slicing it into a smaller collection.
+         *
+         * @param int $page
+         * @param int $perPage
+         * @return static 
+         * @static 
+         */ 
+        public static function forPage($page, $perPage)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::forPage($page, $perPage);
+        }
+        
+        /**
+         * Partition the collection into two arrays using the given callback or key.
+         *
+         * @param callable|string $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function partition($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::partition($callback);
+        }
+        
+        /**
+         * Pass the collection to the given callback and return the result.
+         *
+         * @param callable $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function pipe($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::pipe($callback);
+        }
+        
+        /**
+         * Get and remove the last item from the collection.
+         *
+         * @return mixed 
+         * @static 
+         */ 
+        public static function pop()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::pop();
+        }
+        
+        /**
+         * Push an item onto the beginning of the collection.
+         *
+         * @param mixed $value
+         * @param mixed $key
+         * @return $this 
+         * @static 
+         */ 
+        public static function prepend($value, $key = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::prepend($value, $key);
+        }
+        
+        /**
+         * Push an item onto the end of the collection.
+         *
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */ 
+        public static function push($value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::push($value);
+        }
+        
+        /**
+         * Push all of the given items onto the collection.
+         *
+         * @param \Traversable $source
+         * @return $this 
+         * @static 
+         */ 
+        public static function concat($source)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::concat($source);
+        }
+        
+        /**
+         * Get and remove an item from the collection.
+         *
+         * @param mixed $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function pull($key, $default = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::pull($key, $default);
+        }
+        
+        /**
+         * Put an item in the collection by key.
+         *
+         * @param mixed $key
+         * @param mixed $value
+         * @return $this 
+         * @static 
+         */ 
+        public static function put($key, $value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::put($key, $value);
+        }
+        
+        /**
+         * Get one or a specified number of items randomly from the collection.
+         *
+         * @param int|null $number
+         * @return mixed 
+         * @throws \InvalidArgumentException
+         * @static 
+         */ 
+        public static function random($number = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::random($number);
+        }
+        
+        /**
+         * Reduce the collection to a single value.
+         *
+         * @param callable $callback
+         * @param mixed $initial
+         * @return mixed 
+         * @static 
+         */ 
+        public static function reduce($callback, $initial = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::reduce($callback, $initial);
+        }
+        
+        /**
+         * Create a collection of all elements that do not pass a given truth test.
+         *
+         * @param callable|mixed $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function reject($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::reject($callback);
+        }
+        
+        /**
+         * Reverse items order.
+         *
+         * @return static 
+         * @static 
+         */ 
+        public static function reverse()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::reverse();
+        }
+        
+        /**
+         * Search the collection for a given value and return the corresponding key if successful.
+         *
+         * @param mixed $value
+         * @param bool $strict
+         * @return mixed 
+         * @static 
+         */ 
+        public static function search($value, $strict = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::search($value, $strict);
+        }
+        
+        /**
+         * Get and remove the first item from the collection.
+         *
+         * @return mixed 
+         * @static 
+         */ 
+        public static function shift()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::shift();
+        }
+        
+        /**
+         * Shuffle the items in the collection.
+         *
+         * @param int $seed
+         * @return static 
+         * @static 
+         */ 
+        public static function shuffle($seed = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::shuffle($seed);
+        }
+        
+        /**
+         * Slice the underlying collection array.
+         *
+         * @param int $offset
+         * @param int $length
+         * @return static 
+         * @static 
+         */ 
+        public static function slice($offset, $length = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::slice($offset, $length);
+        }
+        
+        /**
+         * Split a collection into a certain number of groups.
+         *
+         * @param int $numberOfGroups
+         * @return static 
+         * @static 
+         */ 
+        public static function split($numberOfGroups)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::split($numberOfGroups);
+        }
+        
+        /**
+         * Chunk the underlying collection array.
+         *
+         * @param int $size
+         * @return static 
+         * @static 
+         */ 
+        public static function chunk($size)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::chunk($size);
+        }
+        
+        /**
+         * Sort through each item with a callback.
+         *
+         * @param callable|null $callback
+         * @return static 
+         * @static 
+         */ 
+        public static function sort($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::sort($callback);
+        }
+        
+        /**
+         * Sort the collection using the given callback.
+         *
+         * @param callable|string $callback
+         * @param int $options
+         * @param bool $descending
+         * @return static 
+         * @static 
+         */ 
+        public static function sortBy($callback, $options = 0, $descending = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::sortBy($callback, $options, $descending);
+        }
+        
+        /**
+         * Sort the collection in descending order using the given callback.
+         *
+         * @param callable|string $callback
+         * @param int $options
+         * @return static 
+         * @static 
+         */ 
+        public static function sortByDesc($callback, $options = 0)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::sortByDesc($callback, $options);
+        }
+        
+        /**
+         * Splice a portion of the underlying collection array.
+         *
+         * @param int $offset
+         * @param int|null $length
+         * @param mixed $replacement
+         * @return static 
+         * @static 
+         */ 
+        public static function splice($offset, $length = null, $replacement = array())
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::splice($offset, $length, $replacement);
+        }
+        
+        /**
+         * Get the sum of the given values.
+         *
+         * @param callable|string|null $callback
+         * @return mixed 
+         * @static 
+         */ 
+        public static function sum($callback = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::sum($callback);
+        }
+        
+        /**
+         * Take the first or last {$limit} items.
+         *
+         * @param int $limit
+         * @return static 
+         * @static 
+         */ 
+        public static function take($limit)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::take($limit);
+        }
+        
+        /**
+         * Pass the collection to the given callback and then return it.
+         *
+         * @param callable $callback
+         * @return $this 
+         * @static 
+         */ 
+        public static function tap($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::tap($callback);
+        }
+        
+        /**
+         * Transform each item in the collection using a callback.
+         *
+         * @param callable $callback
+         * @return $this 
+         * @static 
+         */ 
+        public static function transform($callback)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::transform($callback);
+        }
+        
+        /**
+         * Return only unique items from the collection array.
+         *
+         * @param string|callable|null $key
+         * @param bool $strict
+         * @return static 
+         * @static 
+         */ 
+        public static function unique($key = null, $strict = false)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::unique($key, $strict);
+        }
+        
+        /**
+         * Return only unique items from the collection array using strict comparison.
+         *
+         * @param string|callable|null $key
+         * @return static 
+         * @static 
+         */ 
+        public static function uniqueStrict($key = null)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::uniqueStrict($key);
+        }
+        
+        /**
+         * Reset the keys on the underlying array.
+         *
+         * @return static 
+         * @static 
+         */ 
+        public static function values()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::values();
+        }
+        
+        /**
+         * Zip the collection together with one or more arrays.
+         * 
+         * e.g. new Collection([1, 2, 3])->zip([4, 5, 6]);
+         *      => [[1, 4], [2, 5], [3, 6]]
+         *
+         * @param mixed $items
+         * @return static 
+         * @static 
+         */ 
+        public static function zip($items)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::zip($items);
+        }
+        
+        /**
+         * Get the collection of items as a plain array.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function toArray()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::toArray();
+        }
+        
+        /**
+         * Convert the object into something JSON serializable.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function jsonSerialize()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::jsonSerialize();
+        }
+        
+        /**
+         * Get the collection of items as JSON.
+         *
+         * @param int $options
+         * @return string 
+         * @static 
+         */ 
+        public static function toJson($options = 0)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::toJson($options);
+        }
+        
+        /**
+         * Get an iterator for the items.
+         *
+         * @return \ArrayIterator 
+         * @static 
+         */ 
+        public static function getIterator()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::getIterator();
+        }
+        
+        /**
+         * Get a CachingIterator instance.
+         *
+         * @param int $flags
+         * @return \CachingIterator 
+         * @static 
+         */ 
+        public static function getCachingIterator($flags = 1)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::getCachingIterator($flags);
+        }
+        
+        /**
+         * Count the number of items in the collection.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function count()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::count();
+        }
+        
+        /**
+         * Get a base Support collection instance from this collection.
+         *
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */ 
+        public static function toBase()
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::toBase();
+        }
+        
+        /**
+         * Determine if an item exists at an offset.
+         *
+         * @param mixed $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function offsetExists($key)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::offsetExists($key);
+        }
+        
+        /**
+         * Get an item at a given offset.
+         *
+         * @param mixed $key
+         * @return mixed 
+         * @static 
+         */ 
+        public static function offsetGet($key)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::offsetGet($key);
+        }
+        
+        /**
+         * Set the item at a given offset.
+         *
+         * @param mixed $key
+         * @param mixed $value
+         * @return void 
+         * @static 
+         */ 
+        public static function offsetSet($key, $value)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::offsetSet($key, $value);
+        }
+        
+        /**
+         * Unset the item at a given offset.
+         *
+         * @param string $key
+         * @return void 
+         * @static 
+         */ 
+        public static function offsetUnset($key)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::offsetUnset($key);
+        }
+        
+        /**
+         * Add a method to the list of proxied methods.
+         *
+         * @param string $method
+         * @return void 
+         * @static 
+         */ 
+        public static function proxy($method)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::proxy($method);
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @return void 
+         * @static 
+         */ 
+        public static function mixin($mixin)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            \KodiCMS\Assets\PackageManager::mixin($mixin);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+            //Method inherited from \Illuminate\Support\Collection            
+            return \KodiCMS\Assets\PackageManager::hasMacro($name);
+        }
+         
+    }
+
+    class Meta {
+        
+        /**
+         * 
+         *
+         * @return \KodiCMS\Assets\AssetsInterface 
+         * @static 
+         */ 
+        public static function assets()
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::assets();
+        }
+        
+        /**
+         * 
+         *
+         * @param \KodiCMS\Assets\MetaDataInterface $data
+         * @return $this 
+         * @static 
+         */ 
+        public static function setMetaData($data)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setMetaData($data);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $title
+         * @return $this 
+         * @static 
+         */ 
+        public static function setTitle($title)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setTitle($title);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $description
+         * @return $this 
+         * @static 
+         */ 
+        public static function setMetaDescription($description)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setMetaDescription($description);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|array $keywords
+         * @return $this 
+         * @static 
+         */ 
+        public static function setMetaKeywords($keywords)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setMetaKeywords($keywords);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $robots
+         * @return $this 
+         * @static 
+         */ 
+        public static function setMetaRobots($robots)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setMetaRobots($robots);
+        }
+        
+        /**
+         * 
+         *
+         * @param \KodiCMS\Assets\SocialMediaTagsInterface $socialTags
+         * @return $this 
+         * @static 
+         */ 
+        public static function addSocialTags($socialTags)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::addSocialTags($socialTags);
+        }
+        
+        /**
+         * 
+         *
+         * @param array $attributes
+         * @param null|string $group
+         * @return $this 
+         * @static 
+         */ 
+        public static function addMeta($attributes, $group = null)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::addMeta($attributes, $group);
+        }
+        
+        /**
+         * Указание favicon.
+         *
+         * @param string $url
+         * @param string $rel
+         * @param string $type
+         * @return $this 
+         * @static 
+         */ 
+        public static function setFavicon($url, $rel = 'shortcut icon', $type = 'image/x-icon')
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::setFavicon($url, $rel, $type);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $handle
+         * @param string $content
+         * @param array $params
+         * @param null|string $dependency
+         * @return $this 
+         * @static 
+         */ 
+        public static function addTagToGroup($handle, $content, $params = array(), $dependency = null)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::addTagToGroup($handle, $content, $params, $dependency);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|null $handle
+         * @return $this 
+         * @static 
+         */ 
+        public static function removeFromGroup($handle = null)
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::removeFromGroup($handle);
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function render()
+        {
+            //Method inherited from \KodiCMS\Assets\Meta            
+            return \SleepingOwl\Admin\Templates\Meta::render();
         }
          
     }
@@ -14167,6 +15257,18 @@ namespace  {
             }
          
             /**
+             * Add a where clause on the primary key to the query.
+             *
+             * @param mixed $id
+             * @return $this 
+             * @static 
+             */ 
+            public static function whereKeyNot($id)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::whereKeyNot($id);
+            }
+         
+            /**
              * Add a basic where clause to the query.
              *
              * @param string|array|\Closure $column
@@ -14184,7 +15286,7 @@ namespace  {
             /**
              * Add an "or where" clause to the query.
              *
-             * @param string|array|\Closure $column
+             * @param \Closure|array|string $column
              * @param string $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -14236,7 +15338,7 @@ namespace  {
             /**
              * Find multiple models by their primary keys.
              *
-             * @param array $ids
+             * @param \Illuminate\Contracts\Support\Arrayable|array $ids
              * @param array $columns
              * @return \Illuminate\Database\Eloquent\Collection 
              * @static 
@@ -14924,8 +16026,8 @@ namespace  {
              *
              * @param string $table
              * @param string $first
-             * @param string $operator
-             * @param string $second
+             * @param string|null $operator
+             * @param string|null $second
              * @param string $type
              * @param bool $where
              * @return $this 
@@ -14957,8 +16059,8 @@ namespace  {
              *
              * @param string $table
              * @param string $first
-             * @param string $operator
-             * @param string $second
+             * @param string|null $operator
+             * @param string|null $second
              * @return \Illuminate\Database\Query\Builder|static 
              * @static 
              */ 
@@ -14987,8 +16089,8 @@ namespace  {
              *
              * @param string $table
              * @param string $first
-             * @param string $operator
-             * @param string $second
+             * @param string|null $operator
+             * @param string|null $second
              * @return \Illuminate\Database\Query\Builder|static 
              * @static 
              */ 
@@ -15016,9 +16118,9 @@ namespace  {
              * Add a "cross join" clause to the query.
              *
              * @param string $table
-             * @param string $first
-             * @param string $operator
-             * @param string $second
+             * @param string|null $first
+             * @param string|null $operator
+             * @param string|null $second
              * @return \Illuminate\Database\Query\Builder|static 
              * @static 
              */ 
@@ -15492,8 +16594,8 @@ namespace  {
              * Add a "having" clause to the query.
              *
              * @param string $column
-             * @param string $operator
-             * @param string $value
+             * @param string|null $operator
+             * @param string|null $value
              * @param string $boolean
              * @return $this 
              * @static 
@@ -15507,8 +16609,8 @@ namespace  {
              * Add a "or having" clause to the query.
              *
              * @param string $column
-             * @param string $operator
-             * @param string $value
+             * @param string|null $operator
+             * @param string|null $value
              * @return \Illuminate\Database\Query\Builder|static 
              * @static 
              */ 
@@ -15913,7 +17015,7 @@ namespace  {
              * Insert a new record and get the value of the primary key.
              *
              * @param array $values
-             * @param string $sequence
+             * @param string|null $sequence
              * @return int 
              * @static 
              */ 
@@ -16056,13 +17158,13 @@ namespace  {
             /**
              * Clone the query without the given properties.
              *
-             * @param array $except
+             * @param array $properties
              * @return static 
              * @static 
              */ 
-            public static function cloneWithout($except)
+            public static function cloneWithout($properties)
             {    
-                return \Illuminate\Database\Query\Builder::cloneWithout($except);
+                return \Illuminate\Database\Query\Builder::cloneWithout($properties);
             }
          
             /**
@@ -16081,13 +17183,25 @@ namespace  {
              * Register a custom macro.
              *
              * @param string $name
-             * @param callable $macro
+             * @param object|callable $macro
              * @return void 
              * @static 
              */ 
             public static function macro($name, $macro)
             {    
                 \Illuminate\Database\Query\Builder::macro($name, $macro);
+            }
+         
+            /**
+             * Mix another object into the class.
+             *
+             * @param object $mixin
+             * @return void 
+             * @static 
+             */ 
+            public static function mixin($mixin)
+            {    
+                \Illuminate\Database\Query\Builder::mixin($mixin);
             }
          
             /**
@@ -16155,11 +17269,15 @@ namespace  {
 
     class View extends \Illuminate\Support\Facades\View {}
 
+    class Image extends \Intervention\Image\Facades\Image {}
+
+    class Form extends \Collective\Html\FormFacade {}
+
+    class Html extends \Collective\Html\HtmlFacade {}
+
     class PackageManager extends \KodiCMS\Assets\Facades\PackageManager {}
 
     class Meta extends \KodiCMS\Assets\Facades\Meta {}
-
-    class Form extends \Collective\Html\FormFacade {}
 
     class HTML extends \Collective\Html\HtmlFacade {}
 
