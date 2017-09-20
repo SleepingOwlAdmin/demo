@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Form2 extends Form
+class FormButton extends Form
 {
 
 }
