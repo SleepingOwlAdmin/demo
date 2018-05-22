@@ -8,7 +8,7 @@ use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Form\FormElements;
 
-use App\Model\Forms\Form;
+use App\Model\Forms\FormButton;
 
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -91,7 +91,7 @@ class FormButtons extends Section implements Initializable
                     </pre>
                 </div>',
 
-                $this->fireEdit(Form::First()->id)
+                $this->fireEdit(FormButton::First()->id)
             ])
             ,
             //Название таба
@@ -104,7 +104,7 @@ class FormButtons extends Section implements Initializable
 
 
 
-        $form2 = $this->fireEdit( Form::first()->id );
+        $form2 = $this->fireEdit( FormButton::first()->id );
 
 
         $form2->getButtons()->replaceButtons([
@@ -157,7 +157,7 @@ class FormButtons extends Section implements Initializable
         );
 
 
-        $form3 = $this->fireEdit( Form::first()->id );
+        $form3 = $this->fireEdit( FormButton::first()->id );
 
         $form3->getButtons()->setButtons([]);
 
@@ -178,7 +178,7 @@ class FormButtons extends Section implements Initializable
         );
 
 
-        $form4 = $this->fireEdit( Form::first()->id );
+        $form4 = $this->fireEdit( FormButton::first()->id );
 
         $form4->getButtons()->setButtons([
             'cancel' => new Cancel(),
@@ -230,7 +230,7 @@ class FormButtons extends Section implements Initializable
 
 
 
-        $form5 = $this->fireEdit( Form::first()->id );
+        $form5 = $this->fireEdit( FormButton::first()->id );
 
         $form5->getButtons()->setButtons([
             'cancel' => (new Cancel())->getHtmlAttribute('style','border:5px solid green'),
@@ -267,7 +267,7 @@ class FormButtons extends Section implements Initializable
 
 
 
-        $form6 = $this->fireEdit( Form::first()->id );
+        $form6 = $this->fireEdit( FormButton::first()->id );
 
         $form6->getButtons()->replaceButtons ([
             'save'   => (new Save())->setText('Сохранить')->setHtmlAttributes(['style'=>'border:3px solid purple; background: violet;', 'data-custom'=>'mydata']),

@@ -17,7 +17,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     protected $widgets = [
         \Admin\Widgets\DashboardMap::class,
-        \Admin\Widgets\NavigationUserBlock::class
+        \Admin\Widgets\NavigationNotifications::class,
+        \Admin\Widgets\NavigationUserBlock::class,
     ];
 
     /**
@@ -49,8 +50,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
 
 
 
-        'App\Model\Forms\Form'      => 'Admin\Http\Sections\Forms\Form',
-        'App\Model\Forms\Form2'     => 'Admin\Http\Sections\Forms\FormButtons',
+        'App\Model\Forms\Form'      => 'Admin\Http\Sections\Forms\Forms',
+        'App\Model\Forms\FormButton'=> 'Admin\Http\Sections\Forms\FormButtons',
 
 
         'App\Role'                  => 'Admin\Http\Sections\Roles',

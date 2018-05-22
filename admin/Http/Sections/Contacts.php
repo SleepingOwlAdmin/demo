@@ -43,7 +43,7 @@ class Contacts extends Section
      */
     public function onDisplay($scopes = [])
     {
-        $display = AdminDisplay::datatablesAsync()->setDisplaySearch(true)->paginate(10);
+        $display = AdminDisplay::datatablesAsync()->setDatatableAttributes(['bInfo' => false])->setDisplaySearch(true)->paginate(10);
 
         $display->setHtmlAttribute('class', 'table-info table-hover');
 
@@ -73,11 +73,11 @@ class Contacts extends Section
 
             AdminColumn::relatedLink('author.name', 'Author'),
 
-            $companiesCount = AdminColumn::count('companies', 'Companies<br/><small>(count)</small>')
+            $companiesCount = AdminColumn::count('companies', 'Companies<br/><small>(count)</small>', 'country.title')
                 ->setHtmlAttribute('class', 'text-center hidden-sm hidden-xs')
                 ->setWidth('50px'),
 
-            $companies = AdminColumn::lists('companies.title', 'Companies<br/><small>(lists)</small>')
+            $companies = AdminColumn::lists('companies.title', 'Companies<br/><small>(lists)</small>', 'created_at')
                 ->setHtmlAttribute('class', 'hidden-sm hidden-xs hidden-md'),
 
             AdminColumn::custom('Has Photo?<br/><small>(custom)</small>', function ($instance) {

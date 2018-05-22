@@ -13,6 +13,7 @@ use App\Model\Contact;
 use App\Model\Country;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
+use SleepingOwl\Admin\Form\FormElements;
 use SleepingOwl\Admin\Section;
 
 /**
@@ -88,7 +89,7 @@ class Contacts3 extends Section
             $tabs = [];
 
             $form = AdminForm::panel();
-
+//
             $form->addHeader(AdminFormElement::columns()
                  ->addColumn([
                      AdminFormElement::text('firstName', 'First Name')->required()
@@ -98,7 +99,7 @@ class Contacts3 extends Section
                     AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y')->required()
                 ])
             );
-
+//
             $form->addBody([
                 AdminFormElement::text('phone', 'Phone'),
                 AdminFormElement::columns()
@@ -122,7 +123,9 @@ class Contacts3 extends Section
 
                 if (! is_null($instance->country_id)) {
                     if (! is_null($country = AdminSection::getModel(Country::class)->fireEdit($instance->country_id))) {
-                        $tabs[] = AdminDisplay::tab($country)->setLabel('Form from Related Model (Country)');
+                        $tabs[] = AdminDisplay::tab(
+                            new FormElements([$country])
+                        )->setLabel('Form from Related Model (Country)');
                     }
                 }
             }
