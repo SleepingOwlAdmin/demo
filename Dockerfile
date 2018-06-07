@@ -1,19 +1,18 @@
-FROM php:7.0-fpm
+FROM php:7.1-fpm
 
 WORKDIR /app
 
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get install -y git && \
-    apt-get install -y libmcrypt-dev \
-        libpq-dev \
+RUN apt-get update && apt-get install -y gnupg apt-utils && \
+    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get install -y nodejs git libmcrypt-dev && \
+    apt-get install -y libpq-dev \
         libpng-dev \
         libxml2-dev \
         libxslt-dev \
         libicu-dev \
         libjpeg62-turbo-dev \
         libfreetype6-dev \
-        libpng12-dev \
+        libpng-dev \
         libbz2-dev \
         libmagickwand-dev && \
     rm -rf /var/lib/apt/lists/*
@@ -42,11 +41,6 @@ COPY ./docker/php/fpm_www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/php/docker-php-ext-imagick.ini /usr/local/etc/php/conf.d/docker-php-ext-imagick.ini
 COPY ./docker/php/php.ini /usr/local/etc/php/
 
-# PHP 7.0 Compiled Modules (see commented out commans at the end of this file)
-# XDebug
-COPY ./docker/php/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
-
-
 COPY . /app
 COPY ./.env.example /app/.env
 
@@ -56,7 +50,7 @@ ENV COMPOSER_HOME /composer
 ENV PATH /composer/vendor/bin:$PATH
 # Allow Composer to be run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_VERSION 1.4.2
+ENV COMPOSER_VERSION 1.6.5
 
 # Setup the Composer installer
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
@@ -71,6 +65,5 @@ RUN curl -L -o /tmp/phpunit.phar  https://phar.phpunit.de/phpunit.phar \
   && mv /tmp/phpunit.phar /usr/local/bin/phpunit \
   && chmod +x /usr/local/bin/phpunit
 
-RUN composer install && composer update
 
 

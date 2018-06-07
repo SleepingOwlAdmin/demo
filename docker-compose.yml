@@ -10,7 +10,7 @@ services:
       - /var/lib/postgresql
 
   redis:
-    image: redis:3.0.7
+    image: redis
     container_name: "soa_redis"
     ports:
       - "6379:6379"
@@ -18,27 +18,15 @@ services:
       - data
 
   mysql:
-    image: mysql
+    image: mysql:5.7
     container_name: "soa_mysql"
     ports:
       - "3306:3306"
-    env_file:
-      - ./docker/mysql/.env
-    volumes:
-      - ./docker/mysql/newdb.sql:/docker-entrypoint-initdb.d/newdb.sql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123456"
+      - "MYSQL_DATABASE=demo"
     volumes_from:
       - data
-
-
-#  pgsql:
-#    image: postgres
-#    container_name: "soa_pgsql"
-#    ports:
-#      - "5432:5432"
-#    env_file:
-#      - ./docker/pgsql/.env
-#    volumes_from:
-#      - data
 
   front:
     image: abiosoft/caddy
