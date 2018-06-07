@@ -43,7 +43,7 @@ class EditableColumns extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'EditableColumns';
+    protected $alias = 'editable-columns';
 
 
     /**
@@ -65,7 +65,9 @@ class EditableColumns extends Section implements Initializable
      */
     public function onDisplay()
     {
-        $tableEditable = AdminDisplay::datatablesAsync()->setName('editable')->setModelClass(NewsEditableColumns::class)
+        $tableEditable = AdminDisplay::datatablesAsync()
+            ->setName('editable')
+            ->setModelClass(NewsEditableColumns::class)
             ->setColumns([
                 AdminColumn::custom('№',function( )use (&$i) {return ++$i;}),
                 AdminColumnEditable::text('title', 'Title'),

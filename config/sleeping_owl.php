@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'title' => 'Sleeping Owl administrator',
+    'title' => 'Sleeping Owl Demo',
 
     /*
     |--------------------------------------------------------------------------
@@ -99,8 +99,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'datetimeFormat' => 'd.m.Y H:i',
-    'dateFormat' => 'd.m.Y',
+    'datetimeFormat' => 'd-m-Y H:i',
+    'dateFormat' => 'd-m-Y',
     'timeFormat' => 'H:i',
 
     /*
@@ -121,8 +121,8 @@ return [
         'ckeditor' => [
             'height' => 200,
             'extraPlugins'              => 'uploadimage,image2,justify,youtube,uploadfile',
-#	                'uploadUrl'                 => '/storage/images_admin',
-#           'filebrowserUploadUrl'      => '/storage/images_admin',
+            'uploadUrl'                 => '/storage/images_admin',
+            'filebrowserUploadUrl'      => '/storage/images_admin',
         ],
 
         /*
