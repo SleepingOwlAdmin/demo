@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.40 on 2018-05-16.
+ * Generated for Laravel 5.5.40 on 2018-05-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -7560,7 +7560,7 @@ namespace Illuminate\Support\Facades {
          * Gets the mime type associated with the format.
          *
          * @param string $format The format
-         * @return string The associated mime type (null if not found)
+         * @return string|null The associated mime type (null if not found)
          * @static 
          */ 
         public static function getMimeType($format)
@@ -12063,17 +12063,6 @@ namespace Collective\Html {
         }
         
         /**
-         * Get the current model instance on the form builder.
-         *
-         * @return mixed $model
-         * @static 
-         */ 
-        public static function getModel()
-        {
-            return \Collective\Html\FormBuilder::getModel();
-        }
-        
-        /**
          * Close the current form.
          *
          * @return string 
@@ -12324,16 +12313,15 @@ namespace Collective\Html {
          *
          * @param string $name
          * @param array $list
-         * @param string|bool $selected
+         * @param string $selected
          * @param array $selectAttributes
          * @param array $optionsAttributes
-         * @param array $optgroupsAttributes
          * @return \Illuminate\Support\HtmlString 
          * @static 
          */ 
-        public static function select($name, $list = array(), $selected = null, $selectAttributes = array(), $optionsAttributes = array(), $optgroupsAttributes = array())
+        public static function select($name, $list = array(), $selected = null, $selectAttributes = array(), $optionsAttributes = array())
         {
-            return \Collective\Html\FormBuilder::select($name, $list, $selected, $selectAttributes, $optionsAttributes, $optgroupsAttributes);
+            return \Collective\Html\FormBuilder::select($name, $list, $selected, $selectAttributes, $optionsAttributes);
         }
         
         /**
@@ -12390,13 +12378,12 @@ namespace Collective\Html {
          * @param string $value
          * @param string $selected
          * @param array $attributes
-         * @param array $optgroupAttributes
          * @return \Illuminate\Support\HtmlString 
          * @static 
          */ 
-        public static function getSelectOption($display, $value, $selected, $attributes = array(), $optgroupAttributes = array())
+        public static function getSelectOption($display, $value, $selected, $attributes = array())
         {
-            return \Collective\Html\FormBuilder::getSelectOption($display, $value, $selected, $attributes, $optgroupAttributes);
+            return \Collective\Html\FormBuilder::getSelectOption($display, $value, $selected, $attributes);
         }
         
         /**

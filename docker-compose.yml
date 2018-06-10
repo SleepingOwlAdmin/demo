@@ -22,10 +22,9 @@ services:
     container_name: "soa_mysql"
     ports:
       - "3306:3306"
-    env_file:
-      - ./docker/mysql/.env
-    volumes:
-      - ./docker/mysql/newdb.sql:/docker-entrypoint-initdb.d/newdb.sql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_DATABASE=demo"
     volumes_from:
       - data
 
