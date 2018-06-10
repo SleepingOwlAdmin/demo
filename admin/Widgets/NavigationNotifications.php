@@ -9,9 +9,8 @@ class NavigationNotifications extends Widget
 {
 
     /**
-     * Get content as a string of HTML.
-     *
      * @return string
+     * @throws \Throwable
      */
     public function toHtml()
     {

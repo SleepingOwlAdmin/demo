@@ -13,7 +13,7 @@ class AddTextHtmlToPosts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->text('text_html')->default('');
+            $table->text('text_html')->nullable();
         });
     }
 

@@ -1,4 +1,4 @@
-http://demo.soa.com {
+http://demo.local {
     tls off
     root /app/public
     gzip

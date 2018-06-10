@@ -5,13 +5,14 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "laravel/framework": "5.5.*",
-        "laravel/tinker": "1.0.*",
-        "laravelrus/sleepingowl": "4.*@dev",
+        "php": ">=7.0",
+        "barryvdh/laravel-ide-helper": "^2.1",
         "baum/baum": "~1.1",
         "intervention/image": "^2.3",
-        "barryvdh/laravel-ide-helper": "^2.1"
+        "laravel/framework": "5.6.*",
+        "laravel/tinker": "1.0.*",
+        "laravelrus/sleepingowl": "dev-new",
+        "sentry/sentry-laravel": "^0.9.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -42,12 +43,10 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize",
             "php artisan sleepingowl:update"
         ]
     },
