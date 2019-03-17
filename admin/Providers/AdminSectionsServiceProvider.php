@@ -24,7 +24,7 @@ class AdminSectionsServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $sections = [
-        'App\Model\Company'   => 'Admin\Http\Sections\Companies',
+        App\Model\Company::class   => 'Admin\Http\Sections\Companies',
         'App\Model\Country'   => 'Admin\Http\Sections\Countries',
         'App\Model\Page'      => 'Admin\Http\Sections\Pages',
         'App\Model\PageOrder' => 'Admin\Http\Sections\PageOrders',
