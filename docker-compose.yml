@@ -1,0 +1,86 @@
+version: "3"
+
+services:
+
+  redis:
+    image: redis:alpine3.9
+    container_name: "demo_redis"
+    volumes:
+      - redis_data:/data
+
+  mysql:
+    image: mysql
+    container_name: "demo_mysql"
+    command: --max_allowed_packet=32505856
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./docker/mysql/.env
+    volumes:
+      - db_data:/var/lib/mysql
+    
+  front:
+    image: abiosoft/caddy
+    container_name: "demo_front"
+    environment:
+      - CADDYPATH=/etc/caddycerts
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/Caddyfile
+      - ./docker/caddy/caddyssl:/etc/caddycerts
+      - .:/app
+    depends_on:
+      - app
+
+  node:
+    build: ./docker/node
+    container_name: "demo_node"
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+
+
+  websocket:
+    build: ./docker/centrifugo/
+    container_name: "demo_websocket"
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./docker/centrifugo/config.json:/centrifugo/config.json
+    depends_on:
+      - app
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  app:
+    image: flameplace_app:alpine
+    build: ./docker/
+    container_name: "demo_app"
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      - redis
+
+  cron:
+      image: flameplace_app:alpine
+      container_name: "demo_cron"
+      volumes:
+        - .:/app
+      depends_on:
+        - mysql
+        - redis
+        - app
+      command: /usr/local/bin/start
+
+volumes:
+  db_data:
+  redis_data:
