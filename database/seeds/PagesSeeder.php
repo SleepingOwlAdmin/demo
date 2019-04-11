@@ -9,8 +9,6 @@ class PagesSeeder extends Seeder
 
     public function run()
     {
-        Page::truncate();
-
         factory(Page::class, 20)->create();
     }
 

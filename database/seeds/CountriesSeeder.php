@@ -9,8 +9,6 @@ class CountriesSeeder extends Seeder
 
     public function run()
     {
-        Country::truncate();
-
         factory(Country::class, 30)->create();
     }
 

@@ -9,8 +9,6 @@ class NewsSeeder extends Seeder
 
     public function run()
     {
-        News::truncate();
-
         factory(News::class, 50)->create();
     }
 

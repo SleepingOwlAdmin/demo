@@ -9,7 +9,7 @@ class CompaniesSeeder extends Seeder
 
     public function run()
     {
-        Company::truncate();
+
         factory(Company::class, 10)->create();
     }
 

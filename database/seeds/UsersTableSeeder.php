@@ -15,31 +15,26 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        Role::truncate();
-        DB::table('role_user')->truncate();
-        Permission::truncate();
-
         $adminUser = User::create([
             'name'     => 'admin',
             'email'    => 'admin@site.com',
-            'password' => 'password',
+            'password' => bcrypt('password'),
         ]);
 
         $testUser = User::create([
             'name'     => 'manager',
             'email'    => 'manager@site.com',
-            'password' => 'password',
+            'password' => bcrypt('password'),
         ]);
 
         $adminRole = Role::create([
             'name'  => 'admin',
-            'label' => 'Administrator'
+            'display_name' => 'Administrator'
         ]);
 
         $managerRole = Role::create([
             'name'  => 'manager',
-            'label' => 'Manager'
+            'display_name' => 'Manager'
         ]);
 
         $adminUser->roles()->attach($adminRole);

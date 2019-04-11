@@ -12,8 +12,6 @@ class ContactsSeeder extends Seeder
 
     public function run()
     {
-        Contact::truncate();
-
         $faker = Factory::create();
 
         $imagesPath = config('sleeping_owl.imagesUploadDirectory', 'images/uploads');
