@@ -21,9 +21,9 @@ class ContactsSectionModelPolicy
      */
     public function before(User $user, $ability, Contacts $section, Contact $contact)
     {
-        if ($user->isSuperAdmin()) {
+        //if ($user->isSuperAdmin()) {
             return true;
-        }
+        //}
     }
 
     /**
@@ -35,7 +35,7 @@ class ContactsSectionModelPolicy
      */
     public function display(User $user, Contacts $section, Contact $contact)
     {
-        return $user->isManager();
+        return $user->hasRole('manager');
     }
 
     /**
@@ -47,7 +47,7 @@ class ContactsSectionModelPolicy
      */
     public function create(User $user, Contacts $section, Contact $contact)
     {
-        return $user->isManager();
+        return $user->hasRole('manager');
     }
 
     /**
@@ -59,7 +59,7 @@ class ContactsSectionModelPolicy
      */
     public function edit(User $user, Contacts $section, Contact $contact)
     {
-        return $user->isManager() && $contact->isAuthor($user);
+        return $user->hasRole('manager') && $contact->isAuthor($user);
     }
 
     /**
@@ -71,7 +71,7 @@ class ContactsSectionModelPolicy
      */
     public function restore(User $user, Contacts $section, Contact $contact)
     {
-        return $user->isManager() && $contact->isAuthor($user);
+        return $user->hasRole('manager') && $contact->isAuthor($user);
     }
 
     /**
@@ -83,6 +83,6 @@ class ContactsSectionModelPolicy
      */
     public function delete(User $user, Contacts $section, Contact $contact)
     {
-        return $user->isManager() && $contact->isAuthor($user);
+        return $user->hasRole('manager') && $contact->isAuthor($user);
     }
 }

@@ -22,10 +22,10 @@ class RolesSectionModelPolicy
      */
     public function before(User $user, $ability, Roles $section, Role $item)
     {
-        if ($user->isSuperAdmin()) {
-            if ($ability != 'display' && $ability != 'create' && $item->id <= 2) {
-                return false;
-            }
+        if ($user->hasRole('superadmin')) {
+            //if ($ability != 'display' && $ability != 'create' && $item->id <= 2) {
+            //    return false;
+            //}
 
             return true;
         }
@@ -40,7 +40,7 @@ class RolesSectionModelPolicy
      */
     public function display(User $user, Roles $section, Role $item)
     {
-        return $user->isSuperAdmin();
+        return $user->hasRole('superadmin');
     }
 
     /**

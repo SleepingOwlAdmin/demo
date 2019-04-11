@@ -2,8 +2,6 @@
 
 namespace Admin\Providers;
 
-use Admin\Http\Sections\Contacts;
-use Admin\Policies\ContactsSectionModelPolicy;
 use Illuminate\Routing\Router;
 use SleepingOwl\Admin\Contracts\Navigation\NavigationInterface;
 use SleepingOwl\Admin\Contracts\Template\MetaInterface;
@@ -24,7 +22,7 @@ class AdminSectionsServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $sections = [
-        App\Model\Company::class   => 'Admin\Http\Sections\Companies',
+        'App\Model\Company'   => 'Admin\Http\Sections\Companies',
         'App\Model\Country'   => 'Admin\Http\Sections\Countries',
         'App\Model\Page'      => 'Admin\Http\Sections\Pages',
         'App\Model\PageOrder' => 'Admin\Http\Sections\PageOrders',
@@ -86,6 +84,7 @@ class AdminSectionsServiceProvider extends ServiceProvider {
      * @param NavigationInterface $navigation
      */
     public function registerNavigation( NavigationInterface $navigation ) {
+
         require base_path( 'admin/navigation.php' );
     }
 

@@ -21,10 +21,10 @@ class UsersSectionModelPolicy
      */
     public function before(User $user, $ability, Users $section, User $item = null)
     {
-        if ($user->isSuperAdmin()) {
-            if ($ability != 'display' && $ability != 'create' && !is_null($item) && $item->id <= 2) {
-                return false;
-            }
+        if ($user->hasRole('superadmin')) {
+            //if ($ability != 'display' && $ability != 'create' && !is_null($item) && $item->id <= 2) {
+            //    return false;
+          //  }
 
             return true;
         }
