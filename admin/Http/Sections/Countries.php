@@ -37,7 +37,7 @@ class Countries extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias;
+    protected $alias = "countries";
 
     /**
      * Initialize class.
