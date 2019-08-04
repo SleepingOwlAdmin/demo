@@ -17040,118 +17040,6 @@ namespace SleepingOwl\Admin\Facades {
          
     }
 
-    class FormButtons {
-        
-        /**
-         * 
-         *
-         * @param \Illuminate\Contracts\Routing\Registrar $router
-         * @return void 
-         * @static 
-         */ 
-        public static function registerRoutes($router)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            \SleepingOwl\Admin\Factories\FormButtonsFactory::registerRoutes($router);
-        }
-        
-        /**
-         * Bind new alias.
-         *
-         * @param string $alias
-         * @param string $class
-         * @return \SleepingOwl\Admin\Factories\FormButtonsFactory 
-         * @static 
-         */ 
-        public static function bind($alias, $class)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::bind($alias, $class);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $alias
-         * @param string $class
-         * @return \SleepingOwl\Admin\Factories\FormButtonsFactory 
-         * @deprecated Use `bind` method
-         * @static 
-         */ 
-        public static function add($alias, $class)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::add($alias, $class);
-        }
-        
-        /**
-         * 
-         *
-         * @param array $classes
-         * @return \SleepingOwl\Admin\Factories\FormButtonsFactory 
-         * @static 
-         */ 
-        public static function register($classes)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::register($classes);
-        }
-        
-        /**
-         * 
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getAliases()
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::getAliases();
-        }
-        
-        /**
-         * Get class by alias.
-         *
-         * @param string $alias
-         * @return string 
-         * @static 
-         */ 
-        public static function getAlias($alias)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::getAlias($alias);
-        }
-        
-        /**
-         * Check if alias is registered.
-         *
-         * @param string $alias
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasAlias($alias)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::hasAlias($alias);
-        }
-        
-        /**
-         * 
-         *
-         * @param string $alias
-         * @param array $arguments
-         * @return object 
-         * @throws \ReflectionException
-         * @static 
-         */ 
-        public static function makeClass($alias, $arguments)
-        {
-            //Method inherited from \SleepingOwl\Admin\AliasBinder            
-            return \SleepingOwl\Admin\Factories\FormButtonsFactory::makeClass($alias, $arguments);
-        }
-         
-    }
-
     class Widgets {
         
         /**
@@ -19828,8 +19716,6 @@ namespace  {
     class AdminDisplayFilter extends \SleepingOwl\Admin\Facades\DisplayFilter {}
 
     class AdminForm extends \SleepingOwl\Admin\Facades\Form {}
-
-    class AdminFormButton extends \SleepingOwl\Admin\Facades\FormButtons {}
 
     class AdminFormElement extends \SleepingOwl\Admin\Facades\FormElement {}
 
