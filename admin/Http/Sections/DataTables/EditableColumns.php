@@ -71,7 +71,8 @@ class EditableColumns extends Section implements Initializable
             ->setColumns([
                 AdminColumn::custom('№',function( )use (&$i) {return ++$i;}),
                 AdminColumnEditable::text('title', 'Title'),
-                AdminColumnEditable::text('text', 'Text'),
+                AdminColumn::boolean('title', 'Title'),
+                AdminColumnEditable::textarea('text', 'Textarea'),
                 AdminColumnEditable::datetime('date', 'Date')->setWidth('200px'),
                 AdminColumnEditable::checkbox('published', 'Published'),
             ])
@@ -84,15 +85,15 @@ class EditableColumns extends Section implements Initializable
                     new  FormElements([
                         '<div class="alert bg-info">
                            <p>На данный момент существует 4 типа колонок с возможностью редактирования:</p>
-                           <p>AdminColumnEditable::text(\'fielName\', \'Label\'),</p>                       
+                           <p>AdminColumnEditable::text(\'fielName\', \'Label\'),</p>
                            <p>AdminColumnEditable::checkbox(\'fielName\', \'Label\'),</p>
                            <p>AdminColumnEditable::datetime(\'fielName\', \'Label\'),</p>
                            <p>AdminColumnEditable::select(\'fielName\')</p>
                            <p>      ->setModelForOptions(new SourseModel)</p>
                            <p>      ->setLabel(\'label\')</p>
                            <p>      ->setDisplay(\'title\')</p>
-                               
-                               
+
+
                         </div>
                         ',
 

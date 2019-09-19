@@ -63,7 +63,8 @@ class News extends Section
             AdminFormElement::date('date', 'Date')->required()->setFormat('d.m.Y'),
             AdminFormElement::radio('published', 'Published')->setOptions(['0' => 'Not published', '1' => 'Published'])
                 ->required(),
-            AdminFormElement::wysiwyg('text', 'Text'),
+            AdminFormElement::wysiwyg('text', 'wysiwyg'),
+            AdminFormElement::textarea('text', 'Textarea'),
         ]);
         return $form;
     }

@@ -56,7 +56,7 @@ class SomeModelSection extends Section implements Initializable {
     //  b) Table has no create button & edit button
     // But it's only in demo and the bug with deleting the FIRST row in table still represented
     public function onEdit( $id ) {
-        $section = new SomeAnotherSection( $this->app, 'App\SomeAnotherModel' );
+        $section = new SomeAnotherSection( $this->app, 'App\SomeModel' );
         $form    = \AdminForm::form()->setElements( [
             \AdminFormElement::text( 'name' ),
             $section->fireDisplay()

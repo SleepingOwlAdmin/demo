@@ -124,7 +124,7 @@ class FormButtons extends Section implements Initializable
                     <h4><B>Default AdminForm Buttons </B> </h4>
                     <p>Мы можем заменить или убрать какую-либо кнопку передав ассоциативный массив в метод setButtons</p>
                     <pre>
-  
+
     $form->getButtons()->replaceButtons([
             \'delete\' => null, // Убираем кнопку Delete
             \'save\'   => (new Save())->setGroupElements([
@@ -134,7 +134,7 @@ class FormButtons extends Section implements Initializable
 
             \'cancel\'  => (new Cancel())->setText(\'Отменить\'),
         ]);
-   или 
+   или
    $form->getButtons()->replaceButtons([
             \'delete\' => null, // Убираем кнопку Delete
             \'save\'   =>  AdminFormButton::save()->setGroupElements([
@@ -144,10 +144,10 @@ class FormButtons extends Section implements Initializable
 
             \'cancel\'  => AdminFormButton::cancel(->setText(\'Отменить\'),
         ]);
-           
+
                     </pre>
-                    <p>Будут изменены только перечисленные в массиве кнопки</p>                   
-                 
+                    <p>Будут изменены только перечисленные в массиве кнопки</p>
+
                 </div>',
                 $form2
             ])
@@ -168,7 +168,7 @@ class FormButtons extends Section implements Initializable
                     <p>Мы можем удалить все кнопки передав пустой массив в setButtons:</p>
                     <pre>
   $form->getButtons()->setButtons ([]);
-                    </pre>                                    
+                    </pre>
                 </div>',
             $form3
         ])
@@ -218,7 +218,7 @@ class FormButtons extends Section implements Initializable
                 \'write_mail\'  => AdminFormButton::save()->setText(\'Отправить письмо\'),
             ])->setText(\'Написать\'),
     ]);
-                </pre>                       
+                </pre>
                 <p>Вы можете создать свой класс Кнопки со своей логикой или унаследовать его от существующего.</p>
                 </div>',
                     $form4
@@ -254,7 +254,7 @@ class FormButtons extends Section implements Initializable
         \'after\' => [\'title\', \'date\'],
         \'before\' => [\'title\']
 ]);
-                </pre>                       
+                </pre>
                 </div>',
                 $form5
             ])
@@ -274,7 +274,7 @@ class FormButtons extends Section implements Initializable
 
             'delete'   => (new Delete())->setText('Не удалять')->setHtmlAttribute('style','border:3px solid purple; background: orange;'),
         ])->setHtmlAttributes(['class'=>'pull-right','style'=>'background: #d9edf7;']);
-        
+
 
         $tabs->appendTab(
             new  FormElements([
@@ -288,8 +288,8 @@ class FormButtons extends Section implements Initializable
             \'delete\'   => (new Delete())->setText(\'Не удалять\')->setHtmlAttribute(\'style\',\'border:3px solid purple; background: violet;\'),
         ])->setHtmlAttributes([\'class\'=>\'pull-right\',\'style\'=>\'background: grey\']);
                     </pre>
-                    <p>Будут изменены только перечисленные в массиве кнопки</p>                   
-                 
+                    <p>Будут изменены только перечисленные в массиве кнопки</p>
+
                 </div>',
                 $form6
             ])

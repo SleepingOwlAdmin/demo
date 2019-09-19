@@ -64,7 +64,7 @@ class TabsBadges extends Contacts5
         $columns = [
             AdminColumn::link('title', 'Title'),
             AdminColumn::datetime('date', 'Date')->setFormat('d.m.Y')->setWidth('150px'),
-            AdminColumnEditable::checkbox('published', 'Published'),
+            AdminColumnEditable::checkbox('published', 'Отображать'),
         ];
 
 
@@ -78,7 +78,9 @@ class TabsBadges extends Contacts5
 
         $tableUnpublushed =  AdminDisplay::table()->setApply(function($query) {
             $query->orderBy('date', 'desc');
-        })->paginate(10)->getScopes()->set('unpublished') ->setColumns($columns);
+        })->paginate(10)->getScopes()
+          ->set('unpublished')
+          ->setColumns($columns);
 
 
         $tabs = AdminDisplay::tabbed();
@@ -88,17 +90,19 @@ class TabsBadges extends Contacts5
                 AdminDisplay::tab(
                     new  FormElements([
                         '<div class="alert bg-info">
-                           <p>В <B>AdminDisplay::tab()</B> можно вызвать <B>setBadge</B> или передать в конструктор <B><em>Badge|string|Closure</em></B></p>                           
-                           <p>То есть либо передать готовое значения для таба, либо передать callback который вычислит это значение, либо сам Badge. </p>  
+                           <p>В <B>AdminDisplay::tab()</B> можно вызвать <B>setBadge</B> или передать в конструктор <B><em>Badge|string|Closure</em></B></p>
+                           <p>То есть либо передать готовое значения для таба, либо передать callback который вычислит это значение, либо сам Badge. </p>
                         </div>
                         ',
 
                         $table
                     ])
-                )->setLabel('All News')->setBadge(NewsTabsBadges::count()),
+                )->setLabel('All News')
+                ->setHtmlAttribute('class', 'last')
+                ->setBadge(NewsTabsBadges::count()),
 
                 AdminDisplay::tab($tablePublushed)
-                     ->setIcon('<i class="glyphicon glyphicon-send"></i>')
+                     ->setIcon('<i class="fas fa-users"></i>')
                      ->setLabel('Published News')
                      ->setBadge(function(){
                         return NewsTabsBadges::published()->count();

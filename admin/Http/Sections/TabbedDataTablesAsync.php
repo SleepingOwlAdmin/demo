@@ -83,7 +83,10 @@ class TabbedDataTablesAsync extends Section implements Initializable
         $table->getColumnFilters()->setPlacement('table.header');
 
 
-        $table2 = AdminDisplay::datatablesAsync()->setName('meganame')->setModelClass(Contact6::class)
+        $table2 = AdminDisplay::datatablesAsync()
+          ->setName('meganame')
+          // ->setIcon('<i class="fa fa-user"></i>')
+          ->setModelClass(Contact6::class)
             ->setColumns([
                 AdminColumn::text('id', '#')->setWidth('200px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px'),
@@ -104,7 +107,9 @@ class TabbedDataTablesAsync extends Section implements Initializable
             ->setColumns([
                 AdminColumn::image('photo', 'Photo')->setWidth('100px'),
                 AdminColumn::link('fullName', 'Name')->setWidth('200px')
-            ]);
+            ])
+            
+            ;
 
         $tabs = AdminDisplay::tabbed();
 
@@ -119,7 +124,7 @@ class TabbedDataTablesAsync extends Section implements Initializable
                 '<div class="alert bg-info">
                     <h4> Использование <B>DataTablesAsync</B> в <B>Tabs</B></h4>
                     <p>У каждой формы в табе должен быть уникальный <b>name</b> проставленный методом <b>setName</b> у таблицы</p>
-                    <h5>AdminDisplay::datatablesAsync()->setName("somename")</h5>  
+                    <h5>AdminDisplay::datatablesAsync()->setName("somename")</h5>
                 </div>',
                 $table
             ])

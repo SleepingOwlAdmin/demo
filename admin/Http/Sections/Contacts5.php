@@ -67,7 +67,7 @@ class Contacts5 extends Section implements Initializable
                         В данном примере показано использование нескольких независимых форм в табах.
                         <br>
                         При нажатии кнопки Сохранить сохраняется только форма активного Таба.
-                    </p>                   
+                    </p>
         ';
 
 
@@ -132,18 +132,18 @@ class Contacts5 extends Section implements Initializable
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::textarea('address', 'Address')->required('so sad but this field is empty')
             ])
-        );     
+        );
         $formVisual = AdminForm::form()->addElement(
             new \SleepingOwl\Admin\Form\FormElements([
                 AdminFormElement::wysiwyg('address', 'Address')->required('so sad but this field is empty.')
             ])
-        );     
-             
-             
+        );
+
+
         $tabs = AdminDisplay::tabbed();
 
         $tabs->appendTab($formPrimary,  'Primary');
-     
+
         $tabs->appendTab($formHTML,     'HTML Adress Redactor');
 
         $tabs->appendTab($formVisual,   'Visual Adress Redactor');

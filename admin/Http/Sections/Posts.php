@@ -55,6 +55,7 @@ class Posts extends Section implements Initializable
     public function onDisplay()
     {
         return AdminDisplay::table()->setColumns([
+            AdminColumn::checkbox()->setHtmlAttribute('class', 'text-center'),
             AdminColumn::link('title', 'Title'),
             AdminColumn::text('contact.country.title', 'Country'),
             AdminColumn::text('contact.FullName', 'Full Name'),

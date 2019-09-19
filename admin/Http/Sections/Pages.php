@@ -74,4 +74,6 @@ class Pages extends Section implements Initializable
     {
         return $this->onEdit(null);
     }
+
+    public function onDelete($id) {}
 }

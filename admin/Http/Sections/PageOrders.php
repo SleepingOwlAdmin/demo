@@ -45,7 +45,7 @@ class PageOrders extends Section implements Initializable
      */
     public function initialize()
     {
-        $this->addToNavigation()->setIcon('fa fa-sitemap')->setBadge(new Badge('New'));
+        $this->addToNavigation()->setIcon('fas fa-sitemap')->setBadge(new Badge('New'));
     }
 
     /**

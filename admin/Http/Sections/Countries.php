@@ -61,7 +61,8 @@ class Countries extends Section implements Initializable
         });
 
         $display->setColumns([
-            AdminColumn::text('id', '#')->setWidth('30px'),
+            AdminColumn::text('id', '#')->setWidth('30px')
+              ->setHtmlAttribute('class', 'text-center'),
             AdminColumn::link('title', 'Title'),
             AdminColumn::count('contacts', 'Contacts')
                 ->setWidth('100px')
@@ -70,6 +71,7 @@ class Countries extends Section implements Initializable
                    AdminColumn::filter('country_id')->setModel(new Contact())
                 ),
             AdminColumn::order()
+            ->setOrderable(false)
                ->setLabel('Order')
                ->setHtmlAttribute('class', 'text-center')
                ->setWidth('100px'),
