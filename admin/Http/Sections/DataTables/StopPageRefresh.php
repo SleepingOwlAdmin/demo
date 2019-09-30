@@ -38,8 +38,11 @@ class StopPageRefresh extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'StopPageRefresh';
+    protected $alias = 'stop-page-refresh';
 
+    public function getIcon() {
+        return 'fas fa-table';
+    }
 
     /**
      * Initialize class.

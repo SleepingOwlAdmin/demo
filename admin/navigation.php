@@ -14,7 +14,7 @@ $navigation->setFromArray([
         'priority' =>'1000',
         'pages' => [
             (new Page(\App\Model\Contact::class))
-                ->setIcon('fa fa-fax')
+                ->setIcon('fas fa-fax')
                 ->setPriority(0),
             (new Page(\App\Model\Contact2::class))
                 ->setIcon('fa fa-fax')
@@ -29,29 +29,29 @@ $navigation->setFromArray([
     ],
     [
         'title' => "Content",
-        'icon' => 'fa fa-newspaper-o',
+        'icon' => 'fas fa-newspaper',
         'priority' =>'1000',
         'pages' => [
             (new Page(\App\Model\News::class))
-                ->setIcon('fa fa-newspaper-o')
+                ->setIcon('fas fa-newspaper')
                 ->setPriority(0),
             (new Page(\App\Model\News2::class))
-                ->setIcon('fa fa-newspaper-o')
+                ->setIcon('fas fa-newspaper')
                 ->setPriority(10),
             (new Page(\App\Model\News3::class))
-                ->setIcon('fa fa-newspaper-o')
+                ->setIcon('fas fa-newspaper')
                 ->setPriority(20),
             (new Page(\App\Model\News4::class))
-                ->setIcon('fa fa-newspaper-o')
+                ->setIcon('fas fa-newspaper')
                 ->setPriority(30),
             (new Page(\App\Model\News5::class))
-                ->setIcon('fa fa-newspaper-o')
+                ->setIcon('fas fa-newspaper')
                 ->setPriority(40)
         ]
     ],
     [
         'title' => "Tabs Examples",
-        'icon' => 'fa fa-newspaper-o',
+        'icon' => 'fas fa-newspaper',
         'priority' =>'1000',
         'id'=>'tabs-examples',
 
@@ -59,7 +59,7 @@ $navigation->setFromArray([
 
     [
         'title' => "Forms & Buttons",
-        'icon' => 'fa fa-newspaper-o',
+        'icon' => 'fas fa-newspaper',
         'priority' =>'1001',
         'id'=>'forms-examples',
     ],
@@ -73,7 +73,7 @@ $navigation->setFromArray([
 
     [
         'title' => "DataTables",
-        'icon' => 'glyphicon glyphicon-blackboard',
+        'icon' => 'far fa-newspaper',
         'priority' =>'1001',
         'id'=>'datatables',
         'badge' => new \SleepingOwl\Admin\Navigation\Badge('New')
@@ -82,14 +82,14 @@ $navigation->setFromArray([
 
     [
         'title' => 'Permissions',
-        'icon' => 'fa fa-group',
+        'icon' => 'fas fa-users-cog',
         'priority' =>'10000',
         'pages' => [
             (new Page(\App\User::class))
-                ->setIcon('fa fa-user')
+                ->setIcon('fas fa-users')
                 ->setPriority(0),
             (new Page(\App\Role::class))
-                ->setIcon('fa fa-group')
+                ->setIcon('fas fa-user-shield')
                 ->setPriority(100)
         ]
     ]

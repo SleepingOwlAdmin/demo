@@ -35,7 +35,7 @@ class News4 extends Section
     /**
      * @var string
      */
-    protected $alias = 'news/v4';
+    protected $alias = 'news-v4';
 
     /**
      * @return DisplayInterface

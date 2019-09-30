@@ -237,7 +237,7 @@ return [
     */
     'dt_autoupdate' => true,
     'dt_autoupdate_interval' => 3, //minutes
-    'dt_autoupdate_class' => '',
+    'dt_autoupdate_class' => 'autoupdate-enabled',
     'dt_autoupdate_color' => '#dc3545',
 
     /*

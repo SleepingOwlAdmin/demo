@@ -40,7 +40,7 @@ class RolesSectionModelPolicy
      */
     public function display(User $user, Roles $section, Role $item)
     {
-        return $user->hasRole('superadmin');
+        return true;
     }
 
     /**

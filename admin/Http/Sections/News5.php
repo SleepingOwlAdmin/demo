@@ -25,19 +25,19 @@ class News5 extends News4
     /**
      * @var string
      */
-    protected $title = 'News v5';
+    protected $title = 'News v5 + autoupdate';
 
     /**
      * @var string
      */
-    protected $alias = 'news/v5';
+    protected $alias = 'news-v5';
 
     /**
      * @return DisplayInterface
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::table()->setActions(
+        $display = AdminDisplay::datatables()->setHtmlAttribute('class', 'autoupdate-enabled')->setActions(
             AdminColumn::action('export', 'Export')
                 ->setAction(route('admin.news.export'))
                 ->setIcon('fa fa-share')

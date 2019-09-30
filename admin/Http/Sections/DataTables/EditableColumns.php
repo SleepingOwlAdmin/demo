@@ -44,7 +44,9 @@ class EditableColumns extends Section implements Initializable
      * @var string
      */
     protected $alias = 'editable-columns';
-
+    public function getIcon() {
+        return 'fas fa-table';
+    }
 
     /**
      * Initialize class.

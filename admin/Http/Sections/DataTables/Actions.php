@@ -39,7 +39,11 @@ class Actions extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'Actions';
+    protected $alias = 'datatable-actions';
+
+    public function getIcon() {
+        return 'fas fa-table';
+    }
 
 
     /**
@@ -86,24 +90,24 @@ class Actions extends Section implements Initializable
                         <p>
                         Для корректной работы Actions необходим столбец checkbox
                         </p>
-                        <pre>                        
+                        <pre>
     ->setColumns([
        AdminColumn::checkbox()
-             </pre> 
+             </pre>
              <p>
-               Создание выпадающего списка действий 
+               Создание выпадающего списка действий
              </p>
               <pre>
-      
+
     ->setActions([
        AdminColumn::action(\'export\', \'Export\')->setAction(route(\'admin.news.export\')),
      ])
-                        </pre>  
+                        </pre>
                         <p>Для переноса Actions можно использовать setPlacement</p>
                         <pre>
     $tableActions ->getActions()->setPlacement(\'panel.heading.actions\');
                         </pre>
-                        
+
                         </div>
                         ',
 

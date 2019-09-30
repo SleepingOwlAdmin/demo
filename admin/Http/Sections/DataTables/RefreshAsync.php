@@ -39,8 +39,11 @@ class RefreshAsync extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'RefreshDataTablesAsync';
+    protected $alias = 'refresh-datatables-async';
 
+    public function getIcon() {
+        return 'fas fa-table';
+    }
 
     /**
      * Initialize class.
@@ -82,14 +85,14 @@ class RefreshAsync extends Section implements Initializable
                 '<div class="alert bg-info">
                   <p>Для принудительного обновления таблицы  DataTables Async без обновления страницы с помощью JavaScript используте метод draw() </p>
                   <pre>
-                           
+
    $(\'.datatables\').DataTable().api().draw();
-                  </pre>   
+                  </pre>
                   <p>Вы можете размещать любые свои кнопки над таблицей.</p>
                   <pre>
-                           
+
    $table->getActions()->setView(view(\'admin::datatables.toolbar\'))->setPlacement(\'panel.heading.actions\');
-                  </pre>   
+                  </pre>
                   <p>Где view(\'admin::datatables.toolbar\') представление admin\resources\view\datatables\toolbar.blade.php</p>
                 </div>
                         ',
