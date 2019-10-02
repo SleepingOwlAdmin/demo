@@ -143,7 +143,7 @@ return [
     */
 
     'wysiwyg' => [
-        'default' => 'summernote',
+        'default' => 'ckeditor',
         // This is local assets
 
         /*

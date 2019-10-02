@@ -45,10 +45,19 @@ class Companies extends Section implements Initializable
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::datatablesAsync()->setColumns([
+        $display = AdminDisplay::datatables()->setColumns([
             AdminColumn::link('title')->setLabel('Title')->setWidth('400px'),
             AdminColumn::text('address')->setLabel('Address')->setHtmlAttribute('class', 'text-muted'),
         ]);
+
+        $display->setActions([
+                AdminColumn::action('export', 'Export')->setAction(route('admin.news.export')),
+            ]);
+        $display
+          ->getActions()
+          ->setPlacement('panel.heading.actions')
+          // ->setPlacement('table.header')
+          ;
 
         $display->paginate(15);
 

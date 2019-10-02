@@ -64,7 +64,7 @@ class TabsBadges extends Contacts5
         $columns = [
             AdminColumn::link('title', 'Title'),
             AdminColumn::datetime('date', 'Date')->setFormat('d.m.Y')->setWidth('150px'),
-            AdminColumnEditable::checkbox('published', 'Отображать'),
+            AdminColumnEditable::checkbox('published', 'On'),
         ];
 
 
@@ -98,7 +98,7 @@ class TabsBadges extends Contacts5
                         $table
                     ])
                 )->setLabel('All News')
-                ->setHtmlAttribute('class', 'last')
+                ->setHtmlAttribute('class', 'last text-white bg-success')
                 ->setBadge(NewsTabsBadges::count()),
 
                 AdminDisplay::tab($tablePublushed)

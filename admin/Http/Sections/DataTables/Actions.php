@@ -76,12 +76,16 @@ class Actions extends Section implements Initializable
                 AdminColumnEditable::text('text', 'Text'),
                 AdminColumn::datetime('date', 'Date')->setFormat('d.m.Y')->setWidth('150px'),
                 AdminColumnEditable::checkbox('published', 'Published'),
-            ])
+            ]);
 
-            ->setActions([
+        $tableActions->setActions([
                 AdminColumn::action('export', 'Export')->setAction(route('admin.news.export')),
             ]);
-        $tableActions ->getActions()->setPlacement('panel.heading.actions');
+        $tableActions
+          ->getActions()
+          // ->setPlacement('panel.heading.actions')
+          ->setPlacement('table.header')
+          ;
 
 
         $tabs->appendTab(

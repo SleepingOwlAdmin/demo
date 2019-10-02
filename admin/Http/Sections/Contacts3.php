@@ -47,7 +47,9 @@ class Contacts3 extends Section
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::datatablesAsync();
+        $display = AdminDisplay::datatablesAsync()
+          ->setHtmlAttribute('class', 'table-warning')
+          ->setOrder([[1, 'asc']]);
         $display->with('country', 'companies');
         $display->setFilters(
             AdminDisplayFilter::related('country_id')->setModel(Country::class),
